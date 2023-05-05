@@ -1,2 +1,2 @@
-# pyslint
+# PySlint
 SystemVerilog Linter based on pyslang
