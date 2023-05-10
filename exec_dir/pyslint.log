@@ -1,0 +1,2 @@
+PySlint: Violation: [NAME_INTF_SUFFIX]: Improper naming of identifier:  af_sv_intf_bad: expected suffix: _if
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  af_bad_class_name: expected suffix: _c
