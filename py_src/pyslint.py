@@ -1,3 +1,9 @@
+# ----------------------------------------------------
+# SPDX-FileCopyrightText: Srinivasan Venkataramanan, 
+#                         AsFigo Technologies, UK
+# SPDX-License-Identifier: MIT
+# ----------------------------------------------------
+
 import pyslang
 import argparse
 import tomli
@@ -9,7 +15,9 @@ def pyslint_update_rule_ids():
   lv_sv_prefix_l.append ('NAME_INTF_SUFFIX')
   lv_sv_prefix_l.append ('NAME_CLASS_SUFFIX')
   lv_sv_prefix_l.append ('NAME_CNST_SUFFIX')
-  lv_sv_prefix_l.append ('NAME_CG_SUFFIX')
+  lv_sv_prefix_l.append ('NAME_CG_PREFIX')
+  lv_sv_prefix_l.append ('NAME_CP_PREFIX')
+  lv_sv_prefix_l.append ('NAME_CR_PREFIX')
   lv_sv_prefix_l.append ('NAME_PROP_PREFIX')
   lv_sv_prefix_l.append ('NAME_AST_PREFIX')
   lv_sv_prefix_l.append ('NAME_ASM_PREFIX')
@@ -36,7 +44,6 @@ def pyslint_msg (rule_id, msg):
     pyslint_str += ']: '
     pyslint_str += msg 
     print (pyslint_str)
-    # af_sv_naming_test.sv:22: Class name does not have suffix _c
 
 #PySlint: Error Use extern methods
 def use_extern (lv_cu_scope):
@@ -50,11 +57,27 @@ def use_extern (lv_cu_scope):
             pyslint_msg ('CL_METHOD_NOT_EXTERN', msg)
 
 def cg_label_chk (lv_m):
+  if (lv_m.kind.name == 'ClassDeclaration'):
+    for cl_item_i in (lv_m.items):
+      if (cl_item_i.kind.name == 'CovergroupDeclaration'):
+        lv_cg_name =  cl_item_i.name.valueText
+        lv_exp_s = 'cg_'
+        if (not lv_cg_name.startswith(lv_exp_s)):
+          msg = 'Improper naming of identifier: ' 
+          msg += lv_cg_name
+          msg += ': expected prefix: '
+          msg += lv_exp_s
+          pyslint_msg ('NAME_CG_PREFIX', msg)
+
   if (lv_m.kind.name == 'CovergroupDeclaration'):
     lv_cg_name =  lv_m.name.valueText
-    if (not lv_cg_name.startswith('cg_')):
-          print ("PySlint: Error: Label must start with \'cg_\': ", 
-          lv_cg_name)
+    lv_exp_s = 'cg_'
+    if (not lv_cg_name.startswith(lv_exp_s)):
+      msg = 'Improper naming of identifier: ' 
+      msg += lv_cg_name
+      msg += ': expected prefix: '
+      msg += lv_exp_s
+      pyslint_msg ('NAME_CG_PREFIX', msg)
 
 
 def sva_con_assert_label_chk (lv_m):
@@ -134,6 +157,8 @@ def chk_naming (lv_cu_scope):
     lv_ident_name = str(lv_cu_scope.header.name)
     lv_exp_s = sv_suffix_d['intf']
     chk_name_style_suffix ('NAME_INTF_SUFFIX', lv_ident_name, lv_exp_s)
+
+  cg_label_chk (lv_cu_scope)
 
 
 args = pyslint_argparse()
