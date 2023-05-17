@@ -11,22 +11,23 @@ import tomli
 print_verbose = False
 
 def pyslint_update_rule_ids():
-  lv_sv_prefix_l = list()
-  lv_sv_prefix_l.append ('NAME_INTF_SUFFIX')
-  lv_sv_prefix_l.append ('NAME_CLASS_SUFFIX')
-  lv_sv_prefix_l.append ('NAME_CNST_SUFFIX')
-  lv_sv_prefix_l.append ('NAME_CG_PREFIX')
-  lv_sv_prefix_l.append ('NAME_CP_PREFIX')
-  lv_sv_prefix_l.append ('NAME_CR_PREFIX')
-  lv_sv_prefix_l.append ('NAME_PROP_PREFIX')
-  lv_sv_prefix_l.append ('NAME_AST_PREFIX')
-  lv_sv_prefix_l.append ('NAME_ASM_PREFIX')
-  lv_sv_prefix_l.append ('NAME_COV_PREFIX')
-  lv_sv_prefix_l.append ('SVA_MISSING_FAIL_AB')
-  lv_sv_prefix_l.append ('SVA_MISSING_LABEL')
-  lv_sv_prefix_l.append ('SVA_NO_PASS_AB')
-  lv_sv_prefix_l.append ('CL_METHOD_NOT_EXTERN')
-  lv_sv_prefix_l.append ('PERF_CG_TOO_MANY_CROSS')
+  lv_sv_ruleid_l = list()
+  lv_sv_ruleid_l.append ('NAME_INTF_SUFFIX')
+  lv_sv_ruleid_l.append ('NAME_CLASS_SUFFIX')
+  lv_sv_ruleid_l.append ('NAME_CNST_SUFFIX')
+  lv_sv_ruleid_l.append ('NAME_CG_PREFIX')
+  lv_sv_ruleid_l.append ('NAME_CP_PREFIX')
+  lv_sv_ruleid_l.append ('NAME_CR_PREFIX')
+  lv_sv_ruleid_l.append ('NAME_PROP_PREFIX')
+  lv_sv_ruleid_l.append ('NAME_AST_PREFIX')
+  lv_sv_ruleid_l.append ('NAME_ASM_PREFIX')
+  lv_sv_ruleid_l.append ('NAME_COV_PREFIX')
+  lv_sv_ruleid_l.append ('SVA_MISSING_FAIL_AB')
+  lv_sv_ruleid_l.append ('SVA_MISSING_LABEL')
+  lv_sv_ruleid_l.append ('SVA_MISSING_ENDLABEL')
+  lv_sv_ruleid_l.append ('SVA_NO_PASS_AB')
+  lv_sv_ruleid_l.append ('CL_METHOD_NOT_EXTERN')
+  lv_sv_ruleid_l.append ('PERF_CG_TOO_MANY_CROSS')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -81,22 +82,113 @@ def cg_label_chk (lv_m):
 
 
 def sva_con_assert_label_chk (lv_m):
+
   if (lv_m.kind.name == 'ConcurrentAssertionMember'):
     if (lv_m.statement.label is None):
-      print ("PySlint: Error: Unnamed SVA: ", 
-              lv_m.statement)
+      msg = 'Unnamed assertion - use a meaningful label: ' 
+      msg += str(lv_m.statement)
+      pyslint_msg ('SVA_MISSING_LABEL', msg)
     else:
       lv_label = lv_m.statement.label.name.value
-      if (not lv_label.startswith('a')):
-          print ("PySlint: Error: Label must start with \'a\': ", 
-          lv_label)
+      lv_sva_vdir = lv_m.statement.keyword.valueText
+      if (lv_sva_vdir != 'assert'):
+        return
 
+      lv_exp_s = sv_prefix_d['assert']
+      if (not lv_label.startswith(lv_exp_s)):
+        msg = 'Improper naming of assert directive: ' 
+        msg += lv_label
+        msg += ': expected prefix: '
+        msg += lv_exp_s
+        pyslint_msg ('NAME_AST_PREFIX', msg)
+
+def sva_con_assume_label_chk (lv_m):
+  if (lv_m.kind.name == 'ConcurrentAssertionMember'):
+    if (lv_m.statement.label is None):
+      msg = 'Unnamed assumption - use a meaningful label: ' 
+      msg += str(lv_m.statement)
+      pyslint_msg ('SVA_MISSING_LABEL', msg)
+    else:
+      lv_label = lv_m.statement.label.name.value
+      lv_sva_vdir = lv_m.statement.keyword.valueText
+      if (lv_sva_vdir != 'assume'):
+        return
+
+      lv_exp_s = sv_prefix_d['assume']
+      if (not lv_label.startswith(lv_exp_s)):
+        msg = 'Improper naming of assume directive: ' 
+        msg += lv_label
+        msg += ': expected prefix: '
+        msg += lv_exp_s
+        pyslint_msg ('NAME_ASM_PREFIX', msg)
+
+def sva_con_cover_label_chk (lv_m):
+  if (lv_m.kind.name == 'ConcurrentAssertionMember'):
+    if (lv_m.statement.label is None):
+      msg = 'Unnamed assumption - use a meaningful label: ' 
+      msg += str(lv_m.statement)
+      pyslint_msg ('SVA_MISSING_LABEL', msg)
+    else:
+      lv_label = lv_m.statement.label.name.value
+      lv_sva_vdir = lv_m.statement.keyword.valueText
+      if (lv_sva_vdir != 'cover'):
+        return
+
+      lv_exp_s = sv_prefix_d['cover']
+      if (not lv_label.startswith(lv_exp_s)):
+        msg = 'Improper naming of cover directive: ' 
+        msg += lv_label
+        msg += ': expected prefix: '
+        msg += lv_exp_s
+        pyslint_msg ('NAME_COV_PREFIX', msg)
+
+def sva_prop_label_chk (lv_m):
+  if (lv_m.kind.name == 'PropertyDeclaration'):
+    lv_prop_label = lv_m.name.valueText
+    lv_exp_s = sv_prefix_d['prop']
+    if (not lv_prop_label.startswith(lv_exp_s)):
+      msg = 'Improper naming of property: ' 
+      msg += lv_prop_label
+      msg += ': expected prefix: '
+      msg += lv_exp_s
+      pyslint_msg ('NAME_PROP_PREFIX', msg)
+
+def sva_prop_endlabel_chk (lv_m):
+  if (lv_m.kind.name == 'PropertyDeclaration'):
+    if (lv_m.endBlockName is None):
+      lv_prop_label = lv_m.name.valueText
+      msg = 'Missing End Label for property: ' 
+      msg += lv_prop_label
+      pyslint_msg ('SVA_MISSING_ENDLABEL', msg)
+
+
+
+def sva_con_assert_no_pass_ab_chk (lv_m):
+  if (lv_m.kind.name == 'ConcurrentAssertionMember'):
+    if (lv_m.statement.action.statement is None):
+      return
+    if (lv_m.statement.action.statement.kind.name == 'EmptyStatement'):
+      return
+    if (lv_m.statement.action.statement is not None):
+      msg = 'Avoid using PASS Action block - likely to cause too many vacuous prints: ' 
+      msg += str(lv_m.statement)
+      pyslint_msg ('SVA_NO_PASS_AB', msg)
 
 def sva_con_assert_fail_ab_chk (lv_m):
   if (lv_m.kind.name == 'ConcurrentAssertionMember'):
+    if (lv_m.statement.label is None):
+      return
+
+    lv_label = lv_m.statement.label.name.value
+    lv_sva_vdir = lv_m.statement.keyword.valueText
+
+    if (lv_sva_vdir != 'assert'):
+      return
+
     if (lv_m.statement.action.elseClause is None):
-      print ("PySlint: Error: Missing FAIL Action block in SVA: ", 
-              lv_m.statement)
+      msg = 'Missing FAIL Action block - use $error/`uvm_error: ' 
+      msg += str(lv_m.statement)
+      pyslint_msg ('SVA_MISSING_FAIL_AB', msg)
 
 def pyslint_argparse():
   # Create the parser
@@ -187,6 +279,11 @@ cu_scope = tree.root.members[0]
 if (cu_scope.kind.name != 'ClassDeclaration'):
   for m_i in (cu_scope.members):
     sva_con_assert_label_chk (m_i)
+    sva_con_assume_label_chk (m_i)
+    sva_con_cover_label_chk (m_i)
     sva_con_assert_fail_ab_chk (m_i)
+    sva_con_assert_no_pass_ab_chk (m_i)
+    sva_prop_label_chk (m_i)
+    sva_prop_endlabel_chk (m_i)
     cg_label_chk (m_i)
 
