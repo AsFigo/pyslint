@@ -26,6 +26,7 @@ Whole lot is expected to change, so please do NOT use this in production just ye
 * SVA_MISSING_ENDLABEL
 * SVA_NO_PASS_AB
 * SVA_MISSING_FAIL_AB
+* CL_MISSING_ENDLABEL
 
 ## Dependencies
 * pyslang
