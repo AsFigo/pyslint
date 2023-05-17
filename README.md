@@ -12,6 +12,21 @@ Whole lot is expected to change, so please do NOT use this in production just ye
 * cd exec_dir
 * make
 
+## Rules added so far (May 17 2023)
+* CL_METHOD_NOT_EXTERN
+* NAME_CG_PREFIX
+* NAME_CG_PREFIX
+* SVA_MISSING_LABEL
+* NAME_AST_PREFIX
+* SVA_MISSING_LABEL
+* NAME_ASM_PREFIX
+* SVA_MISSING_LABEL
+* NAME_COV_PREFIX
+* NAME_PROP_PREFIX
+* SVA_MISSING_ENDLABEL
+* SVA_NO_PASS_AB
+* SVA_MISSING_FAIL_AB
+
 ## Dependencies
 * pyslang
 * make
