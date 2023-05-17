@@ -27,6 +27,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append ('SVA_MISSING_ENDLABEL')
   lv_sv_ruleid_l.append ('SVA_NO_PASS_AB')
   lv_sv_ruleid_l.append ('CL_METHOD_NOT_EXTERN')
+  lv_sv_ruleid_l.append ('CL_MISSING_ENDLABEL')
   lv_sv_ruleid_l.append ('PERF_CG_TOO_MANY_CROSS')
 
 '''
@@ -53,8 +54,7 @@ def use_extern (lv_cu_scope):
 
       if (cl_item.kind.name == 'ClassMethodDeclaration'):
         if (cl_item.declaration.prototype.name.kind.name != 'ConstructorName'):
-            print ('PySlint: Error method is not declared extern: ', cl_item.declaration.prototype.name)
-            msg = 'method is not declared extern: '+ cl_item.declaration.prototype.name
+            msg = 'method is not declared extern: '+ str(cl_item.declaration.prototype.name)
             pyslint_msg ('CL_METHOD_NOT_EXTERN', msg)
 
 def cg_label_chk (lv_m):
@@ -160,6 +160,15 @@ def sva_prop_endlabel_chk (lv_m):
       msg = 'Missing End Label for property: ' 
       msg += lv_prop_label
       pyslint_msg ('SVA_MISSING_ENDLABEL', msg)
+
+def cl_endlabel_chk (lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ClassDeclaration'):
+    if (lv_cu_scope.endBlockName is None):
+      lv_cl_label = lv_cu_scope.name.valueText
+      msg = 'Missing End Label for class: ' 
+      msg += lv_cl_label
+      pyslint_msg ('CL_MISSING_ENDLABEL', msg)
+
 
 
 
@@ -273,6 +282,7 @@ if (tree.root.members.__str__() == ''):
 for scope_i in (tree.root.members):
   chk_naming (scope_i)
   use_extern (scope_i)
+  cl_endlabel_chk (scope_i)
 
 
 cu_scope = tree.root.members[0]

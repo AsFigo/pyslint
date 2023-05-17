@@ -31,3 +31,5 @@ PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: p_go
 PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: bad_name: expected prefix: p_
 PySlint: Violation: [NAME_ASM_PREFIX]: Improper naming of assume directive: wrong_label: expected prefix: m_
 PySlint: Violation: [NAME_COV_PREFIX]: Improper naming of cover directive: wrong_label: expected prefix: c_
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  should_have_been_extern
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: ex_c
