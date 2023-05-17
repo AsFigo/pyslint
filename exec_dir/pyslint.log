@@ -2,3 +2,32 @@ PySlint: Violation: [NAME_INTF_SUFFIX]: Improper naming of identifier:  af_sv_in
 PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  af_bad_class_name: expected suffix: _c
 PySlint: Violation: [NAME_CG_PREFIX]: Improper naming of identifier: bad_group_name: expected prefix: cg_
 PySlint: Violation: [NAME_CG_PREFIX]: Improper naming of identifier: bad_group_name: expected prefix: cg_
+PySlint: Violation: [SVA_MISSING_LABEL]: Unnamed assertion - use a meaningful label: 
+  // BAD - unnamed SVA
+  assert property (@(posedge clk) var1)
+    else $error ("Bad style - unnamed SVA");
+PySlint: Violation: [SVA_MISSING_LABEL]: Unnamed assumption - use a meaningful label: 
+  // BAD - unnamed SVA
+  assert property (@(posedge clk) var1)
+    else $error ("Bad style - unnamed SVA");
+PySlint: Violation: [SVA_MISSING_LABEL]: Unnamed assumption - use a meaningful label: 
+  // BAD - unnamed SVA
+  assert property (@(posedge clk) var1)
+    else $error ("Bad style - unnamed SVA");
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: bad_sva_label: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+  // BAD - missing FAIL action block in SVA
+  a_var1 : assert property (@(posedge clk) var1);
+PySlint: Violation: [SVA_NO_PASS_AB]: Avoid using PASS Action block - likely to cause too many vacuous prints: 
+  // BAD - avoid using PASS action block in SVA
+  // It usually leads to too many vacuous prints
+  a_var1 : assert property (@(posedge clk) var1)
+    begin : pass_ab
+      $info ("Pass Action Block");
+    end : pass_ab
+   else $error ("Fail AB");
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: bad_name: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: p_good_name
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: bad_name: expected prefix: p_
+PySlint: Violation: [NAME_ASM_PREFIX]: Improper naming of assume directive: wrong_label: expected prefix: m_
+PySlint: Violation: [NAME_COV_PREFIX]: Improper naming of cover directive: wrong_label: expected prefix: c_
