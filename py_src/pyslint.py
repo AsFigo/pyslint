@@ -29,6 +29,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append ('CL_METHOD_NOT_EXTERN')
   lv_sv_ruleid_l.append ('CL_MISSING_ENDLABEL')
   lv_sv_ruleid_l.append ('PERF_CG_TOO_MANY_CROSS')
+  lv_sv_ruleid_l.append ('FUNC_CNST_MISSING_CAST')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -56,6 +57,32 @@ def use_extern (lv_cu_scope):
         if (cl_item.declaration.prototype.name.kind.name != 'ConstructorName'):
             msg = 'method is not declared extern: '+ str(cl_item.declaration.prototype.name)
             pyslint_msg ('CL_METHOD_NOT_EXTERN', msg)
+
+def cnst_arr_method_cast (lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ClassDeclaration'):
+    for cl_item in (lv_cu_scope.items):
+      if (cl_item.kind.name == 'ConstraintDeclaration'):
+        for lv_cnst_i in (cl_item.block.items):
+          if (lv_cnst_i.expr.left.kind.name == 'InvocationExpression'):
+            lv_cnst_expr_s = lv_cnst_i.expr.left.__str__()
+            lv_arr_red_methods = [".sum()", ".sum ()",
+                    ".product()", ".product ()", 
+                    ".and()", ".and ()",
+                    ".or()", ".or ()",
+                    ".xor()", ".xor ()"]
+            if any([x in lv_cnst_expr_s for x in lv_arr_red_methods]):
+              msg  = 'Potentially incorrect constraint expression!'
+              msg += ' An expression involving the array-reduction methods'
+              msg += ' sum()/product()/and()/or()/xor()'
+              msg += ' was found, but is missing an explicit cast.'
+              msg += ' This can lead to strange results as'
+              msg += ' array reduction methods return an expression'
+              msg += ' of the size of'
+              msg += ' its elements, check if you need a with'
+              msg += ' (int\'( cast around the following expression:'
+              msg += lv_cnst_expr_s
+              pyslint_msg ('FUNC_CNST_MISSING_CAST', msg)
+
 
 def cg_label_chk (lv_m):
   if (lv_m.kind.name == 'ClassDeclaration'):
@@ -178,6 +205,7 @@ def sva_con_assert_no_pass_ab_chk (lv_m):
       return
     if (lv_m.statement.action.statement.kind.name == 'EmptyStatement'):
       return
+
     if (lv_m.statement.action.statement is not None):
       msg = 'Avoid using PASS Action block - likely to cause too many vacuous prints: ' 
       msg += str(lv_m.statement)
@@ -282,6 +310,7 @@ if (tree.root.members.__str__() == ''):
 for scope_i in (tree.root.members):
   chk_naming (scope_i)
   use_extern (scope_i)
+  cnst_arr_method_cast (scope_i)
   cl_endlabel_chk (scope_i)
 
 
