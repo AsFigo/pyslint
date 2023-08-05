@@ -1,7 +1,37 @@
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_01_p.sv Expected File name af_ af_sv_if.sv
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
 PySlint: Violation: [NAME_INTF_SUFFIX]: Improper naming of identifier:  af_sv_intf_bad: expected suffix: _if
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_02_f.sv Expected File name af_ af_sv_intf_bad.sv
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
 PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  af_bad_class_name: expected suffix: _c
+PySlint: Violation: [FILE_NAME_CHECK_CLASS]: Improper File name : ../sv_tests/test_sv_naming_03_p.sv Expected File name af_ af_bad_class_name.sv
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_CLASS]: Improper File name : ../sv_tests/test_sv_naming_04_f.sv Expected File name af_ af_good_c.sv
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_CLASS]: Improper File name : ../sv_tests/test_sv_naming_05_p.sv Expected File name af_ cg_wrap_c.sv
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
 PySlint: Violation: [NAME_CG_PREFIX]: Improper naming of identifier: bad_group_name: expected prefix: cg_
+PySlint: Violation: [FILE_NAME_CHECK_CLASS]: Improper File name : ../sv_tests/test_sv_naming_06_f.sv Expected File name af_ cg_wrap_c.sv
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_07_p.sv Expected File name af_ cg_wrap_m.sv
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_08_f.sv Expected File name af_ cg_wrap_m.sv
 PySlint: Violation: [NAME_CG_PREFIX]: Improper naming of identifier: bad_group_name: expected prefix: cg_
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_09_p.sv Expected File name af_ sva_m.sv
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_10_f.sv Expected File name af_ sva_m.sv
 PySlint: Violation: [SVA_MISSING_LABEL]: Unnamed assertion - use a meaningful label: 
   // BAD - unnamed SVA
   assert property (@(posedge clk) var1)
@@ -14,10 +44,19 @@ PySlint: Violation: [SVA_MISSING_LABEL]: Unnamed assumption - use a meaningful l
   // BAD - unnamed SVA
   assert property (@(posedge clk) var1)
     else $error ("Bad style - unnamed SVA");
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_11_f.sv Expected File name af_ sva_m.sv
 PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: bad_sva_label: expected prefix: a_
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_12_f.sv Expected File name af_ sva_m.sv
 PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
   // BAD - missing FAIL action block in SVA
   a_var1 : assert property (@(posedge clk) var1);
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_13_f.sv Expected File name af_ sva_m.sv
 PySlint: Violation: [SVA_NO_PASS_AB]: Avoid using PASS Action block - likely to cause too many vacuous prints: 
   // BAD - avoid using PASS action block in SVA
   // It usually leads to too many vacuous prints
@@ -26,10 +65,50 @@ PySlint: Violation: [SVA_NO_PASS_AB]: Avoid using PASS Action block - likely to 
       $info ("Pass Action Block");
     end : pass_ab
    else $error ("Fail AB");
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_14_p.sv Expected File name af_ sva_m.sv
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_15_f.sv Expected File name af_ sva_m.sv
 PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: bad_name: expected prefix: p_
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+Following line has a trailing whitespace
+Line 16:   endproperty
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_16_f.sv Expected File name af_ sva_m.sv
 PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: p_good_name
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_17_f.sv Expected File name af_ sva_m.sv
 PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: bad_name: expected prefix: p_
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_18_f.sv Expected File name af_ sva_m.sv
 PySlint: Violation: [NAME_ASM_PREFIX]: Improper naming of assume directive: wrong_label: expected prefix: m_
+Following line has a trailing whitespace
+Line 2: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_19_f.sv Expected File name af_ sva_m.sv
 PySlint: Violation: [NAME_COV_PREFIX]: Improper naming of cover directive: wrong_label: expected prefix: c_
+Following line has a trailing whitespace
+Line 3: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+PySlint: Violation: [FILE_NAME_CHECK_CLASS]: Improper File name : ../sv_tests/test_sv_naming_20_p.sv Expected File name af_ ex_c.sv
+Following line has a trailing whitespace
+Line 3: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
 PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  should_have_been_extern
+PySlint: Violation: [FILE_NAME_CHECK_CLASS]: Improper File name : ../sv_tests/test_sv_naming_21_f.sv Expected File name af_ ex_c.sv
+Following line has a trailing whitespace
+Line 3: // SPDX-FileCopyrightText: Srinivasan Venkataramanan,
+Following line has a trailing whitespace
+Line 12: endclass
 PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: ex_c
+PySlint: Violation: [FILE_NAME_CHECK_CLASS]: Improper File name : ../sv_tests/test_sv_naming_22_f.sv Expected File name af_ ex_c.sv
+PySlint: Violation: [FILE_NAME_CHECK_MODULE]: Improper File name :../sv_tests/test_sv_naming_23_f.sv Expected File name af_ memory.sv
+Following line has a trailing whitespace
+Line 5: endclass :add
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  add: expected suffix: _c
+PySlint: Violation: [FILE_NAME_CHECK_CLASS]: Improper File name : ../sv_tests/test_sv_naming_24_f.sv Expected File name af_ add.sv
+Following line has a trailing whitespace
+Line 3:   bit line_with_trailing_space;
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  trailing_whitespace: expected suffix: _c
+PySlint: Violation: [FILE_NAME_CHECK_CLASS]: Improper File name : ../sv_tests/test_sv_naming_25_f.sv Expected File name af_ trailing_whitespace.sv
