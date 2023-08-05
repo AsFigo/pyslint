@@ -23,6 +23,9 @@ naming:
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_20_p.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_21_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_22_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_23_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_24_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_25_f.sv >> pyslint.log
 
 	cat pyslint.log
 
