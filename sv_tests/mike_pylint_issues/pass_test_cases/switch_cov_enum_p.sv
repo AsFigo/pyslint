@@ -1,28 +1,16 @@
-module switch_cov_enum_p;
+module switch_issue;
+   typedef enum int { A, B, C, D, E, F, G, H} packet_type_t;
+   packet_type_t pkt_type;
 
-   // Declare an enum data type
-   enum { RED, GREEN, BLUE } color;
-
-   // Declare a variable of the enum type
-   color my_color;
-
-   // Initialize the variable
-   my_color = GREEN;
-
-   // Use a switch statement to select the appropriate case
-   switch (my_color) begin
-      case RED:
-         $display("The color is red.");
-         break;
-      case GREEN:
-         $display("The color is green.");
-         break;
-      case BLUE:
-         $display("The color is blue.");
-         break;
-      default:
-         $display("The color is unknown.");
-         break;
-   endcase
-
+   initial begin
+           pkt_type = A;
+      //void'(randomize(pkt_type));
+      case (pkt_type) inside
+        A,D :  $write("case 1 ");
+        B,C :  $write("case 2 ");
+        [E:G] :  $write("case 3 ");
+        default : $write("default ");
+      endcase // case (pkt_type)
+      $display(pkt_type.name);
+   end
 endmodule
