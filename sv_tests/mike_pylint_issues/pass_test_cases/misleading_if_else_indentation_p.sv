@@ -9,7 +9,7 @@ module misleading_if_else_indentation_p;
         if (a) begin
             if (b)
             result = 0;
-        else
+           else
             result = 1;//else belongs to the inner if not the outer if properly indented
         end
         $display("Result: %b", result);
