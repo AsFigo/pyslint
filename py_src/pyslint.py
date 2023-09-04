@@ -67,9 +67,14 @@ def cnst_arr_method_cast (lv_cu_scope):
           # do not have left/right
           if (lv_cnst_i.expr.kind.name == 'UnaryLogicalNotExpression'):
             continue
+          # Fix for Issue 36, inside expressions
+          # do not have left/right
           if (lv_cnst_i.expr.kind.name == 'InsideExpression'):
             continue
-          print (lv_cnst_i.expr.kind.name)
+          # Fix for Issue 37, dist expressions
+          # do not have left/right
+          if (lv_cnst_i.expr.kind.name == 'ExpressionOrDist'):
+            continue
           if (lv_cnst_i.expr.left.kind.name == 'InvocationExpression'):
             lv_cnst_expr_s = lv_cnst_i.expr.left.__str__()
             lv_arr_red_methods = [".sum()", ".sum ()",
@@ -262,7 +267,8 @@ def pyslint_update_suffixes():
 
 def chk_name_style_prefix (lv_rule_id, lv_name, lv_exp_p):
   if (lv_name.startswith(lv_exp_p)):
-    print ('AF: Good naming: ', lv_name)
+    if (print_verbose):
+      print ('AF: Good naming: ', lv_name)
   else:
     msg = 'Improper naming of identifier: ' 
     msg += lv_name
