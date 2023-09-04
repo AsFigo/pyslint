@@ -63,6 +63,13 @@ def cnst_arr_method_cast (lv_cu_scope):
     for cl_item in (lv_cu_scope.items):
       if (cl_item.kind.name == 'ConstraintDeclaration'):
         for lv_cnst_i in (cl_item.block.items):
+          # Fix for Issue 35, Unary expressions
+          # do not have left/right
+          if (lv_cnst_i.expr.kind.name == 'UnaryLogicalNotExpression'):
+            continue
+          if (lv_cnst_i.expr.kind.name == 'InsideExpression'):
+            continue
+          print (lv_cnst_i.expr.kind.name)
           if (lv_cnst_i.expr.left.kind.name == 'InvocationExpression'):
             lv_cnst_expr_s = lv_cnst_i.expr.left.__str__()
             lv_arr_red_methods = [".sum()", ".sum ()",
