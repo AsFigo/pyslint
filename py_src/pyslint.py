@@ -30,6 +30,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append ('CL_MISSING_ENDLABEL')
   lv_sv_ruleid_l.append ('PERF_CG_TOO_MANY_CROSS')
   lv_sv_ruleid_l.append ('FUNC_CNST_MISSING_CAST')
+  lv_sv_ruleid_l.append ('FUNC_CNST_DIST_COL_EQ')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -58,6 +59,32 @@ def use_extern (lv_cu_scope):
             msg = 'method is not declared extern: '+ str(cl_item.declaration.prototype.name)
             pyslint_msg ('CL_METHOD_NOT_EXTERN', msg)
 
+def af_cnst_dist_chk (cnst_i):
+  for lv_dist_item_i in cnst_i.expr.distribution.items:
+    lv_cnst_expr_s = cnst_i.expr.__str__()
+    lv_large_range = False
+    if (lv_dist_item_i.kind.name == 'DistItem'):
+      if (lv_dist_item_i.range.kind.name == 'OpenRangeExpression'):
+        lv_large_range = False
+        lv_dist_range_left = int(lv_dist_item_i.range.left.literal.value)
+        lv_dist_range_right = int(lv_dist_item_i.range.right.literal.value)
+        if (abs(lv_dist_range_right - lv_dist_range_left) > 10):
+          lv_large_range = True
+
+
+      if (lv_dist_item_i.weight.op.kind.name == 'ColonEquals'):
+        if (lv_large_range):
+          msg  = 'Potentially incorrect constraint expression!'
+          msg += ' An expression involving dist ColonEquals if found'
+          msg += ' And the range used with ColonEquals is large'
+          msg += ' This is likely to skew the random generation'
+          msg += ' and prevent other values in the dist expression'
+          msg += ' to be generated less-frequently than the large range values'
+          msg += ' Review to check if you intended to use ColonSlash'
+          msg += ' instead of ColonEquals'
+          msg += lv_cnst_expr_s
+          pyslint_msg ('FUNC_CNST_DIST_COL_EQ', msg)
+
 def cnst_arr_method_cast (lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ClassDeclaration'):
     for cl_item in (lv_cu_scope.items):
@@ -74,6 +101,7 @@ def cnst_arr_method_cast (lv_cu_scope):
           # Fix for Issue 37, dist expressions
           # do not have left/right
           if (lv_cnst_i.expr.kind.name == 'ExpressionOrDist'):
+            af_cnst_dist_chk (lv_cnst_i)
             continue
           if (lv_cnst_i.expr.left.kind.name == 'InvocationExpression'):
             lv_cnst_expr_s = lv_cnst_i.expr.left.__str__()
