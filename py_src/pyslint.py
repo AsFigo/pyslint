@@ -7,6 +7,7 @@
 import pyslang
 import argparse
 import tomli
+import re
 
 print_verbose = False
 
@@ -31,6 +32,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append ('PERF_CG_TOO_MANY_CROSS')
   lv_sv_ruleid_l.append ('FUNC_CNST_MISSING_CAST')
   lv_sv_ruleid_l.append ('FUNC_CNST_DIST_COL_EQ')
+  lv_sv_ruleid_l.append ('RAND_RETURN_VAL_CHK')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -346,6 +348,16 @@ r = tree.root
 if (tree.root.members.__str__() == ''):
   print ("PySlint: No modules/interfaces/classes found")
   exit (0)
+
+with open(inp_test_name, 'r') as file:
+     lines = file.readlines()
+
+#Check to make sure that we utilise return_values during randomization
+for i, line in enumerate(lines, start=1):
+    if re.search(r'randomize\(', line) and (re.search(r'\bif\b|\bassert\b', line)) and not re.search(r'\bvoid\b', line):
+        continue
+    elif re.search(r'randomize\(', line) and (not re.search(r'\bif\b|\bassert\b', line) or re.search(r'\bvoid\b', line)):
+        print(f"PySlint: Violation: [RAND_RETURN_VAL_CHK]: Error on line {i}: Randomization found without 'if' or 'assert,' or with 'void'")
 
 
 for scope_i in (tree.root.members):
