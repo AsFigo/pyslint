@@ -90,6 +90,8 @@ def cnst_arr_method_cast (lv_cu_scope):
     for cl_item in (lv_cu_scope.items):
       if (cl_item.kind.name == 'ConstraintDeclaration'):
         for lv_cnst_i in (cl_item.block.items):
+          if (not hasattr(lv_cnst_i, 'expr')):
+            continue
           # Fix for Issue 35, Unary expressions
           # do not have left/right
           if (lv_cnst_i.expr.kind.name == 'UnaryLogicalNotExpression'):
@@ -316,6 +318,20 @@ def chk_name_style_suffix (lv_rule_id, lv_name, lv_exp_s):
     pyslint_msg (lv_rule_id, msg)
 
 
+def chk_intf_4state (lv_intf_scope):
+  for lv_intf_mem_i in lv_intf_scope.members:
+    if (lv_intf_mem_i.kind.name == 'DataDeclaration'):
+      if (lv_intf_mem_i.type.kind.name == 'BitType'):
+        lv_var_decl = lv_intf_mem_i.declarators.getFirstToken()
+        lv_name = lv_var_decl.valueText
+        msg = 'Potential DUT bug hiding construct in use: '
+        msg += ' Inside SystemVerilog interface, it is recommended'
+        msg += ' to use only 4-state signals/nets.'
+        msg += ' Found a 2-state declaration as: '
+        msg += lv_intf_mem_i.__str__()
+        lv_rule_id = 'FUNC_NO_2STATE_IN_INTF'
+        pyslint_msg (lv_rule_id, msg)
+
 
 def chk_naming (lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ClassDeclaration'):
@@ -327,6 +343,7 @@ def chk_naming (lv_cu_scope):
     lv_ident_name = str(lv_cu_scope.header.name)
     lv_exp_s = sv_suffix_d['intf']
     chk_name_style_suffix ('NAME_INTF_SUFFIX', lv_ident_name, lv_exp_s)
+    chk_intf_4state (lv_cu_scope)
 
   cg_label_chk (lv_cu_scope)
 
