@@ -7,6 +7,7 @@
 import pyslang
 import argparse
 import tomli
+import re
 
 print_verbose = False
 
@@ -31,6 +32,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append ('PERF_CG_TOO_MANY_CROSS')
   lv_sv_ruleid_l.append ('FUNC_CNST_MISSING_CAST')
   lv_sv_ruleid_l.append ('FUNC_CNST_DIST_COL_EQ')
+  lv_sv_ruleid_l.append ('CHK_TESTPLUS_ARGS')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -346,6 +348,42 @@ r = tree.root
 if (tree.root.members.__str__() == ''):
   print ("PySlint: No modules/interfaces/classes found")
   exit (0)
+
+with open(inp_test_name, 'r') as file:
+     lines = file.readlines()
+
+#testplusargs Check: See if the testplusargs name is repeated or overrides each other
+pattern = r'\$test\$plusargs\("([^"]+)"\)'
+arguments = []  # List to store extracted arguments
+
+for i, line in enumerate(lines, start=1):
+    match = re.search(pattern, line)
+    
+    if match:
+        argument = match.group(1)
+        arguments.append((argument, i))  # Storing the argument along with line number
+
+# Performing Checks to find the repeated arguments used in the $test$plusargs with common substrings 
+repeated_arguments = {}
+unique_arguments = set()
+
+for arg, line_number in arguments:
+    for other_arg, other_line_number in arguments:
+        if arg != other_arg:
+            arg_parts = arg.split('_')
+            other_arg_parts = other_arg.split('_')
+            common_parts = set(arg_parts) & set(other_arg_parts)
+            
+            if common_parts:
+                if arg in unique_arguments:
+                    repeated_arguments[arg].append(other_line_number)
+                else:
+                    unique_arguments.add(arg)
+                    repeated_arguments[arg] = [line_number, other_line_number]
+
+if repeated_arguments:
+    for arg, line_numbers in repeated_arguments.items():
+        print(f"PySlint: Violation: [CHK_TESTPLUS_ARGS]: Common string found in Argument: {arg}, Found in Lines: {', '.join(map(str, line_numbers))}")
 
 
 for scope_i in (tree.root.members):
