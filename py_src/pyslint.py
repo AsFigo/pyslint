@@ -31,6 +31,8 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append ('PERF_CG_TOO_MANY_CROSS')
   lv_sv_ruleid_l.append ('FUNC_CNST_MISSING_CAST')
   lv_sv_ruleid_l.append ('FUNC_CNST_DIST_COL_EQ')
+  lv_sv_ruleid_l.append ('FILE_NAME_CHECK_MODULE')
+  lv_sv_ruleid_l.append ('FILE_NAME_CHECK_CLASS')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -315,7 +317,25 @@ def chk_name_style_suffix (lv_rule_id, lv_name, lv_exp_s):
     msg += lv_exp_s
     pyslint_msg (lv_rule_id, msg)
 
+def chk_class_based_file_name (lv_rule_id, lv_name, lv_exp_p):
+  if (lv_name == inp_test_name):
+    print ('AF: Class and File names are matching: ', lv_name)
+  else:
+    msg = 'Improper File name : ' 
+    msg += inp_test_name
+    msg += ' Expected File name '
+    msg += lv_exp_p
+    pyslint_msg (lv_rule_id, msg)
 
+def chk_module_based_file_name(lv_rule_id, lv_name, lv_exp_p):
+  if (lv_name == inp_test_name):
+    print ('AF: Class and File names are matching: ', lv_name)
+  else:
+    msg = 'Improper File name :' 
+    msg += inp_test_name
+    msg += ' Expected File name '
+    msg += lv_exp_p
+    pyslint_msg (lv_rule_id, msg)
 
 def chk_naming (lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ClassDeclaration'):
@@ -330,6 +350,18 @@ def chk_naming (lv_cu_scope):
 
   cg_label_chk (lv_cu_scope)
 
+def chk_file_name(lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ClassDeclaration'): 
+    lv_ident_name =str(lv_cu_scope.name)
+    #lv_exp_s='desired_prefix_'+lv_ident_name+'.'+'sv'
+    lv_exp_s=lv_ident_name+'.'+'sv'
+    chk_class_based_file_name ('FILE_NAME_CHECK_CLASS', lv_ident_name, lv_exp_s)
+  else: 
+    if(lv_cu_scope.kind.name != 'FunctionDeclaration'):
+      lv_ident_name =str(lv_cu_scope.header.name)
+      #lv_exp_s='desired_prefix_'+lv_ident_name+'.'+'sv'
+      lv_exp_s=lv_ident_name+'.'+'sv'
+      chk_module_based_file_name('FILE_NAME_CHECK_MODULE', lv_ident_name, lv_exp_s)
 
 args = pyslint_argparse()
 
@@ -353,6 +385,7 @@ for scope_i in (tree.root.members):
   use_extern (scope_i)
   cnst_arr_method_cast (scope_i)
   cl_endlabel_chk (scope_i)
+  chk_file_name (scope_i)
 
 
 cu_scope = tree.root.members[0]
