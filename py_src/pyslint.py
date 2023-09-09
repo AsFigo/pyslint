@@ -31,6 +31,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append ('PERF_CG_TOO_MANY_CROSS')
   lv_sv_ruleid_l.append ('FUNC_CNST_MISSING_CAST')
   lv_sv_ruleid_l.append ('FUNC_CNST_DIST_COL_EQ')
+  lv_sv_ruleid_l.append ('CHECK_TRAILING_SPACE')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -347,6 +348,14 @@ if (tree.root.members.__str__() == ''):
   print ("PySlint: No modules/interfaces/classes found")
   exit (0)
 
+with open(inp_test_name, 'r') as file:
+    lines = file.readlines()
+
+for i, line in enumerate(lines, start=1):
+#Spliting string and white space
+#"endswith" make sure it has trailing space
+    if line.rstrip('\n').endswith(' '):
+        print(f"PySlint: Violation: [CHECK_TRAILING_SPACE]: Line {i}: {line.rstrip()}")
 
 for scope_i in (tree.root.members):
   chk_naming (scope_i)
