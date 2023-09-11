@@ -1,2 +1,2 @@
 xsc myFunction.c
-xelab -vlog file.sv -sv -sv_lib dpi -R
+xelab -svlog mymodule.sv -sv_lib dpi
