@@ -1,4 +1,4 @@
-module m();
+module mymodule();
 import "DPI-C" pure function int myFunction1 (); 
 import "DPI-C" pure function int myFunction2 ();
 integer i, j;
