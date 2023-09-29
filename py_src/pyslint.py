@@ -333,6 +333,38 @@ def chk_intf_4state (lv_intf_scope):
         pyslint_msg (lv_rule_id, msg)
 
 
+def chk_dpi_rval_2st (lv_dpi_mem):
+  lv_rval_type_s = lv_dpi_mem.method.returnType.keyword.__str__().strip()
+  lv_rval_4st_types = ["integer", "logic",
+                    "reg"]
+  if any([x in lv_rval_type_s for x in lv_rval_4st_types]):
+    msg = 'DPI functions shall use 2-state types in return value.'
+    msg += ' Using 4-state type can lead to unnecessary complication'
+    msg += ' as C-side does not naturally support 4-state value system'
+    msg += ' Found code as: \n'
+    msg += str(lv_dpi_mem)
+    lv_rule_id = 'FUNC_DPI_NO_4STATE_IN_RETURN'
+    pyslint_msg (lv_rule_id, msg)
+
+def chk_dpi_spec_str (lv_dpi_mem):
+  lv_spec_str_val_s = lv_dpi_mem.specString.__str__().strip()
+  if (lv_spec_str_val_s != '\"DPI-C\"'):
+    msg = 'Wrong Spec-STR in DPI declaration'
+    msg += ' IEEE 1800-2012 specifies \"DPI-C\" as Spec-STR.'
+    msg += ' Found code as: \n'
+    msg += str(lv_dpi_mem)
+    lv_rule_id = 'COMPAT_DPI_OLD_SPECSTR'
+    pyslint_msg (lv_rule_id, msg)
+
+
+def chk_dpi_rules (lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
+    for lv_mod_mem_i in lv_cu_scope.members:
+      if (lv_mod_mem_i.kind.name == 'DPIImport'):
+        chk_dpi_spec_str (lv_mod_mem_i)
+        chk_dpi_rval_2st (lv_mod_mem_i)
+
+
 def chk_naming (lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ClassDeclaration'):
     lv_ident_name = str(lv_cu_scope.name)
@@ -370,6 +402,7 @@ for scope_i in (tree.root.members):
   use_extern (scope_i)
   cnst_arr_method_cast (scope_i)
   cl_endlabel_chk (scope_i)
+  chk_dpi_rules (scope_i)
 
 
 cu_scope = tree.root.members[0]
