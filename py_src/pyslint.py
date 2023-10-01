@@ -357,6 +357,22 @@ def chk_dpi_spec_str (lv_dpi_mem):
     pyslint_msg (lv_rule_id, msg)
 
 
+def chk_mod_typedef (lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
+    for lv_mod_mem_i in lv_cu_scope.members:
+      if (lv_mod_mem_i.kind.name == 'TypedefDeclaration'):
+        lv_tdef_s = lv_mod_mem_i.__str__() 
+        msg = 'A typedef was found inside a module'
+        msg += ' This prevents reuse as the enum/typedef scope is module only'
+        msg += ' An assertion model that binds to this module'
+        msg += ' and check the states using the typedef will be harder'
+        msg += ' to implement in such cases.'
+        msg += ' Please move the typedef to a package'
+        msg += ' and import that package inside the module'
+        msg += str(lv_tdef_s)
+        lv_rule_id = 'REUSE_NO_TDEF_IN_MOD'
+        pyslint_msg (lv_rule_id, msg)
+
 def chk_dpi_rules (lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
     for lv_mod_mem_i in lv_cu_scope.members:
@@ -403,6 +419,7 @@ for scope_i in (tree.root.members):
   cnst_arr_method_cast (scope_i)
   cl_endlabel_chk (scope_i)
   chk_dpi_rules (scope_i)
+  chk_mod_typedef (scope_i)
 
 
 cu_scope = tree.root.members[0]
