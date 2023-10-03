@@ -1,6 +1,6 @@
 //----------------------------------------------------
 //----------------------------------------------------
-// SPDX-FileCopyrightText: Srinivasan Venkataramanan, 
+// SPDX-FileCopyrightText: Srinivasan Venkataramanan,
 //                         AsFigo Technologies, UK
 // SPDX-License-Identifier: MIT
 //----------------------------------------------------
