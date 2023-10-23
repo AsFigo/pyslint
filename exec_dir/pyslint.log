@@ -33,3 +33,24 @@ PySlint: Violation: [NAME_ASM_PREFIX]: Improper naming of assume directive: wron
 PySlint: Violation: [NAME_COV_PREFIX]: Improper naming of cover directive: wrong_label: expected prefix: c_
 PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  should_have_been_extern
 PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: ex_c
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+   a_new : assert property ((@posedge clk) p_req_cycle
+PySlint: Violation: [SVA_NO_PASS_AB]: Avoid using PASS Action block - likely to cause too many vacuous prints: 
+   a_new : assert property ((@posedge clk) p_req_cycle
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  randvar: expected suffix: _c
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: randvar
+
+// Create an object of the randvar class called pkt
+randvar pkt;
+SyntaxKind.DataDeclaration
+
+// Allocate memory for the pkt object
+// pkt = new();
+//Lint must catch this violation as the pkt object is not allocated with any memory
+// Call the randomize method to assign random values to the variables in pkt
+pkt.randomize();
+SyntaxKind.ExpressionStatement
+
+// Display the randomly generated values of the variables in pkt using the $display function
+$display("\t VAR1 = %0d \t VAR2 = %0d \t VAR3 = %0d \t VAR4 = %0d ",pkt.var1, pkt.var2, pkt.var3, pkt.var4);
+SyntaxKind.ExpressionStatement
