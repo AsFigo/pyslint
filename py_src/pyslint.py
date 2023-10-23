@@ -26,11 +26,17 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append ('SVA_MISSING_LABEL')
   lv_sv_ruleid_l.append ('SVA_MISSING_ENDLABEL')
   lv_sv_ruleid_l.append ('SVA_NO_PASS_AB')
+  lv_sv_ruleid_l.append ('COMPAT_SVA_NO_CONC_IN_FE')
+  lv_sv_ruleid_l.append ('COMPAT_DPI_OLD_SPECSTR')
   lv_sv_ruleid_l.append ('CL_METHOD_NOT_EXTERN')
   lv_sv_ruleid_l.append ('CL_MISSING_ENDLABEL')
   lv_sv_ruleid_l.append ('PERF_CG_TOO_MANY_CROSS')
   lv_sv_ruleid_l.append ('FUNC_CNST_MISSING_CAST')
   lv_sv_ruleid_l.append ('FUNC_CNST_DIST_COL_EQ')
+  lv_sv_ruleid_l.append ('REUSE_NO_TDEF_IN_MOD')
+  lv_sv_ruleid_l.append ('COMPAT_CG_OPT_PI_CL')
+  lv_sv_ruleid_l.append ('REUSE_CG_NO_ILBINS_CL')
+  lv_sv_ruleid_l.append ('PERF_CG_NO_ABIN_W_DEF_CL')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -124,6 +130,97 @@ def cnst_arr_method_cast (lv_cu_scope):
               msg += ' (int\'( cast around the following expression:'
               msg += lv_cnst_expr_s
               pyslint_msg ('FUNC_CNST_MISSING_CAST', msg)
+
+def cg_COMPAT_CG_OPT_PI_CL(lv_m):
+  if (lv_m.kind.name == 'ClassDeclaration'):
+    for cl_item_i in (lv_m.items):
+      if (cl_item_i.kind.name == 'CovergroupDeclaration'):
+        for lv_cg_m_i in cl_item_i.members:
+          if (lv_cg_m_i.kind.name == 'CoverageOption'):
+            lv_cg_name =  cl_item_i.name.valueText
+            lv_cg_opt = lv_cg_m_i.expr.left.__str__()
+            if ('type_option.per_instance' in lv_cg_opt):
+              msg = 'Found \'type_option.per_instance\' '
+              msg += 'inside a covergroup: '
+              msg += lv_cg_name
+              msg += '\nIEEE 1800 LRM does not'
+              msg += ' allow such usage though some tools do compile. \n'
+              msg += 'To avoid compatibility issues,'
+              msg += ' please move the per_instance to'
+              msg += ' \'option.per_instance \''
+              pyslint_msg ('COMPAT_CG_OPT_PI_CL', msg)
+
+def cg_REUSE_CG_NO_ILBINS_CL(lv_m):
+  if (lv_m.kind.name == 'ClassDeclaration'):
+    for cl_item_i in (lv_m.items):
+      if (cl_item_i.kind.name == 'CovergroupDeclaration'):
+        lv_cg_name =  cl_item_i.name.valueText.strip()
+        for lv_cg_m_i in cl_item_i.members:
+          if (lv_cg_m_i.kind.name == 'Coverpoint'):
+            lv_cpt_expr = lv_cg_m_i.expr.__str__()
+            lv_cpt_label = lv_cg_m_i.label.__str__()
+            lv_cpt_name = lv_cpt_label + lv_cpt_expr
+            lv_cpt_name = lv_cpt_name.strip()
+            for lv_cpt_m_i in lv_cg_m_i.members:
+              if (lv_cpt_m_i.kind.name == 'CoverageBins'):
+                lv_cpt_bin_s = lv_cpt_m_i.keyword.__str__()
+                if ('illegal_bins' in lv_cpt_bin_s):
+                  lv_cpt_bin_name = lv_cpt_m_i.name.valueText
+                  msg = 'Found \'illegal_bins\' under user-defined bins: \n'
+                  msg += 'covergroup: '
+                  msg += lv_cg_name
+                  msg += ' for coverpoint: '
+                  msg += lv_cpt_name + ' '
+                  msg += lv_cpt_bin_name
+                  msg += '\nWhile IEEE 1800 LRM allows this syntax, this '
+                  msg += 'is bad for REUSE aspect as it does not flag '
+                  msg += 'as UVM_ERROR or $error. \n'
+                  msg += 'Also if coverage is turned OFF, this error '
+                  msg += 'is likely to go unflagged. '
+                  msg += 'Recommended to use \'ignore_bins\' instead \n'
+                  msg += 'from coverage perspective and add SVA or '
+                  msg += 'scoreboard for illegal values.'
+                  pyslint_msg ('REUSE_CG_NO_ILBINS_CL', msg)
+
+
+def PERF_CG_NO_ABIN_W_DEF_CL(lv_m):
+  if (lv_m.kind.name == 'ClassDeclaration'):
+    for cl_item_i in (lv_m.items):
+      if (cl_item_i.kind.name == 'CovergroupDeclaration'):
+        lv_cg_name =  cl_item_i.name.valueText.strip()
+        for lv_cg_m_i in cl_item_i.members:
+          if (lv_cg_m_i.kind.name == 'Coverpoint'):
+            lv_cpt_expr = lv_cg_m_i.expr.__str__()
+            lv_cpt_label = lv_cg_m_i.label.__str__()
+            lv_cpt_name = lv_cpt_label + lv_cpt_expr
+            lv_cpt_name = lv_cpt_name.strip()
+            for lv_cpt_m_i in lv_cg_m_i.members:
+              if (lv_cpt_m_i.size is None):
+                continue
+              if (lv_cpt_m_i.size.kind.name == 'CoverageBinsArraySize'):
+                if (lv_cpt_m_i.size.expr is None):
+                  print ('BAD: ', lv_cpt_m_i.size)
+
+              if (lv_cpt_m_i.kind.name == 'CoverageBins'):
+                lv_cpt_bin_s = lv_cpt_m_i.keyword.__str__()
+                if ('illegal_bins' in lv_cpt_bin_s):
+                  lv_cpt_bin_name = lv_cpt_m_i.name.valueText
+                  msg = 'Found \'illegal_bins\' under user-defined bins: \n'
+                  msg += 'covergroup: '
+                  msg += lv_cg_name
+                  msg += ' for coverpoint: '
+                  msg += lv_cpt_name + ' '
+                  msg += lv_cpt_bin_name
+                  msg += '\nWhile IEEE 1800 LRM allows this syntax, this '
+                  msg += 'is bad for REUSE aspect as it does not flag '
+                  msg += 'as UVM_ERROR or $error. \n'
+                  msg += 'Also if coverage is turned OFF, this error '
+                  msg += 'is likely to go unflagged. '
+                  msg += 'Recommended to use \'ignore_bins\' instead \n'
+                  msg += 'from coverage perspective and add SVA or '
+                  msg += 'scoreboard for illegal values.'
+                  lv_rule_id = 'PERF_CG_NO_ABIN_W_DEF_CL'
+                  pyslint_msg (lv_rule_id, msg)
 
 
 def cg_label_chk (lv_m):
@@ -357,6 +454,27 @@ def chk_dpi_spec_str (lv_dpi_mem):
     pyslint_msg (lv_rule_id, msg)
 
 
+def COMPAT_SVA_NO_CONC_IN_FE (lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
+    for lv_mod_mem_i in lv_cu_scope.members:
+      if (lv_mod_mem_i.kind.name == 'InitialBlock'):
+        for lv_init_items_i in lv_mod_mem_i.statement.items:
+
+
+          if (lv_init_items_i.kind.name == 'ForeverStatement'):
+            for lv_fe_i in lv_init_items_i.statement.statement.items:
+              lv_code_s = lv_fe_i.__str__()
+              if (lv_fe_i.kind.name == 'AssertPropertyStatement'):
+                msg = 'A procedural concurrent assertion was found'
+                msg += ' inside a forever loop; IEEE 1800 LRM does not'
+                msg += ' allow such usage though some tools do compile'
+                msg += ' To avoid compatibility issues,'
+                msg += ' please remodel the code:'
+                msg += str(lv_code_s)
+                lv_rule_id = 'COMPAT_SVA_NO_CONC_IN_FE'
+                pyslint_msg (lv_rule_id, msg)
+
+
 def chk_mod_typedef (lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
     for lv_mod_mem_i in lv_cu_scope.members:
@@ -420,6 +538,10 @@ for scope_i in (tree.root.members):
   cl_endlabel_chk (scope_i)
   chk_dpi_rules (scope_i)
   chk_mod_typedef (scope_i)
+  COMPAT_SVA_NO_CONC_IN_FE (scope_i)
+  cg_COMPAT_CG_OPT_PI_CL (scope_i)
+  cg_REUSE_CG_NO_ILBINS_CL (scope_i)
+  PERF_CG_NO_ABIN_W_DEF_CL (scope_i)
 
 
 cu_scope = tree.root.members[0]
