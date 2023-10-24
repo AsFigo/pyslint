@@ -2,6 +2,25 @@ run: naming
 
 naming:
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_01_p.sv > pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_cg_arr_bin_default_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_cg_ill_bins_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_cg_type_opt_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_cnst_arr_method.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_dpi_openar_1_p.c >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_dpi_openar_1_p.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_dpi_rval_2st_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_dpi_spec_str_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_enum_inside_mod_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_35.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_35_1.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_37.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_37_1.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_37_2.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_37_3.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_40.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_41.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_42.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_49_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_02_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_03_p.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_04_f.sv >> pyslint.log
@@ -25,6 +44,13 @@ naming:
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_22_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_23_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_24_f.sv >> pyslint.log
-
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_proc_conc_in_fe_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_proc_conc_in_for_loop_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_proc_conc_in_while_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_qual_1_p.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_qual_2_p.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_qual_cg_cv32e40x_mod_p.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_wc_assoc_array_26_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_uvm_driver_param.sv >> pyslint.log
 	cat pyslint.log
 
