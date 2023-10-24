@@ -36,6 +36,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append ('REUSE_NO_TDEF_IN_MOD')
   lv_sv_ruleid_l.append ('COMPAT_CG_OPT_PI_CL')
   lv_sv_ruleid_l.append ('REUSE_CG_NO_ILBINS_CL')
+  lv_sv_ruleid_l.append ('REUSE_NO_WILDC_AA_CL')
   lv_sv_ruleid_l.append ('PERF_CG_NO_ABIN_W_DEF_CL')
 
 '''
@@ -182,6 +183,23 @@ def cg_REUSE_CG_NO_ILBINS_CL(lv_m):
                   msg += 'scoreboard for illegal values.'
                   pyslint_msg ('REUSE_CG_NO_ILBINS_CL', msg)
 
+
+def REUSE_NO_WILDC_AA_CL(lv_m):
+  if (lv_m.kind.name == 'ClassDeclaration'):
+    for cl_item_i in (lv_m.items):
+      if (cl_item_i.kind.name == 'ClassPropertyDeclaration'):
+        lv_decl_str_s = cl_item_i.__str__()
+        for lv_decl_i in cl_item_i.declaration.declarators:
+          if (not hasattr(lv_decl_i, 'dimensions')):
+            continue
+          for lv_decl_dim_i in lv_decl_i.dimensions:
+            if (lv_decl_dim_i.specifier.kind.name == 'WildcardDimensionSpecifier'):
+              msg = 'Found an associative array declaration with wild-card as key\n'
+              msg += lv_decl_str_s
+              msg += '\nThis is bad for reuse as it does not allow \'foreach\' iterator and other handy built-in functions.\n'
+              msg += 'Consider using a typed key such as int/string etc.'
+              lv_rule_id = 'REUSE_NO_WILDC_AA_CL'
+              pyslint_msg (lv_rule_id, msg)
 
 def PERF_CG_NO_ABIN_W_DEF_CL(lv_m):
   if (lv_m.kind.name == 'ClassDeclaration'):
@@ -542,17 +560,19 @@ for scope_i in (tree.root.members):
   cg_COMPAT_CG_OPT_PI_CL (scope_i)
   cg_REUSE_CG_NO_ILBINS_CL (scope_i)
   PERF_CG_NO_ABIN_W_DEF_CL (scope_i)
+  REUSE_NO_WILDC_AA_CL(scope_i)
 
 
 cu_scope = tree.root.members[0]
 if (cu_scope.kind.name != 'ClassDeclaration'):
-  for m_i in (cu_scope.members):
-    sva_con_assert_label_chk (m_i)
-    sva_con_assume_label_chk (m_i)
-    sva_con_cover_label_chk (m_i)
-    sva_con_assert_fail_ab_chk (m_i)
-    sva_con_assert_no_pass_ab_chk (m_i)
-    sva_prop_label_chk (m_i)
-    sva_prop_endlabel_chk (m_i)
-    cg_label_chk (m_i)
-
+  if (hasattr(cu_scope, 'members')):
+    for m_i in (cu_scope.members):
+      sva_con_assert_label_chk (m_i)
+      sva_con_assume_label_chk (m_i)
+      sva_con_cover_label_chk (m_i)
+      sva_con_assert_fail_ab_chk (m_i)
+      sva_con_assert_no_pass_ab_chk (m_i)
+      sva_prop_label_chk (m_i)
+      sva_prop_endlabel_chk (m_i)
+      cg_label_chk (m_i)
+  
