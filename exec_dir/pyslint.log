@@ -1,3 +1,81 @@
+BAD:  []
+PySlint: Violation: [REUSE_CG_NO_ILBINS_CL]: Found 'illegal_bins' under user-defined bins: 
+covergroup: cg_o_sig for coverpoint: cpt_osig : o_sig_8b invalid_vals
+While IEEE 1800 LRM allows this syntax, this is bad for REUSE aspect as it does not flag as UVM_ERROR or $error. 
+Also if coverage is turned OFF, this error is likely to go unflagged. Recommended to use 'ignore_bins' instead 
+from coverage perspective and add SVA or scoreboard for illegal values.
+PySlint: Violation: [COMPAT_CG_OPT_PI_CL]: Found 'type_option.per_instance' inside a covergroup: cg_o_sig
+IEEE 1800 LRM does not allow such usage though some tools do compile. 
+To avoid compatibility issues, please move the per_instance to 'option.per_instance '
+PySlint: Violation: [FUNC_CNST_MISSING_CAST]: Potentially incorrect constraint expression! An expression involving the array-reduction methods sum()/product()/and()/or()/xor() was found, but is missing an explicit cast. This can lead to strange results as array reduction methods return an expression of the size of its elements, check if you need a with (int'( cast around the following expression: 
+    num_list.sum()
+PySlint: Violation: [FUNC_CNST_MISSING_CAST]: Potentially incorrect constraint expression! An expression involving the array-reduction methods sum()/product()/and()/or()/xor() was found, but is missing an explicit cast. This can lead to strange results as array reduction methods return an expression of the size of its elements, check if you need a with (int'( cast around the following expression: 
+    num_list.and()
+PySlint: Violation: [FUNC_CNST_MISSING_CAST]: Potentially incorrect constraint expression! An expression involving the array-reduction methods sum()/product()/and()/or()/xor() was found, but is missing an explicit cast. This can lead to strange results as array reduction methods return an expression of the size of its elements, check if you need a with (int'( cast around the following expression: 
+    num_list.xor()
+PySlint: Violation: [FUNC_CNST_MISSING_CAST]: Potentially incorrect constraint expression! An expression involving the array-reduction methods sum()/product()/and()/or()/xor() was found, but is missing an explicit cast. This can lead to strange results as array reduction methods return an expression of the size of its elements, check if you need a with (int'( cast around the following expression: 
+    num_list.product()
+PySlint: Violation: [FUNC_DPI_NO_4STATE_IN_RETURN]: DPI functions shall use 2-state types in return value. Using 4-state type can lead to unnecessary complication as C-side does not naturally support 4-state value system Found code as: 
+
+  import "DPI-C" function integer c_sum(input bit [31:0] input_array[]);
+PySlint: Violation: [COMPAT_DPI_OLD_SPECSTR]: Wrong Spec-STR in DPI declaration IEEE 1800-2012 specifies "DPI-C" as Spec-STR. Found code as: 
+
+  import "DPI" function int c_sum(input bit [31:0] input_array[]);
+PySlint: Violation: [REUSE_NO_TDEF_IN_MOD]: A typedef was found inside a module This prevents reuse as the enum/typedef scope is module only An assertion model that binds to this module and check the states using the typedef will be harder to implement in such cases. Please move the typedef to a package and import that package inside the module
+  typedef enum logic [1:0] {S0, S1, S2} state_t;
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  generator: expected suffix: _c
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: generator
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  gen: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  pre_randomize
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  post_randomize
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: gen
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  transaction: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  display
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  copy
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: transaction
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  generator: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: generator
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  driver: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  reset
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: driver
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  monitor: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: monitor
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  scoreboard: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: scoreboard
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  environment: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  pre_test
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  test
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  post_test
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: environment
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  distribution: expected suffix: _c
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: distribution
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  distribution: expected suffix: _c
+PySlint: Violation: [FUNC_CNST_DIST_COL_EQ]: Potentially incorrect constraint expression! An expression involving dist ColonEquals if found And the range used with ColonEquals is large This is likely to skew the random generation and prevent other values in the dist expression to be generated less-frequently than the large range values Review to check if you intended to use ColonSlash instead of ColonEquals
+     data1_bad dist {0:=10, [1:30]:=60}
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: distribution
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  data: expected suffix: _c
+PySlint: Violation: [FUNC_CNST_DIST_COL_EQ]: Potentially incorrect constraint expression! An expression involving dist ColonEquals if found And the range used with ColonEquals is large This is likely to skew the random generation and prevent other values in the dist expression to be generated less-frequently than the large range values Review to check if you intended to use ColonSlash instead of ColonEquals field1 dist {[0:31] := 1, [32:65535] := 1}
+PySlint: Violation: [FUNC_CNST_DIST_COL_EQ]: Potentially incorrect constraint expression! An expression involving dist ColonEquals if found And the range used with ColonEquals is large This is likely to skew the random generation and prevent other values in the dist expression to be generated less-frequently than the large range values Review to check if you intended to use ColonSlash instead of ColonEquals field1 dist {[0:31] := 1, [32:65535] := 1}
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: data
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  clk: expected suffix: _c
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: clk
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  A: expected suffix: _c
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: A
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  c: expected suffix: _c
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: c
+PySlint: Violation: [FUNC_NO_2STATE_IN_INTF]: Potential DUT bug hiding construct in use:  Inside SystemVerilog interface, it is recommended to use only 4-state signals/nets. Found a 2-state declaration as: 
+  bit bad_2st;
+PySlint: Violation: [FUNC_NO_2STATE_IN_INTF]: Potential DUT bug hiding construct in use:  Inside SystemVerilog interface, it is recommended to use only 4-state signals/nets. Found a 2-state declaration as: 
+  bit [7:0] bad_2st_vec;
+PySlint: Violation: [FUNC_NO_2STATE_IN_INTF]: Potential DUT bug hiding construct in use:  Inside SystemVerilog interface, it is recommended to use only 4-state signals/nets. Found a 2-state declaration as: 
+  bit [3:0] bad_2st_2d [10];
+PySlint: Violation: [FUNC_NO_2STATE_IN_INTF]: Potential DUT bug hiding construct in use:  Inside SystemVerilog interface, it is recommended to use only 4-state signals/nets. Found a 2-state declaration as: 
+  bit [9:0] bad_2st_3d [10][5];
 PySlint: Violation: [NAME_INTF_SUFFIX]: Improper naming of identifier:  af_sv_intf_bad: expected suffix: _if
 PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  af_bad_class_name: expected suffix: _c
 PySlint: Violation: [NAME_CG_PREFIX]: Improper naming of identifier: bad_group_name: expected prefix: cg_
@@ -39,18 +117,32 @@ PySlint: Violation: [SVA_NO_PASS_AB]: Avoid using PASS Action block - likely to 
    a_new : assert property ((@posedge clk) p_req_cycle
 PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  randvar: expected suffix: _c
 PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: randvar
+PySlint: Violation: [COMPAT_SVA_NO_CONC_IN_FE]: A procedural concurrent assertion was found inside a forever loop; IEEE 1800 LRM does not allow such usage though some tools do compile To avoid compatibility issues, please remodel the code:
+      forever_asrt: assert property(forever_pp);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: always_pp: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: always_pp
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: forever_pp: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: forever_pp
+PySlint: Violation: [COMPAT_SVA_NO_CONC_IN_FE]: A procedural concurrent assertion was found inside a forever loop; IEEE 1800 LRM does not allow such usage though some tools do compile To avoid compatibility issues, please remodel the code:
+      forever_asrt: assert property(forever_pp);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: always_pp: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: always_pp
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: forever_pp: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: forever_pp
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: always_pp: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: always_pp
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: a_imp_b: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: a_imp_b
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  disp
+PySlint: Violation: [REUSE_NO_WILDC_AA_CL]: Found an associative array declaration with wild-card as key
 
-// Create an object of the randvar class called pkt
-randvar pkt;
-SyntaxKind.DataDeclaration
-
-// Allocate memory for the pkt object
-// pkt = new();
-//Lint must catch this violation as the pkt object is not allocated with any memory
-// Call the randomize method to assign random values to the variables in pkt
-pkt.randomize();
-SyntaxKind.ExpressionStatement
-
-// Display the randomly generated values of the variables in pkt using the $display function
-$display("\t VAR1 = %0d \t VAR2 = %0d \t VAR3 = %0d \t VAR4 = %0d ",pkt.var1, pkt.var2, pkt.var3, pkt.var4);
-SyntaxKind.ExpressionStatement
+  string fruits[*];
+This is bad for reuse as it does not allow 'foreach' iterator and other handy built-in functions.
+Consider using a typed key such as int/string etc.
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  alu_driver: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  build_phase
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  connect_phase
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run_phase
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  drive
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  extension: expected suffix: _c
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: extension
