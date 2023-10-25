@@ -1,4 +1,10 @@
-BAD:  []
+PySlint: Violation: [PERF_CG_NO_ABIN_W_DEF_CL]: Found Array-bins: 
+	covergroup: cg_with_arr_def
+	coverpoint: i
+	BIN: others
+	bins others[] = default;
+
+	While IEEE 1800 LRM allows this syntax, this is bad for Performance aspect as it ends up creating large number of bins. Recommended to remove this bin.
 PySlint: Violation: [REUSE_CG_NO_ILBINS_CL]: Found 'illegal_bins' under user-defined bins: 
 covergroup: cg_o_sig for coverpoint: cpt_osig : o_sig_8b invalid_vals
 While IEEE 1800 LRM allows this syntax, this is bad for REUSE aspect as it does not flag as UVM_ERROR or $error. 
