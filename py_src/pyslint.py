@@ -7,6 +7,16 @@
 import pyslang
 import argparse
 import tomli
+import copy
+import functools
+
+def rhasattr(obj, path):
+  try:
+    functools.reduce(getattr, path.split("."), obj)
+    return True
+  except AttributeError:
+    return False
+
 
 print_verbose = False
 
@@ -38,6 +48,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append ('REUSE_CG_NO_ILBINS_CL')
   lv_sv_ruleid_l.append ('REUSE_NO_WILDC_AA_CL')
   lv_sv_ruleid_l.append ('PERF_CG_NO_ABIN_W_DEF_CL')
+  lv_sv_ruleid_l.append ('COMPAT_SVA_NO_DEGEN_CONSEQ')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -326,6 +337,27 @@ def sva_con_cover_label_chk (lv_m):
         msg += lv_exp_s
         pyslint_msg ('NAME_COV_PREFIX', msg)
 
+def COMPAT_SVA_NO_DEGEN_CONSEQ (lv_m):
+  if (lv_m.kind.name == 'PropertyDeclaration'):
+
+    lv_p_expr = lv_m.propertySpec.expr
+    lv_p_str = lv_p_expr.__str__()
+
+    if (hasattr(lv_p_expr, 'right')):
+      lv_p_expr_r = lv_m.propertySpec.expr.right.expr
+      if (hasattr(lv_p_expr_r, 'repetition')):
+        lv_p_expr_r = lv_m.propertySpec.expr.right.expr.repetition
+        if (hasattr(lv_p_expr_r, 'selector')):
+          lv_rep_val = lv_m.propertySpec.expr.right.expr.repetition.selector.expr.literal.valueText.strip()
+          if (lv_rep_val == "0"):
+            msg = 'Empty match ([*0] or variants) found in a property expression. \n'
+            msg += '\tThough some compilers allow this, IEEE 1800 LRM prevents'
+            msg += ' such usage, so for maximum compatibility across EDA \n'
+            msg += '\ttools and LRM compliance, please remove the empty match. \n'
+            msg += lv_p_str
+            lu_rule_id = 'COMPAT_SVA_NO_DEGEN_CONSEQ'
+            pyslint_msg (lu_rule_id, msg)
+
 def sva_prop_label_chk (lv_m):
   if (lv_m.kind.name == 'PropertyDeclaration'):
     lv_prop_label = lv_m.name.valueText
@@ -573,6 +605,7 @@ if (cu_scope.kind.name != 'ClassDeclaration'):
       sva_con_assert_fail_ab_chk (m_i)
       sva_con_assert_no_pass_ab_chk (m_i)
       sva_prop_label_chk (m_i)
+      COMPAT_SVA_NO_DEGEN_CONSEQ (m_i)
       sva_prop_endlabel_chk (m_i)
       cg_label_chk (m_i)
   
