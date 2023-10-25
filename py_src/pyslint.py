@@ -342,6 +342,28 @@ def COMPAT_SVA_NO_DEGEN_CONSEQ (lv_m):
 
     lv_p_expr = lv_m.propertySpec.expr
     lv_p_str = lv_p_expr.__str__()
+    lv_found_rep_val = False
+
+    if (hasattr(lv_p_expr, 'expr')):
+      lv_p_expr_r = lv_m.propertySpec.expr.expr
+      if (hasattr(lv_p_expr_r, 'right')):
+        lv_p_expr_r_1 = lv_m.propertySpec.expr.expr.right.expr
+        if (hasattr(lv_p_expr_r_1, 'repetition')):
+          lv_p_expr_r_2 = lv_p_expr_r_1.repetition
+          if (hasattr(lv_p_expr_r_2, 'selector')):
+            lv_p_expr_r_3 = lv_p_expr_r_2.selector
+            if (hasattr(lv_p_expr_r_3, 'left')):
+              lv_p_expr_r_4 = lv_p_expr_r_3.left
+              lv_rep_val = "UNKNOWN"
+              lv_rep_val = lv_p_expr_r_4.literal.valueText.strip()
+              lv_found_rep_val = True
+
+      if (hasattr(lv_p_expr_r, 'expr')):
+        lv_p_expr_r = lv_m.propertySpec.expr.expr.expr
+        if (hasattr(lv_p_expr_r, 'repetition')):
+          lv_rep_val = lv_m.propertySpec.expr.expr.expr.repetition.selector.expr.literal.valueText.strip()
+          lv_found_rep_val = True
+
 
     if (hasattr(lv_p_expr, 'right')):
       lv_p_expr_r = lv_m.propertySpec.expr.right.expr
@@ -349,14 +371,16 @@ def COMPAT_SVA_NO_DEGEN_CONSEQ (lv_m):
         lv_p_expr_r = lv_m.propertySpec.expr.right.expr.repetition
         if (hasattr(lv_p_expr_r, 'selector')):
           lv_rep_val = lv_m.propertySpec.expr.right.expr.repetition.selector.expr.literal.valueText.strip()
-          if (lv_rep_val == "0"):
-            msg = 'Empty match ([*0] or variants) found in a property expression. \n'
-            msg += '\tThough some compilers allow this, IEEE 1800 LRM prevents'
-            msg += ' such usage, so for maximum compatibility across EDA \n'
-            msg += '\ttools and LRM compliance, please remove the empty match. \n'
-            msg += lv_p_str
-            lu_rule_id = 'COMPAT_SVA_NO_DEGEN_CONSEQ'
-            pyslint_msg (lu_rule_id, msg)
+          lv_found_rep_val = True
+
+    if (lv_found_rep_val and lv_rep_val == "0"):
+      msg = 'Empty match ([*0] or variants) found in a property expression. \n'
+      msg += '\tThough some compilers allow this, IEEE 1800 LRM prevents'
+      msg += ' such usage, so for maximum compatibility across EDA \n'
+      msg += '\ttools and LRM compliance, please remove the empty match. \n'
+      msg += lv_p_str
+      lu_rule_id = 'COMPAT_SVA_NO_DEGEN_CONSEQ'
+      pyslint_msg (lu_rule_id, msg)
 
 def sva_prop_label_chk (lv_m):
   if (lv_m.kind.name == 'PropertyDeclaration'):

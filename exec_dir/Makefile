@@ -53,6 +53,8 @@ naming:
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_wc_assoc_array_26_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_uvm_driver_param.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_sva_emp_mat_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_sva_emp_mat_1_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_sva_emp_mat_2_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/AxiPC.sv >> pyslint.log
 	cat pyslint.log
 
