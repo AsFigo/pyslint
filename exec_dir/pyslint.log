@@ -154,6 +154,20 @@ PySlint: Violation: [COMPAT_SVA_NO_DEGEN_CONSEQ]: Empty match ([*0] or variants)
 PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: ab
 PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
   a_p_ab : assert property (ab);
+PySlint: Violation: [COMPAT_SVA_NO_DEGEN_CONSEQ]: Empty match ([*0] or variants) found in a property expression. 
+	Though some compilers allow this, IEEE 1800 LRM prevents such usage, so for maximum compatibility across EDA 
+	tools and LRM compliance, please remove the empty match. 
+
+    (a[*0])
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+  a_p_empty_sequence_1 : assert property (p_empty_sequence_1);
+PySlint: Violation: [COMPAT_SVA_NO_DEGEN_CONSEQ]: Empty match ([*0] or variants) found in a property expression. 
+	Though some compilers allow this, IEEE 1800 LRM prevents such usage, so for maximum compatibility across EDA 
+	tools and LRM compliance, please remove the empty match. 
+
+    (a |-> a[*0:3])
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+  a_p_empty_sequence_2 : assert property (empty_sequence_2);
 PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWADDR_BOUNDARY: expected prefix: p_
 PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWADDR_BOUNDARY
 PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awaddr_boundary: expected prefix: a_
