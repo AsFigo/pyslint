@@ -146,3 +146,473 @@ PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run_
 PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  drive
 PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  extension: expected suffix: _c
 PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: extension
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: ab: expected prefix: p_
+PySlint: Violation: [COMPAT_SVA_NO_DEGEN_CONSEQ]: Empty match ([*0] or variants) found in a property expression. 
+	Though some compilers allow this, IEEE 1800 LRM prevents such usage, so for maximum compatibility across EDA 
+	tools and LRM compliance, please remove the empty match. 
+ a |=> b[=0]
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: ab
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+  a_p_ab : assert property (ab);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWADDR_BOUNDARY: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWADDR_BOUNDARY
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awaddr_boundary: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWADDR_WRAP_ALIGN: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWADDR_WRAP_ALIGN
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awaddr_wrap_align: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWBURST: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWBURST
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awburst: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWCACHE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWCACHE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awcache: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWLEN_WRAP: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWLEN_WRAP
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awlen_wrap: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWLOCK: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWLOCK
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awlock: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWLOCK_END: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWLOCK_END
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awlock_end: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWLOCK_ID: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWLOCK_ID
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awlock_id: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWLOCK_LAST: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWLOCK_LAST
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awlock_last: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWLOCK_START: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWLOCK_START
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awlock_start: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWSIZE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWSIZE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awsize: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWVALID_RESET: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWVALID_RESET
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awvalid_reset: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_RECM_AWLOCK_BOUNDARY: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_RECM_AWLOCK_BOUNDARY
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_recm_awlock_boundary: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_RECM_AWLOCK_CTRL: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_RECM_AWLOCK_CTRL
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_recm_awlock_ctrl: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_RECM_AWLOCK_NUM: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_RECM_AWLOCK_NUM
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_recm_awlock_num: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWADDR_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWADDR_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awaddr_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWBURST_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWBURST_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awburst_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWCACHE_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWCACHE_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awcache_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWID_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWID_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awid_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWLEN_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWLEN_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awlen_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWLOCK_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWLOCK_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awlock_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWPROT_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWPROT_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awprot_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWSIZE_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWSIZE_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awsize_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWVALID_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWVALID_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awvalid_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_RECS_AWREADY_MAX_WAIT: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_RECS_AWREADY_MAX_WAIT
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_recs_awready_max_wait: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWADDR_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWADDR_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awaddr_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWBURST_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWBURST_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awburst_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWCACHE_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWCACHE_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awcache_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWID_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWID_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awid_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWLEN_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWLEN_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awlen_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWLOCK_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWLOCK_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awlock_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWPROT_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWPROT_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awprot_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWSIZE_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWSIZE_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awsize_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWVALID_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWVALID_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awvalid_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_AWREADY_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_AWREADY_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_awready_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WDATA_NUM: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WDATA_NUM
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wdata_num: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WDATA_ORDER: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WDATA_ORDER
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wdata_order: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WDEPTH: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WDEPTH
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wdepth: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WSTRB: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WSTRB
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wstrb: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WVALID_RESET: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WVALID_RESET
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wvalid_reset: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WDATA_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WDATA_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wdata_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WID_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WID_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wid_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WLAST_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WLAST_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wlast_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WSTRB_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WSTRB_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wstrb_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WVALID_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WVALID_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wvalid_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_RECS_WREADY_MAX_WAIT: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_RECS_WREADY_MAX_WAIT
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_recs_wready_max_wait: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WDATA_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WDATA_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wdata_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WID_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WID_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wid_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WLAST_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WLAST_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wlast_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WSTRB_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WSTRB_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wstrb_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WVALID_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WVALID_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wvalid_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_WREADY_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_WREADY_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_wready_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_BRESP: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_BRESP
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_bresp: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_BRESP_EXOKAY: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_BRESP_EXOKAY
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_bresp_exokay: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_BVALID_RESET: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_BVALID_RESET
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_bvalid_reset: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_RECS_BRESP: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_RECS_BRESP
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_recs_bresp: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_BID_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_BID_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_bid_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_BRESP_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_BRESP_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_bresp_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_BVALID_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_BVALID_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_bvalid_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_RECM_BREADY_MAX_WAIT: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_RECM_BREADY_MAX_WAIT
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_recm_bready_max_wait: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_BREADY_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_BREADY_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_bready_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_BID_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_BID_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_bid_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_BRESP_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_BRESP_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_bresp_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_BVALID_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_BVALID_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_bvalid_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARADDR_BOUNDARY: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARADDR_BOUNDARY
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_araddr_boundary: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARADDR_WRAP_ALIGN: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARADDR_WRAP_ALIGN
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_araddr_wrap_align: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARBURST: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARBURST
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arburst: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARCACHE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARCACHE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arcache: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARLEN_WRAP: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARLEN_WRAP
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arlen_wrap: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARLOCK: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARLOCK
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arlock: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARLOCK_END: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARLOCK_END
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arlock_end: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARLOCK_ID: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARLOCK_ID
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arlock_id: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARLOCK_LAST: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARLOCK_LAST
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arlock_last: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARLOCK_START: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARLOCK_START
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arlock_start: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARSIZE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARSIZE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arsize: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARVALID_RESET: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARVALID_RESET
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arvalid_reset: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_RECM_ARLOCK_BOUNDARY: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_RECM_ARLOCK_BOUNDARY
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_recm_arlock_boundary: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_RECM_ARLOCK_CTRL: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_RECM_ARLOCK_CTRL
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_recm_arlock_ctrl: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_RECM_ARLOCK_NUM: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_RECM_ARLOCK_NUM
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_recm_arlock_num: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARADDR_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARADDR_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_araddr_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARBURST_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARBURST_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arburst_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARCACHE_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARCACHE_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arcache_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARID_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARID_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arid_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARLEN_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARLEN_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arlen_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARLOCK_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARLOCK_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arlock_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARPROT_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARPROT_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arprot_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARSIZE_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARSIZE_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arsize_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARVALID_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARVALID_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arvalid_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_RECS_ARREADY_MAX_WAIT: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_RECS_ARREADY_MAX_WAIT
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_recs_arready_max_wait: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARADDR_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARADDR_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_araddr_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARBURST_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARBURST_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arburst_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARCACHE_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARCACHE_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arcache_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARID_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARID_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arid_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARLEN_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARLEN_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arlen_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARLOCK_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARLOCK_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arlock_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARPROT_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARPROT_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arprot_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARSIZE_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARSIZE_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arsize_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARVALID_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARVALID_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_arvalid_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_ARREADY_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_ARREADY_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_arready_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RDATA_NUM: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RDATA_NUM
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_rdata_num: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RID: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RID
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_rid: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RRESP_EXOKAY: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RRESP_EXOKAY
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_rresp_exokay: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RVALID_RESET: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RVALID_RESET
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_rvalid_reset: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RDATA_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RDATA_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_rdata_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RID_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RID_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_rid_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RLAST_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RLAST_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_rlast_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RRESP_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RRESP_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_rresp_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RVALID_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RVALID_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_rvalid_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_RECM_RREADY_MAX_WAIT: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_RECM_RREADY_MAX_WAIT
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_recm_rready_max_wait: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RDATA_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RDATA_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_rdata_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_RREADY_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_RREADY_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_rready_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RID_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RID_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_rid_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RLAST_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RLAST_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_rlast_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RRESP_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RRESP_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_rresp_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RVALID_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RVALID_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_rvalid_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRL_CSYSACK_FALL: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRL_CSYSACK_FALL
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errl_csysack_fall: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRL_CSYSACK_RISE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRL_CSYSACK_RISE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errl_csysack_rise: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRL_CSYSREQ_FALL: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRL_CSYSREQ_FALL
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errl_csysreq_fall: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRL_CSYSREQ_RISE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRL_CSYSREQ_RISE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errl_csysreq_rise: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRL_CACTIVE_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRL_CACTIVE_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errl_cactive_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRL_CSYSACK_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRL_CSYSACK_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errl_csysack_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRL_CSYSREQ_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRL_CSYSREQ_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errl_csysreq_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_EXCL_ALIGN: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_EXCL_ALIGN
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_excl_align: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_EXCL_LEN: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_EXCL_LEN
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_excl_len: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_RECM_EXCL_MATCH: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_RECM_EXCL_MATCH
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_recm_excl_match: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_EXCL_MAX: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_EXCL_MAX
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_excl_max: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_RECM_EXCL_PAIR: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_RECM_EXCL_PAIR
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_recm_excl_pair: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWUSER_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWUSER_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awuser_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WUSER_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WUSER_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wuser_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_BUSER_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_BUSER_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_buser_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARUSER_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARUSER_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_aruser_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RUSER_STABLE: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RUSER_STABLE
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_ruser_stable: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWUSER_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWUSER_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awuser_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_WUSER_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_WUSER_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_wuser_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_BUSER_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_BUSER_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_buser_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_ARUSER_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_ARUSER_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_aruser_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRS_RUSER_X: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRS_RUSER_X
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errs_ruser_x: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_DATA_WIDTH: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_DATA_WIDTH
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_data_width: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_ADDR_WIDTH: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_ADDR_WIDTH
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_addr_width: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_AWUSER_WIDTH: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_AWUSER_WIDTH
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_awuser_width: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_WUSER_WIDTH: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_WUSER_WIDTH
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_wuser_width: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_BUSER_WIDTH: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_BUSER_WIDTH
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_buser_width: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_ARUSER_WIDTH: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_ARUSER_WIDTH
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_aruser_width: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_RUSER_WIDTH: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_RUSER_WIDTH
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_ruser_width: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_ID_WIDTH: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_ID_WIDTH
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_id_width: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_EXMON_WIDTH: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_EXMON_WIDTH
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_exmon_width: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_WDEPTH: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_WDEPTH
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_wdepth: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_MAXRBURSTS: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_MAXRBURSTS
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_maxrbursts: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_MAXWBURSTS: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_MAXWBURSTS
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_maxwbursts: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_RCAM_OVERFLOW: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_RCAM_OVERFLOW
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_rcam_overflow: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_RCAM_UNDERFLOW: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_RCAM_UNDERFLOW
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_rcam_underflow: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_WCAM_OVERFLOW: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_WCAM_OVERFLOW
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_wcam_overflow: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_WCAM_UNDERFLOW: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_WCAM_UNDERFLOW
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_wcam_underflow: expected prefix: a_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_EXCL_OVERFLOW: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_EXCL_OVERFLOW
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_excl_overflow: expected prefix: a_
