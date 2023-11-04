@@ -10,6 +10,9 @@ import tomli
 import copy
 import functools
 
+# Fix labels  Done
+# Add lv_id Done
+
 def rhasattr(obj, path):
   try:
     functools.reduce(getattr, path.split("."), obj)
@@ -17,67 +20,67 @@ def rhasattr(obj, path):
   except AttributeError:
     return False
 
-
 print_verbose = False
 
 def pyslint_update_rule_ids():
   lv_sv_ruleid_l = list()
-  lv_sv_ruleid_l.append ('NAME_INTF_SUFFIX')
-  lv_sv_ruleid_l.append ('NAME_CLASS_SUFFIX')
-  lv_sv_ruleid_l.append ('NAME_CNST_SUFFIX')
-  lv_sv_ruleid_l.append ('NAME_CG_PREFIX')
-  lv_sv_ruleid_l.append ('NAME_CP_PREFIX')
-  lv_sv_ruleid_l.append ('NAME_CR_PREFIX')
-  lv_sv_ruleid_l.append ('NAME_PROP_PREFIX')
-  lv_sv_ruleid_l.append ('NAME_AST_PREFIX')
-  lv_sv_ruleid_l.append ('NAME_ASM_PREFIX')
-  lv_sv_ruleid_l.append ('NAME_COV_PREFIX')
-  lv_sv_ruleid_l.append ('SVA_MISSING_FAIL_AB')
-  lv_sv_ruleid_l.append ('SVA_MISSING_LABEL')
-  lv_sv_ruleid_l.append ('SVA_MISSING_ENDLABEL')
-  lv_sv_ruleid_l.append ('SVA_NO_PASS_AB')
-  lv_sv_ruleid_l.append ('COMPAT_SVA_NO_CONC_IN_FE')
-  lv_sv_ruleid_l.append ('COMPAT_DPI_OLD_SPECSTR')
-  lv_sv_ruleid_l.append ('CL_METHOD_NOT_EXTERN')
-  lv_sv_ruleid_l.append ('CL_MISSING_ENDLABEL')
-  lv_sv_ruleid_l.append ('PERF_CG_TOO_MANY_CROSS')
-  lv_sv_ruleid_l.append ('FUNC_CNST_MISSING_CAST')
-  lv_sv_ruleid_l.append ('FUNC_CNST_DIST_COL_EQ')
-  lv_sv_ruleid_l.append ('REUSE_NO_TDEF_IN_MOD')
-  lv_sv_ruleid_l.append ('COMPAT_CG_OPT_PI_CL')
-  lv_sv_ruleid_l.append ('REUSE_CG_NO_ILBINS_CL')
-  lv_sv_ruleid_l.append ('REUSE_NO_WILDC_AA_CL')
-  lv_sv_ruleid_l.append ('PERF_CG_NO_ABIN_W_DEF_CL')
-  lv_sv_ruleid_l.append ('COMPAT_SVA_NO_DEGEN_CONSEQ')
+  lv_sv_ruleid_l.append('NAME_INTF_SUFFIX')
+  lv_sv_ruleid_l.append('NAME_CLASS_SUFFIX')
+  lv_sv_ruleid_l.append('NAME_CNST_SUFFIX')
+  lv_sv_ruleid_l.append('NAME_CG_PREFIX')
+  lv_sv_ruleid_l.append('NAME_CP_PREFIX')
+  lv_sv_ruleid_l.append('NAME_CR_PREFIX')
+  lv_sv_ruleid_l.append('NAME_PROP_PREFIX')
+  lv_sv_ruleid_l.append('NAME_AST_PREFIX')
+  lv_sv_ruleid_l.append('NAME_ASM_PREFIX')
+  lv_sv_ruleid_l.append('NAME_COV_PREFIX')
+  lv_sv_ruleid_l.append('SVA_MISSING_FAIL_AB')
+  lv_sv_ruleid_l.append('SVA_MISSING_LABEL')
+  lv_sv_ruleid_l.append('SVA_MISSING_ENDLABEL')
+  lv_sv_ruleid_l.append('SVA_NO_PASS_AB')
+  lv_sv_ruleid_l.append('COMPAT_SVA_NO_CONC_IN_FE')
+  lv_sv_ruleid_l.append('COMPAT_DPI_OLD_SPECSTR')
+  lv_sv_ruleid_l.append('CL_METHOD_NOT_EXTERN')
+  lv_sv_ruleid_l.append('CL_MISSING_ENDLABEL')
+  lv_sv_ruleid_l.append('PERF_CG_TOO_MANY_CROSS')
+  lv_sv_ruleid_l.append('FUNC_CNST_MISSING_CAST')
+  lv_sv_ruleid_l.append('FUNC_CNST_DIST_COL_EQ')
+  lv_sv_ruleid_l.append('REUSE_NO_TDEF_IN_MOD')
+  lv_sv_ruleid_l.append('COMPAT_CG_OPT_PI_CL')
+  lv_sv_ruleid_l.append('REUSE_CG_NO_ILBINS_CL')
+  lv_sv_ruleid_l.append('REUSE_NO_WILDC_AA_CL')
+  lv_sv_ruleid_l.append('PERF_CG_NO_ABIN_W_DEF_CL')
+  lv_sv_ruleid_l.append('COMPAT_SVA_NO_DEGEN_CONSEQ')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
   config = tomli.load(fp)
-  #print (config)
+  #print(config)
 '''
 
-def pyslint_rule_enabled (rule_id):
+def pyslint_rule_enabled(rule_id):
   return True
 
-def pyslint_msg (rule_id, msg):
+def pyslint_msg(rule_id, msg):
   if (pyslint_rule_enabled(rule_id)):
     pyslint_str = 'PySlint: Violation: ['
     pyslint_str += rule_id
     pyslint_str += ']: '
     pyslint_str += msg 
-    print (pyslint_str)
+    print(pyslint_str)
 
 #PySlint: Error Use extern methods
-def use_extern (lv_cu_scope):
+def CL_METHOD_NOT_EXTERN(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ClassDeclaration'):
     for cl_item in (lv_cu_scope.items):
 
       if (cl_item.kind.name == 'ClassMethodDeclaration'):
         if (cl_item.declaration.prototype.name.kind.name != 'ConstructorName'):
             msg = 'method is not declared extern: '+ str(cl_item.declaration.prototype.name)
-            pyslint_msg ('CL_METHOD_NOT_EXTERN', msg)
+            lv_rule_id = "CL_METHOD_NOT_EXTERN"
+            pyslint_msg(lv_rule_id, msg)
 
-def af_cnst_dist_chk (cnst_i):
+def FUNC_CNST_DIST_COL_EQ(cnst_i):
   for lv_dist_item_i in cnst_i.expr.distribution.items:
     lv_cnst_expr_s = cnst_i.expr.__str__()
     lv_large_range = False
@@ -101,9 +104,10 @@ def af_cnst_dist_chk (cnst_i):
           msg += ' Review to check if you intended to use ColonSlash'
           msg += ' instead of ColonEquals'
           msg += lv_cnst_expr_s
-          pyslint_msg ('FUNC_CNST_DIST_COL_EQ', msg)
+          lv_rule_id = 'FUNC_CNST_DIST_COL_EQ'
+          pyslint_msg(lv_rule_id, msg)
 
-def cnst_arr_method_cast (lv_cu_scope):
+def FUNC_CNST_MISSING_CAST (lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ClassDeclaration'):
     for cl_item in (lv_cu_scope.items):
       if (cl_item.kind.name == 'ConstraintDeclaration'):
@@ -121,7 +125,7 @@ def cnst_arr_method_cast (lv_cu_scope):
           # Fix for Issue 37, dist expressions
           # do not have left/right
           if (lv_cnst_i.expr.kind.name == 'ExpressionOrDist'):
-            af_cnst_dist_chk (lv_cnst_i)
+            FUNC_CNST_DIST_COL_EQ (lv_cnst_i)
             continue
           if (lv_cnst_i.expr.left.kind.name == 'InvocationExpression'):
             lv_cnst_expr_s = lv_cnst_i.expr.left.__str__()
@@ -141,7 +145,8 @@ def cnst_arr_method_cast (lv_cu_scope):
               msg += ' its elements, check if you need a with'
               msg += ' (int\'( cast around the following expression:'
               msg += lv_cnst_expr_s
-              pyslint_msg ('FUNC_CNST_MISSING_CAST', msg)
+              lv_rule_id = "FUNC_CNST_MISSING_CAST"
+              pyslint_msg(lv_rule_id, msg)
 
 def COMPAT_CG_OPT_PI_CL(lv_m):
   if (lv_m.kind.name == 'ClassDeclaration'):
@@ -149,7 +154,7 @@ def COMPAT_CG_OPT_PI_CL(lv_m):
       if (cl_item_i.kind.name == 'CovergroupDeclaration'):
         for lv_cg_m_i in cl_item_i.members:
           if (lv_cg_m_i.kind.name == 'CoverageOption'):
-            lv_cg_name =  cl_item_i.name.valueText
+            lv_cg_name = cl_item_i.name.valueText
             lv_cg_opt = lv_cg_m_i.expr.left.__str__()
             if ('type_option.per_instance' in lv_cg_opt):
               msg = 'Found \'type_option.per_instance\' '
@@ -161,13 +166,13 @@ def COMPAT_CG_OPT_PI_CL(lv_m):
               msg += ' please move the per_instance to'
               msg += ' \'option.per_instance \''
               lv_rule_id = "COMPAT_CG_OPT_PI_CL"
-              pyslint_msg (lv_rule_id, msg)
+              pyslint_msg(lv_rule_id, msg)
 
 def REUSE_CG_NO_ILBINS_CL(lv_m):
   if (lv_m.kind.name == 'ClassDeclaration'):
     for cl_item_i in (lv_m.items):
       if (cl_item_i.kind.name == 'CovergroupDeclaration'):
-        lv_cg_name =  cl_item_i.name.valueText.strip()
+        lv_cg_name = cl_item_i.name.valueText.strip()
         for lv_cg_m_i in cl_item_i.members:
           if (lv_cg_m_i.kind.name == 'Coverpoint'):
             lv_cpt_expr = lv_cg_m_i.expr.__str__()
@@ -194,8 +199,7 @@ def REUSE_CG_NO_ILBINS_CL(lv_m):
                   msg += 'from coverage perspective and add SVA or '
                   msg += 'scoreboard for illegal values.'
                   lv_rule_id = "REUSE_CG_NO_ILBINS_CL"
-                  pyslint_msg (lv_rule_id, msg)
-
+                  pyslint_msg(lv_rule_id, msg)
 
 def REUSE_NO_WILDC_AA_CL(lv_m):
   if (lv_m.kind.name == 'ClassDeclaration'):
@@ -212,7 +216,7 @@ def REUSE_NO_WILDC_AA_CL(lv_m):
               msg += '\nThis is bad for reuse as it does not allow \'foreach\' iterator and other handy built-in functions.\n'
               msg += 'Consider using a typed key such as int/string etc.'
               lv_rule_id = 'REUSE_NO_WILDC_AA_CL'
-              pyslint_msg (lv_rule_id, msg)
+              pyslint_msg(lv_rule_id, msg)
 
 def PERF_CG_NO_ABIN_W_DEF_CL(lv_m):
   if (lv_m.kind.name == 'ClassDeclaration'):
@@ -246,10 +250,9 @@ def PERF_CG_NO_ABIN_W_DEF_CL(lv_m):
                     msg += 'is bad for Performance aspect as it ends up creating'
                     msg += ' large number of bins. Recommended to remove this bin.'
                     lv_rule_id = 'PERF_CG_NO_ABIN_W_DEF_CL'
-                    pyslint_msg (lv_rule_id, msg)
+                    pyslint_msg(lv_rule_id, msg)
 
-
-def cg_label_chk (lv_m):
+def NAME_CG_PREFIX(lv_m):
   if (lv_m.kind.name == 'ClassDeclaration'):
     for cl_item_i in (lv_m.items):
       if (cl_item_i.kind.name == 'CovergroupDeclaration'):
@@ -260,7 +263,8 @@ def cg_label_chk (lv_m):
           msg += lv_cg_name
           msg += ': expected prefix: '
           msg += lv_exp_s
-          pyslint_msg ('NAME_CG_PREFIX', msg)
+          lv_rule_id = "NAME_CG_PREFIX"
+          pyslint_msg(lv_rule_id, msg)
 
   if (lv_m.kind.name == 'CovergroupDeclaration'):
     lv_cg_name =  lv_m.name.valueText
@@ -270,16 +274,16 @@ def cg_label_chk (lv_m):
       msg += lv_cg_name
       msg += ': expected prefix: '
       msg += lv_exp_s
-      pyslint_msg ('NAME_CG_PREFIX', msg)
+      lv_rule_id = 'NAME_CG_PREFIX'
+      pyslint_msg(lv_rule_id, msg)
 
-
-def sva_con_assert_label_chk (lv_m):
-
+def NAME_AST_PREFIX(lv_m):
   if (lv_m.kind.name == 'ConcurrentAssertionMember'):
     if (lv_m.statement.label is None):
       msg = 'Unnamed assertion - use a meaningful label: ' 
       msg += str(lv_m.statement)
-      pyslint_msg ('SVA_MISSING_LABEL', msg)
+      lv_rule_id = 'SVA_MISSING_LABEL'
+      pyslint_msg(lv_rule_id, msg)
     else:
       lv_label = lv_m.statement.label.name.value
       lv_sva_vdir = lv_m.statement.keyword.valueText
@@ -292,14 +296,16 @@ def sva_con_assert_label_chk (lv_m):
         msg += lv_label
         msg += ': expected prefix: '
         msg += lv_exp_s
-        pyslint_msg ('NAME_AST_PREFIX', msg)
+        lv_rule_id = 'NAME_AST_PREFIX'
+        pyslint_msg(lv_rule_id, msg)
 
-def sva_con_assume_label_chk (lv_m):
+def NAME_ASM_PREFIX(lv_m):
   if (lv_m.kind.name == 'ConcurrentAssertionMember'):
     if (lv_m.statement.label is None):
       msg = 'Unnamed assumption - use a meaningful label: ' 
       msg += str(lv_m.statement)
-      pyslint_msg ('SVA_MISSING_LABEL', msg)
+      lv_rule_id = "SVA_MISSING_LABEL"
+      pyslint_msg(lv_rule_id, msg)
     else:
       lv_label = lv_m.statement.label.name.value
       lv_sva_vdir = lv_m.statement.keyword.valueText
@@ -312,14 +318,16 @@ def sva_con_assume_label_chk (lv_m):
         msg += lv_label
         msg += ': expected prefix: '
         msg += lv_exp_s
-        pyslint_msg ('NAME_ASM_PREFIX', msg)
+        lv_rule_id = 'NAME_ASM_PREFIX'
+        pyslint_msg(lv_rule_id, msg)
 
-def sva_con_cover_label_chk (lv_m):
+def NAME_COV_PREFIX(lv_m):
   if (lv_m.kind.name == 'ConcurrentAssertionMember'):
     if (lv_m.statement.label is None):
       msg = 'Unnamed assumption - use a meaningful label: ' 
       msg += str(lv_m.statement)
-      pyslint_msg ('SVA_MISSING_LABEL', msg)
+      lv_rule_id = "SVA_MISSING_LABEL"
+      pyslint_msg(lv_rule_id, msg)
     else:
       lv_label = lv_m.statement.label.name.value
       lv_sva_vdir = lv_m.statement.keyword.valueText
@@ -332,9 +340,10 @@ def sva_con_cover_label_chk (lv_m):
         msg += lv_label
         msg += ': expected prefix: '
         msg += lv_exp_s
-        pyslint_msg ('NAME_COV_PREFIX', msg)
+        lv_rule_id = 'NAME_COV_PREFIX'
+        pyslint_msg(lv_rule_id, msg)
 
-def COMPAT_SVA_NO_DEGEN_CONSEQ (lv_m):
+def COMPAT_SVA_NO_DEGEN_CONSEQ(lv_m):
   if (lv_m.kind.name == 'PropertyDeclaration'):
 
     lv_p_expr = lv_m.propertySpec.expr
@@ -376,10 +385,10 @@ def COMPAT_SVA_NO_DEGEN_CONSEQ (lv_m):
       msg += ' such usage, so for maximum compatibility across EDA \n'
       msg += '\ttools and LRM compliance, please remove the empty match. \n'
       msg += lv_p_str
-      lu_rule_id = 'COMPAT_SVA_NO_DEGEN_CONSEQ'
-      pyslint_msg (lu_rule_id, msg)
+      lv_rule_id = 'COMPAT_SVA_NO_DEGEN_CONSEQ'
+      pyslint_msg(lv_rule_id, msg)
 
-def sva_prop_label_chk (lv_m):
+def NAME_PROP_PREFIX(lv_m):
   if (lv_m.kind.name == 'PropertyDeclaration'):
     lv_prop_label = lv_m.name.valueText
     lv_exp_s = sv_prefix_d['prop']
@@ -388,28 +397,28 @@ def sva_prop_label_chk (lv_m):
       msg += lv_prop_label
       msg += ': expected prefix: '
       msg += lv_exp_s
-      pyslint_msg ('NAME_PROP_PREFIX', msg)
+      lv_rule_id = 'NAME_PROP_PREFIX'
+      pyslint_msg(lv_rule_id, msg)
 
-def sva_prop_endlabel_chk (lv_m):
+def SVA_MISSING_ENDLABEL(lv_m):
   if (lv_m.kind.name == 'PropertyDeclaration'):
     if (lv_m.endBlockName is None):
       lv_prop_label = lv_m.name.valueText
       msg = 'Missing End Label for property: ' 
       msg += lv_prop_label
-      pyslint_msg ('SVA_MISSING_ENDLABEL', msg)
+      lv_rule_id = 'SVA_MISSING_ENDLABEL'
+      pyslint_msg(lv_rule_id, msg)
 
-def cl_endlabel_chk (lv_cu_scope):
+def CL_MISSING_ENDLABEL(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ClassDeclaration'):
     if (lv_cu_scope.endBlockName is None):
       lv_cl_label = lv_cu_scope.name.valueText
       msg = 'Missing End Label for class: ' 
       msg += lv_cl_label
-      pyslint_msg ('CL_MISSING_ENDLABEL', msg)
+      lv_rule_id = 'CL_MISSING_ENDLABEL'
+      pyslint_msg(lv_rule_id, msg)
 
-
-
-
-def sva_con_assert_no_pass_ab_chk (lv_m):
+def SVA_NO_PASS_AB(lv_m):
   if (lv_m.kind.name == 'ConcurrentAssertionMember'):
     if (lv_m.statement.action.statement is None):
       return
@@ -419,9 +428,10 @@ def sva_con_assert_no_pass_ab_chk (lv_m):
     if (lv_m.statement.action.statement is not None):
       msg = 'Avoid using PASS Action block - likely to cause too many vacuous prints: ' 
       msg += str(lv_m.statement)
-      pyslint_msg ('SVA_NO_PASS_AB', msg)
+      lv_rule_id = 'SVA_NO_PASS_AB'
+      pyslint_msg(lv_rule_id, msg)
 
-def sva_con_assert_fail_ab_chk (lv_m):
+def SVA_MISSING_FAIL_AB(lv_m):
   if (lv_m.kind.name == 'ConcurrentAssertionMember'):
     if (lv_m.statement.label is None):
       return
@@ -435,7 +445,8 @@ def sva_con_assert_fail_ab_chk (lv_m):
     if (lv_m.statement.action.elseClause is None):
       msg = 'Missing FAIL Action block - use $error/`uvm_error: ' 
       msg += str(lv_m.statement)
-      pyslint_msg ('SVA_MISSING_FAIL_AB', msg)
+      lv_rule_id = 'SVA_MISSING_FAIL_AB'
+      pyslint_msg(lv_rule_id, msg)
 
 def pyslint_argparse():
   # Create the parser
@@ -445,7 +456,6 @@ def pyslint_argparse():
   # Parse the argument
   args = parser.parse_args()
   return args
-
 
 def pyslint_update_prefixes():
   lv_sv_prefix_d = {}
@@ -463,30 +473,29 @@ def pyslint_update_suffixes():
   lv_sv_suffix_d.update({"mod": "_m"})
   return lv_sv_suffix_d
 
-def chk_name_style_prefix (lv_rule_id, lv_name, lv_exp_p):
+def chk_name_style_prefix(lv_rule_id, lv_name, lv_exp_p):
   if (lv_name.startswith(lv_exp_p)):
     if (print_verbose):
-      print ('AF: Good naming: ', lv_name)
+      print('AF: Good naming: ', lv_name)
   else:
     msg = 'Improper naming of identifier: ' 
     msg += lv_name
     msg += ': expected prefix: '
-    msg += lv_exp_s
-    pyslint_msg (lv_rule_id, msg)
+    msg += lv_exp_p
+    pyslint_msg(lv_rule_id, msg)
 
-def chk_name_style_suffix (lv_rule_id, lv_name, lv_exp_s):
+def chk_name_style_suffix(lv_rule_id, lv_name, lv_exp_s):
   if (lv_name.endswith(lv_exp_s)): 
     if (print_verbose):
-      print ('AF: Good naming: ', lv_name)
+      print('AF: Good naming: ', lv_name)
   else:
     msg = 'Improper naming of identifier: ' 
     msg += lv_name
     msg += ': expected suffix: '
     msg += lv_exp_s
-    pyslint_msg (lv_rule_id, msg)
+    pyslint_msg(lv_rule_id, msg)
 
-
-def chk_intf_4state (lv_intf_scope):
+def FUNC_NO_2STATE_IN_INTF(lv_intf_scope):
   for lv_intf_mem_i in lv_intf_scope.members:
     if (lv_intf_mem_i.kind.name == 'DataDeclaration'):
       if (lv_intf_mem_i.type.kind.name == 'BitType'):
@@ -498,10 +507,9 @@ def chk_intf_4state (lv_intf_scope):
         msg += ' Found a 2-state declaration as: '
         msg += lv_intf_mem_i.__str__()
         lv_rule_id = 'FUNC_NO_2STATE_IN_INTF'
-        pyslint_msg (lv_rule_id, msg)
+        pyslint_msg(lv_rule_id, msg)
 
-
-def chk_dpi_rval_2st (lv_dpi_mem):
+def FUNC_DPI_NO_4STATE_IN_RETURN(lv_dpi_mem):
   lv_rval_type_s = lv_dpi_mem.method.returnType.keyword.__str__().strip()
   lv_rval_4st_types = ["integer", "logic",
                     "reg"]
@@ -512,9 +520,9 @@ def chk_dpi_rval_2st (lv_dpi_mem):
     msg += ' Found code as: \n'
     msg += str(lv_dpi_mem)
     lv_rule_id = 'FUNC_DPI_NO_4STATE_IN_RETURN'
-    pyslint_msg (lv_rule_id, msg)
+    pyslint_msg(lv_rule_id, msg)
 
-def chk_dpi_spec_str (lv_dpi_mem):
+def COMPAT_DPI_OLD_SPECSTR(lv_dpi_mem):
   lv_spec_str_val_s = lv_dpi_mem.specString.__str__().strip()
   if (lv_spec_str_val_s != '\"DPI-C\"'):
     msg = 'Wrong Spec-STR in DPI declaration'
@@ -522,15 +530,13 @@ def chk_dpi_spec_str (lv_dpi_mem):
     msg += ' Found code as: \n'
     msg += str(lv_dpi_mem)
     lv_rule_id = 'COMPAT_DPI_OLD_SPECSTR'
-    pyslint_msg (lv_rule_id, msg)
+    pyslint_msg(lv_rule_id, msg)
 
-
-def COMPAT_SVA_NO_CONC_IN_FE (lv_cu_scope):
+def COMPAT_SVA_NO_CONC_IN_FE(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
     for lv_mod_mem_i in lv_cu_scope.members:
       if (lv_mod_mem_i.kind.name == 'InitialBlock'):
         for lv_init_items_i in lv_mod_mem_i.statement.items:
-
 
           if (lv_init_items_i.kind.name == 'ForeverStatement'):
             for lv_fe_i in lv_init_items_i.statement.statement.items:
@@ -543,10 +549,9 @@ def COMPAT_SVA_NO_CONC_IN_FE (lv_cu_scope):
                 msg += ' please remodel the code:'
                 msg += str(lv_code_s)
                 lv_rule_id = 'COMPAT_SVA_NO_CONC_IN_FE'
-                pyslint_msg (lv_rule_id, msg)
+                pyslint_msg(lv_rule_id, msg)
 
-
-def chk_mod_typedef (lv_cu_scope):
+def REUSE_NO_TDEF_IN_MOD(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
     for lv_mod_mem_i in lv_cu_scope.members:
       if (lv_mod_mem_i.kind.name == 'TypedefDeclaration'):
@@ -560,17 +565,16 @@ def chk_mod_typedef (lv_cu_scope):
         msg += ' and import that package inside the module'
         msg += str(lv_tdef_s)
         lv_rule_id = 'REUSE_NO_TDEF_IN_MOD'
-        pyslint_msg (lv_rule_id, msg)
+        pyslint_msg(lv_rule_id, msg)
 
-def chk_dpi_rules (lv_cu_scope):
+def chk_dpi_rules(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
     for lv_mod_mem_i in lv_cu_scope.members:
       if (lv_mod_mem_i.kind.name == 'DPIImport'):
-        chk_dpi_spec_str (lv_mod_mem_i)
-        chk_dpi_rval_2st (lv_mod_mem_i)
+        COMPAT_DPI_OLD_SPECSTR (lv_mod_mem_i)
+        FUNC_DPI_NO_4STATE_IN_RETURN (lv_mod_mem_i)
 
-
-def chk_naming (lv_cu_scope):
+def chk_naming(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ClassDeclaration'):
     lv_ident_name = str(lv_cu_scope.name)
     lv_exp_s = sv_suffix_d['class']
@@ -580,10 +584,9 @@ def chk_naming (lv_cu_scope):
     lv_ident_name = str(lv_cu_scope.header.name)
     lv_exp_s = sv_suffix_d['intf']
     chk_name_style_suffix ('NAME_INTF_SUFFIX', lv_ident_name, lv_exp_s)
-    chk_intf_4state (lv_cu_scope)
+    FUNC_NO_2STATE_IN_INTF(lv_cu_scope)
 
-  cg_label_chk (lv_cu_scope)
-
+  NAME_CG_PREFIX(lv_cu_scope)
 
 args = pyslint_argparse()
 
@@ -596,37 +599,35 @@ inp_test_name = args.test
 tree = pyslang.SyntaxTree.fromFile(inp_test_name)
 r = tree.root
 
-
 if (tree.root.members.__str__() == ''):
-  print ("PySlint: No modules/interfaces/classes found")
-  exit (0)
-
+  print("PySlint: No modules/interfaces/classes found")
+  exit(0)
 
 for scope_i in (tree.root.members):
-  chk_naming (scope_i)
-  use_extern (scope_i)
-  cnst_arr_method_cast (scope_i)
-  cl_endlabel_chk (scope_i)
-  chk_dpi_rules (scope_i)
-  chk_mod_typedef (scope_i)
-  COMPAT_SVA_NO_CONC_IN_FE (scope_i)
-  COMPAT_CG_OPT_PI_CL (scope_i)
-  REUSE_CG_NO_ILBINS_CL (scope_i)
-  PERF_CG_NO_ABIN_W_DEF_CL (scope_i)
-  REUSE_NO_WILDC_AA_CL(scope_i)
+  chk_naming(scope_i)
+  chk_dpi_rules(scope_i)
 
+  CL_METHOD_NOT_EXTERN(scope_i)
+  FUNC_CNST_MISSING_CAST(scope_i)
+  CL_MISSING_ENDLABEL(scope_i)
+  REUSE_NO_TDEF_IN_MOD(scope_i)
+  COMPAT_SVA_NO_CONC_IN_FE(scope_i)
+  COMPAT_CG_OPT_PI_CL(scope_i)
+  REUSE_CG_NO_ILBINS_CL(scope_i)
+  PERF_CG_NO_ABIN_W_DEF_CL(scope_i)
+  REUSE_NO_WILDC_AA_CL(scope_i)
 
 cu_scope = tree.root.members[0]
 if (cu_scope.kind.name != 'ClassDeclaration'):
   if (hasattr(cu_scope, 'members')):
     for m_i in (cu_scope.members):
-      sva_con_assert_label_chk (m_i)
-      sva_con_assume_label_chk (m_i)
-      sva_con_cover_label_chk (m_i)
-      sva_con_assert_fail_ab_chk (m_i)
-      sva_con_assert_no_pass_ab_chk (m_i)
-      sva_prop_label_chk (m_i)
-      COMPAT_SVA_NO_DEGEN_CONSEQ (m_i)
-      sva_prop_endlabel_chk (m_i)
-      cg_label_chk (m_i)
+      NAME_AST_PREFIX(m_i)
+      NAME_ASM_PREFIX(m_i)
+      NAME_COV_PREFIX(m_i)
+      SVA_MISSING_FAIL_AB(m_i)
+      SVA_NO_PASS_AB(m_i)
+      NAME_PROP_PREFIX(m_i)
+      COMPAT_SVA_NO_DEGEN_CONSEQ(m_i)
+      SVA_MISSING_ENDLABEL(m_i)
+      NAME_CG_PREFIX(m_i)
   
