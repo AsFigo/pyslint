@@ -636,3 +636,4 @@ PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_
 PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_EXCL_OVERFLOW: expected prefix: p_
 PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_EXCL_OVERFLOW
 PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_excl_overflow: expected prefix: a_
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file

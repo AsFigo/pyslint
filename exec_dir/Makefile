@@ -56,5 +56,7 @@ naming:
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_sva_emp_mat_1_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_sva_emp_mat_2_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/AxiPC.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_cl_def_27_f.sv >> pyslintlog
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_cl_def_27_p.sv >> pyslintlog
 	cat pyslint.log
 
