@@ -51,6 +51,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('REUSE_NO_WILDC_AA_CL')
   lv_sv_ruleid_l.append('PERF_CG_NO_ABIN_W_DEF_CL')
   lv_sv_ruleid_l.append('COMPAT_SVA_NO_DEGEN_CONSEQ')
+  lv_sv_ruleid_l.append('REUSE_ONE_CL_PER_FILE')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -567,6 +568,18 @@ def REUSE_NO_TDEF_IN_MOD(lv_cu_scope):
         lv_rule_id = 'REUSE_NO_TDEF_IN_MOD'
         pyslint_msg(lv_rule_id, msg)
 
+class_count = []
+
+def REUSE_ONE_CL_PER_FILE (lv_m):
+  if (lv_m.kind.name == 'ClassDeclaration'):
+    for cl_rep in lv_m:
+      if (cl_rep.kind.name == 'EndClassKeyword'):
+        class_count.append(cl_rep.kind.name)
+        continue
+      elif len(class_count) > 1:
+        msg = 'Always use one-class definition per file'
+        pyslint_msg ('REUSE_ONE_CL_PER_FILE', msg)
+
 def chk_dpi_rules(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
     for lv_mod_mem_i in lv_cu_scope.members:
@@ -616,6 +629,7 @@ for scope_i in (tree.root.members):
   REUSE_CG_NO_ILBINS_CL(scope_i)
   PERF_CG_NO_ABIN_W_DEF_CL(scope_i)
   REUSE_NO_WILDC_AA_CL(scope_i)
+  REUSE_ONE_CL_PER_FILE (scope_i)
 
 cu_scope = tree.root.members[0]
 if (cu_scope.kind.name != 'ClassDeclaration'):
