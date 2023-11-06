@@ -46,18 +46,38 @@ PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  driver:
 PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  reset
 PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
 PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: driver
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
 PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  monitor: expected suffix: _c
 PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
 PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: monitor
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
 PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  scoreboard: expected suffix: _c
 PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
 PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: scoreboard
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
 PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  environment: expected suffix: _c
 PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  pre_test
 PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  test
 PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  post_test
 PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
 PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: environment
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
 PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  distribution: expected suffix: _c
 PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: distribution
 PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  distribution: expected suffix: _c
@@ -636,3 +656,4 @@ PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_
 PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_AUXM_EXCL_OVERFLOW: expected prefix: p_
 PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_AUXM_EXCL_OVERFLOW
 PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_excl_overflow: expected prefix: a_
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
