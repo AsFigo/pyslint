@@ -58,5 +58,8 @@ naming:
 	python3 ../py_src/pyslint.py -t ../sv_tests/AxiPC.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_cl_def_27_f.sv >> pyslintlog
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_cl_def_27_p.sv >> pyslintlog
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_name_chk_30_p_c.sv >> pyslintlog
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_name_chk_30_f.sv >> pyslintlog
+	
 	cat pyslint.log
 

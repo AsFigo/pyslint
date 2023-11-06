@@ -9,6 +9,7 @@ import argparse
 import tomli
 import copy
 import functools
+import os
 
 # Fix labels  Done
 # Add lv_id Done
@@ -52,6 +53,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('PERF_CG_NO_ABIN_W_DEF_CL')
   lv_sv_ruleid_l.append('COMPAT_SVA_NO_DEGEN_CONSEQ')
   lv_sv_ruleid_l.append('REUSE_ONE_CL_PER_FILE')
+  lv_sv_ruleid_l.append('REUSE_FL_NAME_CL_NAME_MATCH')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -460,6 +462,19 @@ def REUSE_ONE_CL_PER_FILE (lv_m):
       elif len(class_count) > 1:
         msg = 'Always use one-class definition per file'
         pyslint_msg ('REUSE_ONE_CL_PER_FILE', msg)
+        
+def REUSE_FL_NAME_CL_NAME_MATCH (lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ClassDeclaration'):
+    lv_name = str(lv_cu_scope.name).lstrip()
+    file_name = (os.path.basename(inp_test_name))
+    file_name_without_extension = os.path.splitext(file_name)[0]
+    if (lv_name == file_name_without_extension) :
+      print_verbose
+    else:
+      msg = 'Always keep the file name as class name'
+      lv_rule_id = 'REUSE_FL_NAME_CL_NAME_MATCH'
+      pyslint_msg(lv_rule_id, msg)
+
 
 def pyslint_argparse():
   # Create the parser
@@ -630,6 +645,7 @@ for scope_i in (tree.root.members):
   PERF_CG_NO_ABIN_W_DEF_CL(scope_i)
   REUSE_NO_WILDC_AA_CL(scope_i)
   REUSE_ONE_CL_PER_FILE (scope_i)
+  REUSE_FL_NAME_CL_NAME_MATCH (scope_i)
 
 cu_scope = tree.root.members[0]
 if (cu_scope.kind.name != 'ClassDeclaration'):
