@@ -579,7 +579,8 @@ def REUSE_ONE_CL_PER_FILE (lv_m):
         continue
       elif len(class_count) > 1:
         msg = 'Always use one-class definition per file'
-        pyslint_msg ('REUSE_ONE_CL_PER_FILE', msg)
+        lv_rule_id = 'REUSE_ONE_CL_PER_FILE'
+        pyslint_msg (lv_rule_id, msg)
 
 mod_count = []
 
@@ -591,7 +592,8 @@ def REUSE_ONE_MOD_PER_FILE (lv_m):
         continue
       elif len(mod_count) > 1:
         msg = 'Always use one-module definition per file'
-        pyslint_msg ('REUSE_ONE_MOD_PER_FILE', msg)
+        lv_rule_id = 'REUSE_ONE_MOD_PER_FILE'
+        pyslint_msg (lv_rule_id, msg)
         break
 
 def chk_dpi_rules(lv_cu_scope):
