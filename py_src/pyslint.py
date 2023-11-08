@@ -51,8 +51,12 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('REUSE_NO_WILDC_AA_CL')
   lv_sv_ruleid_l.append('PERF_CG_NO_ABIN_W_DEF_CL')
   lv_sv_ruleid_l.append('COMPAT_SVA_NO_DEGEN_CONSEQ')
+  lv_sv_ruleid_l.append('COMPAT_SVA_NO_DEGEN_AST')
   lv_sv_ruleid_l.append('REUSE_ONE_CL_PER_FILE')
   lv_sv_ruleid_l.append('REUSE_ONE_MOD_PER_FILE')
+  lv_sv_ruleid_l.append ('DBG_SVA_AST_MISSING_LABEL')
+  lv_sv_ruleid_l.append ('DBG_SVA_ASM_MISSING_LABEL')
+  lv_sv_ruleid_l.append ('DBG_SVA_COV_MISSING_LABEL')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -279,27 +283,39 @@ def NAME_CG_PREFIX(lv_m):
       lv_rule_id = 'NAME_CG_PREFIX'
       pyslint_msg(lv_rule_id, msg)
 
-def NAME_AST_PREFIX(lv_m):
+def DBG_SVA_AST_MISSING_LABEL(lv_m):
   if (lv_m.kind.name == 'ConcurrentAssertionMember'):
+    lv_sva_vdir = lv_m.statement.keyword.valueText
+    if (lv_sva_vdir != 'assert'):
+      return
     if (lv_m.statement.label is None):
       msg = 'Unnamed assertion - use a meaningful label: ' 
       msg += str(lv_m.statement)
-      lv_rule_id = 'SVA_MISSING_LABEL'
-      pyslint_msg(lv_rule_id, msg)
-    else:
-      lv_label = lv_m.statement.label.name.value
-      lv_sva_vdir = lv_m.statement.keyword.valueText
-      if (lv_sva_vdir != 'assert'):
-        return
+      lv_rule_id = 'DBG_SVA_AST_MISSING_LABEL'
+      pyslint_msg (lv_rule_id, msg)
 
-      lv_exp_s = sv_prefix_d['assert']
-      if (not lv_label.startswith(lv_exp_s)):
-        msg = 'Improper naming of assert directive: ' 
-        msg += lv_label
-        msg += ': expected prefix: '
-        msg += lv_exp_s
-        lv_rule_id = 'NAME_AST_PREFIX'
-        pyslint_msg(lv_rule_id, msg)
+def NAME_AST_PREFIX (lv_m):
+
+  if (lv_m.kind.name == 'ConcurrentAssertionMember'):
+
+    lv_sva_vdir = lv_m.statement.keyword.valueText
+    if (lv_sva_vdir != 'assert'):
+      return
+
+    if (lv_m.statement.label is None):
+      return
+
+    lv_label = lv_m.statement.label.name.value
+
+    lv_exp_s = sv_prefix_d['assert']
+    if (not lv_label.startswith(lv_exp_s)):
+      msg = 'Improper naming of assert directive: ' 
+      msg += lv_label
+      msg += ': expected prefix: '
+      msg += lv_exp_s
+      lv_rule_id = 'NAME_AST_PREFIX'
+      pyslint_msg (lv_rule_id, msg)
+
 
 def NAME_ASM_PREFIX(lv_m):
   if (lv_m.kind.name == 'ConcurrentAssertionMember'):
@@ -344,6 +360,69 @@ def NAME_COV_PREFIX(lv_m):
         msg += lv_exp_s
         lv_rule_id = 'NAME_COV_PREFIX'
         pyslint_msg(lv_rule_id, msg)
+
+def COMPAT_SVA_NO_DEGEN_AST (lv_m):
+  if (lv_m.kind.name == 'ConcurrentAssertionMember'):
+
+    lv_found_rep_val = False
+
+    lv_p_expr = lv_m.statement.propertySpec
+    lv_p_str = lv_p_expr.__str__()
+
+    if (hasattr(lv_p_expr, 'expr')):
+      lv_p_expr_r = lv_p_expr.expr
+
+      if (hasattr(lv_p_expr_r, 'right')):
+        lv_p_expr_r_1 = lv_p_expr_r.right.expr
+
+      if (hasattr(lv_p_expr_r, 'left')):
+        lv_p_expr_r_1 = lv_p_expr_r.left.expr
+        #TBD move the below code to a new def
+        # and make it common for both ANT and CNSQ
+
+
+        if (hasattr(lv_p_expr_r_1, 'repetition')):
+          lv_p_expr_r_2 = lv_p_expr_r_1.repetition
+
+          if (hasattr(lv_p_expr_r_2, 'selector')):
+            lv_p_expr_r_3 = lv_p_expr_r_2.selector
+
+            if (hasattr(lv_p_expr_r_3, 'expr')):
+              lv_p_expr_r_4 = lv_p_expr_r_3.expr
+              lv_rep_val = "UNKNOWN"
+              lv_rep_val = lv_p_expr_r_4.literal.valueText.strip()
+              lv_found_rep_val = True
+
+            if (hasattr(lv_p_expr_r_3, 'left')):
+              lv_p_expr_r_4 = lv_p_expr_r_3.left
+              lv_rep_val = "UNKNOWN"
+              lv_rep_val = lv_p_expr_r_4.literal.valueText.strip()
+              lv_found_rep_val = True
+
+      if (hasattr(lv_m, 'propertySpec') and
+          hasattr(lv_p_expr_r, 'expr')):
+        lv_p_expr_r = lv_m.propertySpec.expr.expr.expr
+        if (hasattr(lv_p_expr_r, 'repetition')):
+          lv_rep_val = lv_m.propertySpec.expr.expr.expr.repetition.selector.expr.literal.valueText.strip()
+          lv_found_rep_val = True
+
+
+    if (hasattr(lv_p_expr, 'right')):
+      lv_p_expr_r = lv_m.propertySpec.expr.right.expr
+      if (hasattr(lv_p_expr_r, 'repetition')):
+        lv_p_expr_r = lv_m.propertySpec.expr.right.expr.repetition
+        if (hasattr(lv_p_expr_r, 'selector')):
+          lv_rep_val = lv_m.propertySpec.expr.right.expr.repetition.selector.expr.literal.valueText.strip()
+          lv_found_rep_val = True
+
+    if (lv_found_rep_val and lv_rep_val == "0"):
+      msg = 'Empty match ([*0] or variants) found in a property expression. \n'
+      msg += '\tThough some compilers allow this, IEEE 1800 LRM prevents'
+      msg += ' such usage, so for maximum compatibility across EDA \n'
+      msg += '\ttools and LRM compliance, please remove the empty match. \n'
+      msg += lv_p_str
+      lu_rule_id = 'COMPAT_SVA_NO_DEGEN_AST'
+      pyslint_msg (lu_rule_id, msg)
 
 def COMPAT_SVA_NO_DEGEN_CONSEQ(lv_m):
   if (lv_m.kind.name == 'PropertyDeclaration'):
@@ -538,6 +617,8 @@ def COMPAT_SVA_NO_CONC_IN_FE(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
     for lv_mod_mem_i in lv_cu_scope.members:
       if (lv_mod_mem_i.kind.name == 'InitialBlock'):
+        if (not hasattr(lv_mod_mem_i.statement, 'items')):
+          continue
         for lv_init_items_i in lv_mod_mem_i.statement.items:
 
           if (lv_init_items_i.kind.name == 'ForeverStatement'):
@@ -659,6 +740,7 @@ if (cu_scope.kind.name != 'ClassDeclaration'):
       SVA_NO_PASS_AB(m_i)
       NAME_PROP_PREFIX(m_i)
       COMPAT_SVA_NO_DEGEN_CONSEQ(m_i)
+      COMPAT_SVA_NO_DEGEN_AST(m_i)
       SVA_MISSING_ENDLABEL(m_i)
       NAME_CG_PREFIX(m_i)
   
