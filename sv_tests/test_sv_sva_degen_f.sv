@@ -19,7 +19,6 @@ module test_sva_m;
     a_3: assert property(@ (posedge clk) 
                     1 intersect 1[*2] |=> c);
     
-     
     initial forever #5 clk = ~clk;
       
     initial begin  

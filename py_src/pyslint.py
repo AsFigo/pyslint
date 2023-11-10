@@ -381,6 +381,9 @@ def COMPAT_SVA_NO_DEGEN_AST (lv_m):
         # and make it common for both ANT and CNSQ
 
 
+        if (hasattr(lv_p_expr_r_1, 'first')):
+          lv_p_expr_r_1 = lv_p_expr_r_1.first
+
         if (hasattr(lv_p_expr_r_1, 'repetition')):
           lv_p_expr_r_2 = lv_p_expr_r_1.repetition
 
@@ -425,16 +428,21 @@ def COMPAT_SVA_NO_DEGEN_AST (lv_m):
       pyslint_msg (lu_rule_id, msg)
 
 def COMPAT_SVA_NO_DEGEN_CONSEQ(lv_m):
-  if (lv_m.kind.name == 'PropertyDeclaration'):
+  if (lv_m.kind.name == 'PropertyDeclaration' or
+      lv_m.kind.name == 'ConcurrentAssertionMember'):
 
-    lv_p_expr = lv_m.propertySpec.expr
+    if (lv_m.kind.name == 'ConcurrentAssertionMember'):
+      lv_p_expr = lv_m.statement.propertySpec.expr
+    else:
+      lv_p_expr = lv_m.propertySpec.expr
+
     lv_p_str = lv_p_expr.__str__()
     lv_found_rep_val = False
 
     if (hasattr(lv_p_expr, 'expr')):
-      lv_p_expr_r = lv_m.propertySpec.expr.expr
+      lv_p_expr_r = lv_p_expr.expr
       if (hasattr(lv_p_expr_r, 'right')):
-        lv_p_expr_r_1 = lv_m.propertySpec.expr.expr.right.expr
+        lv_p_expr_r_1 = lv_p_expr_r.right.expr
         if (hasattr(lv_p_expr_r_1, 'repetition')):
           lv_p_expr_r_2 = lv_p_expr_r_1.repetition
           if (hasattr(lv_p_expr_r_2, 'selector')):
@@ -446,18 +454,20 @@ def COMPAT_SVA_NO_DEGEN_CONSEQ(lv_m):
               lv_found_rep_val = True
 
       if (hasattr(lv_p_expr_r, 'expr')):
-        lv_p_expr_r = lv_m.propertySpec.expr.expr.expr
+        lv_p_expr_r = lv_p_expr_r.expr
         if (hasattr(lv_p_expr_r, 'repetition')):
-          lv_rep_val = lv_m.propertySpec.expr.expr.expr.repetition.selector.expr.literal.valueText.strip()
+          lv_rep_val = lv_p_expr_r.repetition.selector.expr.literal.valueText.strip()
           lv_found_rep_val = True
 
 
     if (hasattr(lv_p_expr, 'right')):
-      lv_p_expr_r = lv_m.propertySpec.expr.right.expr
+      lv_p_expr_r = lv_p_expr.right.expr
+      if (hasattr(lv_p_expr_r, 'first')):
+        lv_p_expr_r =  lv_p_expr_r.first
       if (hasattr(lv_p_expr_r, 'repetition')):
-        lv_p_expr_r = lv_m.propertySpec.expr.right.expr.repetition
+        lv_p_expr_r = lv_p_expr_r.repetition
         if (hasattr(lv_p_expr_r, 'selector')):
-          lv_rep_val = lv_m.propertySpec.expr.right.expr.repetition.selector.expr.literal.valueText.strip()
+          lv_rep_val = lv_p_expr_r.selector.expr.literal.valueText.strip()
           lv_found_rep_val = True
 
     if (lv_found_rep_val and lv_rep_val == "0"):
