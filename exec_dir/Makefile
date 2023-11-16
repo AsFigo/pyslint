@@ -60,5 +60,7 @@ naming:
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_cl_def_27_p.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_mod_def_27_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_mod_def_27_p.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_intf_def_27_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_intf_def_27_p.sv >> pyslint.log
 	cat pyslint.log
 

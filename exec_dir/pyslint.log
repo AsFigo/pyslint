@@ -106,10 +106,6 @@ PySlint: Violation: [NAME_INTF_SUFFIX]: Improper naming of identifier:  af_sv_in
 PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  af_bad_class_name: expected suffix: _c
 PySlint: Violation: [NAME_CG_PREFIX]: Improper naming of identifier: bad_group_name: expected prefix: cg_
 PySlint: Violation: [NAME_CG_PREFIX]: Improper naming of identifier: bad_group_name: expected prefix: cg_
-PySlint: Violation: [SVA_MISSING_LABEL]: Unnamed assertion - use a meaningful label: 
-  // BAD - unnamed SVA
-  assert property (@(posedge clk) var1)
-    else $error ("Bad style - unnamed SVA");
 PySlint: Violation: [SVA_MISSING_LABEL]: Unnamed assumption - use a meaningful label: 
   // BAD - unnamed SVA
   assert property (@(posedge clk) var1)
@@ -658,3 +654,4 @@ PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_
 PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_excl_overflow: expected prefix: a_
 PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
 PySlint: Violation: [REUSE_ONE_MOD_PER_FILE]: Always use one-module definition per file
+PySlint: Violation: [REUSE_ONE_INTF_PER_FILE]: Always use one-interface definition per file

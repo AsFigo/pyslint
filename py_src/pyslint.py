@@ -57,6 +57,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append ('DBG_SVA_AST_MISSING_LABEL')
   lv_sv_ruleid_l.append ('DBG_SVA_ASM_MISSING_LABEL')
   lv_sv_ruleid_l.append ('DBG_SVA_COV_MISSING_LABEL')
+  lv_sv_ruleid_l.append('REUSE_ONE_INTF_PER_FILE')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -687,6 +688,20 @@ def REUSE_ONE_MOD_PER_FILE (lv_m):
         pyslint_msg (lv_rule_id, msg)
         break
 
+intf_count = []
+
+def REUSE_ONE_INTF_PER_FILE (lv_m):
+  if (lv_m.kind.name == 'InterfaceDeclaration'):
+    for intf_rep in lv_m.header:
+      #print((intf_rep.kind))
+      if (intf_rep.kind.name == 'InterfaceKeyword'):
+        intf_count.append(intf_rep.kind.name)
+        continue
+      elif len(intf_count) > 1:
+        msg = 'Always use one-interface definition per file'
+        pyslint_msg ('REUSE_ONE_INTF_PER_FILE', msg)
+        break
+
 def chk_dpi_rules(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
     for lv_mod_mem_i in lv_cu_scope.members:
@@ -738,6 +753,7 @@ for scope_i in (tree.root.members):
   REUSE_NO_WILDC_AA_CL(scope_i)
   REUSE_ONE_CL_PER_FILE(scope_i)
   REUSE_ONE_MOD_PER_FILE(scope_i)
+  REUSE_ONE_INTF_PER_FILE(scope_i)
 
 cu_scope = tree.root.members[0]
 if (cu_scope.kind.name != 'ClassDeclaration'):
