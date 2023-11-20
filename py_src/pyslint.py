@@ -467,8 +467,10 @@ def COMPAT_SVA_NO_DEGEN_CONSEQ(lv_m):
       if (hasattr(lv_p_expr_r, 'repetition')):
         lv_p_expr_r = lv_p_expr_r.repetition
         if (hasattr(lv_p_expr_r, 'selector')):
-          lv_rep_val = lv_p_expr_r.selector.expr.literal.valueText.strip()
-          lv_found_rep_val = True
+          lv_p_expr_r = lv_p_expr_r.selector
+          if (hasattr(lv_p_expr_r, 'expr')):
+            lv_rep_val = lv_p_expr_r.selector.expr.literal.valueText.strip()
+            lv_found_rep_val = True
 
     if (lv_found_rep_val and lv_rep_val == "0"):
       msg = 'Empty match ([*0] or variants) found in a property expression. \n'
