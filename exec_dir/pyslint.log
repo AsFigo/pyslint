@@ -29,87 +29,10 @@ PySlint: Violation: [COMPAT_DPI_OLD_SPECSTR]: Wrong Spec-STR in DPI declaration 
   import "DPI" function int c_sum(input bit [31:0] input_array[]);
 PySlint: Violation: [REUSE_NO_TDEF_IN_MOD]: A typedef was found inside a module This prevents reuse as the enum/typedef scope is module only An assertion model that binds to this module and check the states using the typedef will be harder to implement in such cases. Please move the typedef to a package and import that package inside the module
   typedef enum logic [1:0] {S0, S1, S2} state_t;
-PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  generator: expected suffix: _c
-PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: generator
-PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  gen: expected suffix: _c
-PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  pre_randomize
-PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  post_randomize
-PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: gen
-PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  transaction: expected suffix: _c
-PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  display
-PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  copy
-PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: transaction
-PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  generator: expected suffix: _c
-PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
-PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: generator
-PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  driver: expected suffix: _c
-PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  reset
-PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
-PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: driver
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  monitor: expected suffix: _c
-PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
-PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: monitor
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  scoreboard: expected suffix: _c
-PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
-PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: scoreboard
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  environment: expected suffix: _c
-PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  pre_test
-PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  test
-PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  post_test
-PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
-PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: environment
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
-PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  distribution: expected suffix: _c
-PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: distribution
-PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  distribution: expected suffix: _c
-PySlint: Violation: [FUNC_CNST_DIST_COL_EQ]: Potentially incorrect constraint expression! An expression involving dist ColonEquals if found And the range used with ColonEquals is large This is likely to skew the random generation and prevent other values in the dist expression to be generated less-frequently than the large range values Review to check if you intended to use ColonSlash instead of ColonEquals
-     data1_bad dist {0:=10, [1:30]:=60}
-PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: distribution
-PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  data: expected suffix: _c
-PySlint: Violation: [FUNC_CNST_DIST_COL_EQ]: Potentially incorrect constraint expression! An expression involving dist ColonEquals if found And the range used with ColonEquals is large This is likely to skew the random generation and prevent other values in the dist expression to be generated less-frequently than the large range values Review to check if you intended to use ColonSlash instead of ColonEquals field1 dist {[0:31] := 1, [32:65535] := 1}
-PySlint: Violation: [FUNC_CNST_DIST_COL_EQ]: Potentially incorrect constraint expression! An expression involving dist ColonEquals if found And the range used with ColonEquals is large This is likely to skew the random generation and prevent other values in the dist expression to be generated less-frequently than the large range values Review to check if you intended to use ColonSlash instead of ColonEquals field1 dist {[0:31] := 1, [32:65535] := 1}
-PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: data
-PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  clk: expected suffix: _c
-PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: clk
-PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  A: expected suffix: _c
-PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: A
-PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  c: expected suffix: _c
-PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: c
-PySlint: Violation: [FUNC_NO_2STATE_IN_INTF]: Potential DUT bug hiding construct in use:  Inside SystemVerilog interface, it is recommended to use only 4-state signals/nets. Found a 2-state declaration as: 
-  bit bad_2st;
-PySlint: Violation: [FUNC_NO_2STATE_IN_INTF]: Potential DUT bug hiding construct in use:  Inside SystemVerilog interface, it is recommended to use only 4-state signals/nets. Found a 2-state declaration as: 
-  bit [7:0] bad_2st_vec;
-PySlint: Violation: [FUNC_NO_2STATE_IN_INTF]: Potential DUT bug hiding construct in use:  Inside SystemVerilog interface, it is recommended to use only 4-state signals/nets. Found a 2-state declaration as: 
-  bit [3:0] bad_2st_2d [10];
-PySlint: Violation: [FUNC_NO_2STATE_IN_INTF]: Potential DUT bug hiding construct in use:  Inside SystemVerilog interface, it is recommended to use only 4-state signals/nets. Found a 2-state declaration as: 
-  bit [9:0] bad_2st_3d [10][5];
 PySlint: Violation: [NAME_INTF_SUFFIX]: Improper naming of identifier:  af_sv_intf_bad: expected suffix: _if
 PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  af_bad_class_name: expected suffix: _c
 PySlint: Violation: [NAME_CG_PREFIX]: Improper naming of identifier: bad_group_name: expected prefix: cg_
 PySlint: Violation: [NAME_CG_PREFIX]: Improper naming of identifier: bad_group_name: expected prefix: cg_
-PySlint: Violation: [SVA_MISSING_LABEL]: Unnamed assertion - use a meaningful label: 
-  // BAD - unnamed SVA
-  assert property (@(posedge clk) var1)
-    else $error ("Bad style - unnamed SVA");
 PySlint: Violation: [SVA_MISSING_LABEL]: Unnamed assumption - use a meaningful label: 
   // BAD - unnamed SVA
   assert property (@(posedge clk) var1)
@@ -658,3 +581,268 @@ PySlint: Violation: [SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_
 PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_auxm_excl_overflow: expected prefix: a_
 PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
 PySlint: Violation: [REUSE_ONE_MOD_PER_FILE]: Always use one-module definition per file
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_q_test: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+  ap_q_test: assert property(q_test);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: q_req_ack: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+  a_q_req_ack : assert property (q_req_ack);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: pCounterMaxed: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: apCounterMaxed: expected prefix: a_
+PySlint: Violation: [REUSE_NO_TDEF_IN_MOD]: A typedef was found inside a module This prevents reuse as the enum/typedef scope is module only An assertion model that binds to this module and check the states using the typedef will be harder to implement in such cases. Please move the typedef to a package and import that package inside the module
+         typedef logic [WIDTH-1 : 0] word_t;
+PySlint: Violation: [REUSE_NO_TDEF_IN_MOD]: A typedef was found inside a module This prevents reuse as the enum/typedef scope is module only An assertion model that binds to this module and check the states using the typedef will be harder to implement in such cases. Please move the typedef to a package and import that package inside the module
+         typedef word_t [0 : (2**BIT_DEPTH-1)] buffer_t;
+PySlint: Violation: [REUSE_ONE_MOD_PER_FILE]: Always use one-module definition per file
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_push_error_1: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+        ap_push_error_1 : assert property (p_push_error);
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_pop_error_1: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+        ap_pop_error_1 : assert property (p_pop_error);
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_read_data_integrity: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    ap_read_data_integrity : assert property (p_read_data_integrity);
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_never_read_on_empty: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    ap_never_read_on_empty : assert property (p_never_read_on_empty);
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_write_on_max_buff: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    ap_write_on_max_buff : assert property (p_never_write_on_max_buff);
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  c_xactn: expected suffix: _c
+PySlint: Violation: [REUSE_ONE_MOD_PER_FILE]: Always use one-module definition per file
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_read_after_write: expected prefix: a_
+PySlint: Violation: [SVA_NO_PASS_AB]: Avoid using PASS Action block - likely to cause too many vacuous prints: 
+       ap_read_after_write : assert property (p_read_after_write)
+        $info("addr =%h, rdata=%h", $sampled(addr), $sampled(rdata)); else 
+        $error("addr =%h, rdata=%h", $sampled(addr), $sampled(rdata));
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_read_before_write: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+       ap_read_before_write : assert property (p_read_before_write);
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_read_after_write: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+	 ap_read_after_write : assert property (p_read_after_write);
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_read_before_write: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+	 ap_read_before_write : assert property (p_read_before_write);
+PySlint: Violation: [SVA_MISSING_LABEL]: Unnamed assumption - use a meaningful label: 
+       assert property(@(posedge clk)  p_never_read_on_empty);
+PySlint: Violation: [SVA_MISSING_LABEL]: Unnamed assumption - use a meaningful label: 
+       assert property(@(posedge clk)  p_never_read_on_empty);
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: apxxOK: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error:  
+    // Asserting on an illegal multiply clocked temporal expression. 
+    // The clock flow cannot change in the RHS of 'intersect' operator.
+//    apxx: assert property(
+//   @ (posedge clk) e |-> (a ##1 b) intersect (@ (posedge clk2) c ##1 d)); //  
+//    
+    apxxOK: assert property(
+        @ (posedge clk) e |-> (a ##1 b) intersect (e ##1 @ (posedge clk2) c ##1 @ (posedge clk) d));
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: P: expected prefix: p_
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: P_init: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_P: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    ap_P: assert property(P_init);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: P3_OK: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_P3: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    ap_P3: assert property(P3_OK);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: P3_Illegal: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_Illegal: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    ap_Illegal: assert property(P3_Illegal);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: P4: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_P4: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    ap_P4: assert property(P4);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: P5: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_P5: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    ap_P5: assert property(P5);
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_never_q_logic_untyped: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    // equivalent to (not (a!=b ##2 a8==8'FF) ) 
+    ap_never_q_logic_untyped: assert property(
+        not(q_logic_untyped(a, b, a8==8'hFF))
+        );
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_bits: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error:  
+    // equivalent to ($rose(e) |-> a ##2 b) 
+    ap_bits: assert property($rose(e) |-> q_untyped(a, b));
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_bits2: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    // equivalent to ( b ##2 a8==d8) |-> f 
+    ap_bits2: assert property(q_untyped(b, a8==d8) |-> f);
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_sequences: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    // equivalent to $rose(f) |-> ($rose(a) ##1 b[->1] ##1 c) ##2  (d==e)
+    ap_sequences: assert property($rose(f) |-> q_untyped(q_abc, 
+        q_mn( d, e)));
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_int: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    // equivalent to $rose(e) |-> i==j
+    ap_int: assert property($rose(e) |-> q_mn(a8, d8));
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: a1: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    // equivalent to e ##2 f[*3:$] 
+      a1: assert property(q_delay(e, f ,3,50, 2));
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_ab: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error:  
+	ap_ab: assert property (@ (posedge clk)
+       disable iff (!go) // if go==0, cancel checking asynchronously
+              a |=> b);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: pReqAck: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: apReqAck: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    apReqAck : assert property(@ (posedge clk) pReqAck($rose(req), ack, max));
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: pAckDone: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: apAckDone: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    apAckDone : assert property(@ (posedge clk) pAckDone($rose(ack), xfr, 2));
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: apReqAckDoneSuccess: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error:  
+    apReqAckDoneSuccess: assert property(
+      first_match($rose(req) ##[1:5] ack ##[1:100] done)
+            |-> (status_reg == 1'b0) );
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: apReqAckDoneFail: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    apReqAckDoneFail: assert property(
+        $rose(req) |=> !done[*105] |-> (status_reg == 1'b1) );
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: vac_true: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_vac_true: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    ap_vac_true: assert property(vac_true);
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_vac_false: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    ap_vac_false: assert property(not(vac_true));
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_vac_not_false: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    ap_vac_not_false: assert property(not(not(vac_true))) count_of_ap_vac_not_false++;
+PySlint: Violation: [SVA_NO_PASS_AB]: Avoid using PASS Action block - likely to cause too many vacuous prints: 
+    ap_vac_not_false: assert property(not(not(vac_true))) count_of_ap_vac_not_false++;
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_reject_on: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    ap_reject_on: assert property(reject_on(1'b1) 1'b1);
+PySlint: Violation: [REUSE_NO_TDEF_IN_MOD]: A typedef was found inside a module This prevents reuse as the enum/typedef scope is module only An assertion model that binds to this module and check the states using the typedef will be harder to implement in such cases. Please move the typedef to a package and import that package inside the module
+typedef enum {IDLE, STATE1, STATE2, STATE3}  state_enum;
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: UNEXPECTED_PROP: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+  a_UNEXPECTED_PROP : assert property (UNEXPECTED_PROP);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: UNEXPECTED_PROP: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: UA1: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+   UA1: assert property (UNEXPECTED_PROP);
+PySlint: Violation: [REUSE_ONE_MOD_PER_FILE]: Always use one-module definition per file
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: p: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_active_bus: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+	    ap_active_bus : assert property(
+		    disable iff (bus_switch)
+		    if (bus_select) p
+			    else  p);
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_an_an_co: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+      ap_an_an_co: assert property(@ (posedge clk) 
+             a[*1:2] |-> ##[1:3] b |=> c[*1:2]);
+PySlint: Violation: [NAME_ASM_PREFIX]: Improper naming of assume directive: am_an_an_co: expected prefix: m_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_an_an_coFM: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+      ap_an_an_coFM: assert property(@ (posedge clk) 
+             first_match(a[*1:2]) |-> 
+                   first_match(##[1:3] b) |=> c[*1:2]);
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_q_test: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+  ap_q_test: assert property(q_test);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: q_req_ack: expected prefix: p_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+  a_q_req_ack : assert property (q_req_ack);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: pNeverReadWrite: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: d17assert: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+       d17assert : assert property (pNeverReadWrite);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: pReadSchedule: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: d17assert1: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+       d17assert1 : assert property (pReadSchedule);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: pWriteSchedule: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: d17assert2: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+       d17assert2 : assert property (pWriteSchedule);
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: d17assert3: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+       d17assert3 : assert property (qNewInterrupt);
+PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: pCounterMaxed: expected prefix: p_
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: apCounterMaxed: expected prefix: a_
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  generator: expected suffix: _c
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: generator
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  gen: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  pre_randomize
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  post_randomize
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: gen
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  transaction: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  display
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  copy
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: transaction
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  generator: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: generator
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  driver: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  reset
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: driver
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  monitor: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: monitor
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  scoreboard: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: scoreboard
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  environment: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  pre_test
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  test
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  post_test
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: environment
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  distribution: expected suffix: _c
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: distribution
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  distribution: expected suffix: _c
+PySlint: Violation: [FUNC_CNST_DIST_COL_EQ]: Potentially incorrect constraint expression! An expression involving dist ColonEquals if found And the range used with ColonEquals is large This is likely to skew the random generation and prevent other values in the dist expression to be generated less-frequently than the large range values Review to check if you intended to use ColonSlash instead of ColonEquals
+     data1_bad dist {0:=10, [1:30]:=60}
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: distribution
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  data: expected suffix: _c
+PySlint: Violation: [FUNC_CNST_DIST_COL_EQ]: Potentially incorrect constraint expression! An expression involving dist ColonEquals if found And the range used with ColonEquals is large This is likely to skew the random generation and prevent other values in the dist expression to be generated less-frequently than the large range values Review to check if you intended to use ColonSlash instead of ColonEquals field1 dist {[0:31] := 1, [32:65535] := 1}
+PySlint: Violation: [FUNC_CNST_DIST_COL_EQ]: Potentially incorrect constraint expression! An expression involving dist ColonEquals if found And the range used with ColonEquals is large This is likely to skew the random generation and prevent other values in the dist expression to be generated less-frequently than the large range values Review to check if you intended to use ColonSlash instead of ColonEquals field1 dist {[0:31] := 1, [32:65535] := 1}
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: data
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  clk: expected suffix: _c
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: clk
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  A: expected suffix: _c
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: A
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  c: expected suffix: _c
+PySlint: Violation: [CL_MISSING_ENDLABEL]: Missing End Label for class: c
+PySlint: Violation: [FUNC_NO_2STATE_IN_INTF]: Potential DUT bug hiding construct in use:  Inside SystemVerilog interface, it is recommended to use only 4-state signals/nets. Found a 2-state declaration as: 
+  bit bad_2st;
+PySlint: Violation: [FUNC_NO_2STATE_IN_INTF]: Potential DUT bug hiding construct in use:  Inside SystemVerilog interface, it is recommended to use only 4-state signals/nets. Found a 2-state declaration as: 
+  bit [7:0] bad_2st_vec;
+PySlint: Violation: [FUNC_NO_2STATE_IN_INTF]: Potential DUT bug hiding construct in use:  Inside SystemVerilog interface, it is recommended to use only 4-state signals/nets. Found a 2-state declaration as: 
+  bit [3:0] bad_2st_2d [10];
+PySlint: Violation: [FUNC_NO_2STATE_IN_INTF]: Potential DUT bug hiding construct in use:  Inside SystemVerilog interface, it is recommended to use only 4-state signals/nets. Found a 2-state declaration as: 
+  bit [9:0] bad_2st_3d [10][5];
