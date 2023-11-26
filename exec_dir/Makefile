@@ -11,16 +11,6 @@ naming:
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_dpi_rval_2st_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_dpi_spec_str_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_enum_inside_mod_f.sv >> pyslint.log
-	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_35.sv >> pyslint.log
-	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_35_1.sv >> pyslint.log
-	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_37.sv >> pyslint.log
-	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_37_1.sv >> pyslint.log
-	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_37_2.sv >> pyslint.log
-	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_37_3.sv >> pyslint.log
-	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_40.sv >> pyslint.log
-	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_41.sv >> pyslint.log
-	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_42.sv >> pyslint.log
-	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_49_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_02_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_03_p.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_naming_04_f.sv >> pyslint.log
@@ -60,5 +50,42 @@ naming:
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_cl_def_27_p.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_mod_def_27_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_mod_def_27_p.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue92_auto_var.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue94_counter.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_106_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_108_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_109_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_110_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_111_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_112_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_113_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_114_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_115_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_118_inters.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_119_local_var.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_120_seq_untyped.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_121_temp.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_122_test2_5_4.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_123_test_models_temp.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_124_test_vacurity.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_125_unexpectedA_5_2.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_126_unexpectedB_5_2.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_127_unique_m.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_128_uvm_sva_ex.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_90_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_92_auto_var.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_93_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_94_counter.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_96_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_35.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_35_1.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_37.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_37_1.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_37_2.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_37_3.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_40.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_41.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_42.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_49_f.sv >> pyslint.log
 	cat pyslint.log
 
