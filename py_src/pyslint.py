@@ -44,6 +44,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('CL_MISSING_ENDLABEL')
   lv_sv_ruleid_l.append('PERF_CG_TOO_MANY_CROSS')
   lv_sv_ruleid_l.append('FUNC_CNST_MISSING_CAST')
+  lv_sv_ruleid_l.append('FUNC_CNST_WRONG_OPER_PRI')
   lv_sv_ruleid_l.append('FUNC_CNST_DIST_COL_EQ')
   lv_sv_ruleid_l.append('REUSE_NO_TDEF_IN_MOD')
   lv_sv_ruleid_l.append('COMPAT_CG_OPT_PI_CL')
@@ -152,6 +153,34 @@ def FUNC_CNST_MISSING_CAST (lv_cu_scope):
               msg += ' (int\'( cast around the following expression:'
               msg += lv_cnst_expr_s
               lv_rule_id = "FUNC_CNST_MISSING_CAST"
+              pyslint_msg(lv_rule_id, msg)
+
+def FUNC_CNST_WRONG_OPER_PRI (lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ClassDeclaration'):
+    for cl_item in (lv_cu_scope.items):
+      if (cl_item.kind.name == 'ConstraintDeclaration'):
+        for lv_cnst_i in (cl_item.block.items):
+          if (not hasattr(lv_cnst_i, 'expr')):
+            continue
+          if (not hasattr(lv_cnst_i.expr, 'operatorToken')):
+            continue
+
+          if (lv_cnst_i.expr.operatorToken.kind.name == 'DoubleAnd' or
+              lv_cnst_i.expr.operatorToken.kind.name == 'DoubleOr'
+             ):
+            lv_cnst_expr_s = lv_cnst_i.expr.__str__()
+            if (
+                lv_cnst_i.expr.left.operatorToken.kind.name == 'DoubleEquals' or
+                lv_cnst_i.expr.left.operatorToken.kind.name == 'ExclamationEquals'
+                ):
+              msg  = 'Potentially incorrect constraint expression!'
+              msg += ' An expression involving operators with different'
+              msg += ' precedence is observed. As per LRM, Equality'
+              msg += ' operators have higher precedence than Logical operators'
+              msg += ' Review and use \'( )\' appropriately'
+              msg += ' around the constraint expression'
+              msg += lv_cnst_expr_s
+              lv_rule_id = "FUNC_CNST_WRONG_OPER_PRI"
               pyslint_msg(lv_rule_id, msg)
 
 def COMPAT_CG_OPT_PI_CL(lv_m):
@@ -372,7 +401,8 @@ def COMPAT_SVA_NO_DEGEN_AST (lv_m):
     if (hasattr(lv_p_expr, 'expr')):
       lv_p_expr_r = lv_p_expr.expr
 
-      if (hasattr(lv_p_expr_r, 'right')):
+      if (hasattr(lv_p_expr_r, 'right') and
+          hasattr(lv_p_expr_r.right, 'expr')):
         lv_p_expr_r_1 = lv_p_expr_r.right.expr
 
       if (hasattr(lv_p_expr_r, 'left')):
@@ -456,21 +486,25 @@ def COMPAT_SVA_NO_DEGEN_CONSEQ(lv_m):
       if (hasattr(lv_p_expr_r, 'expr')):
         lv_p_expr_r = lv_p_expr_r.expr
         if (hasattr(lv_p_expr_r, 'repetition')):
-          lv_rep_val = lv_p_expr_r.repetition.selector.expr.literal.valueText.strip()
-          lv_found_rep_val = True
+          if (lv_p_expr_r.repetition is not None):
+            lv_p_expr_r = lv_p_expr_r.repetition
+            if (hasattr(lv_p_expr_r, 'selector')):
+              lv_rep_val = lv_p_expr_r.selector.expr.literal.valueText.strip()
+              lv_found_rep_val = True
 
 
     if (hasattr(lv_p_expr, 'right')):
-      lv_p_expr_r = lv_p_expr.right.expr
-      if (hasattr(lv_p_expr_r, 'first')):
-        lv_p_expr_r =  lv_p_expr_r.first
-      if (hasattr(lv_p_expr_r, 'repetition')):
-        lv_p_expr_r = lv_p_expr_r.repetition
-        if (hasattr(lv_p_expr_r, 'selector')):
-          lv_p_expr_r = lv_p_expr_r.selector
-          if (hasattr(lv_p_expr_r, 'expr')):
-            lv_rep_val = lv_p_expr_r.selector.expr.literal.valueText.strip()
-            lv_found_rep_val = True
+      if (hasattr(lv_p_expr.right, 'expr')):
+        lv_p_expr_r = lv_p_expr.right.expr
+        if (hasattr(lv_p_expr_r, 'first')):
+          lv_p_expr_r =  lv_p_expr_r.first
+        if (hasattr(lv_p_expr_r, 'repetition')):
+          lv_p_expr_r = lv_p_expr_r.repetition
+          if (hasattr(lv_p_expr_r, 'selector')):
+            lv_p_expr_r = lv_p_expr_r.selector
+            if (hasattr(lv_p_expr_r, 'expr')):
+              lv_rep_val = lv_p_expr_r.expr.literal.valueText.strip()
+              lv_found_rep_val = True
 
     if (lv_found_rep_val and lv_rep_val == "0"):
       msg = 'Empty match ([*0] or variants) found in a property expression. \n'
@@ -634,6 +668,8 @@ def COMPAT_SVA_NO_CONC_IN_FE(lv_cu_scope):
         for lv_init_items_i in lv_mod_mem_i.statement.items:
 
           if (lv_init_items_i.kind.name == 'ForeverStatement'):
+            if (not hasattr(lv_init_items_i.statement.statement, 'items')):
+              continue
             for lv_fe_i in lv_init_items_i.statement.statement.items:
               lv_code_s = lv_fe_i.__str__()
               if (lv_fe_i.kind.name == 'AssertPropertyStatement'):
@@ -731,6 +767,7 @@ for scope_i in (tree.root.members):
 
   CL_METHOD_NOT_EXTERN(scope_i)
   FUNC_CNST_MISSING_CAST(scope_i)
+  FUNC_CNST_WRONG_OPER_PRI(scope_i)
   CL_MISSING_ENDLABEL(scope_i)
   REUSE_NO_TDEF_IN_MOD(scope_i)
   COMPAT_SVA_NO_CONC_IN_FE(scope_i)
