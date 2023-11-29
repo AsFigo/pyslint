@@ -390,6 +390,7 @@ def NAME_COV_PREFIX(lv_m):
         lv_rule_id = 'NAME_COV_PREFIX'
         pyslint_msg(lv_rule_id, msg)
 
+
 def COMPAT_SVA_NO_DEGEN_AST (lv_m):
   if (lv_m.kind.name == 'ConcurrentAssertionMember'):
 
@@ -456,6 +457,31 @@ def COMPAT_SVA_NO_DEGEN_AST (lv_m):
       msg += lv_p_str
       lu_rule_id = 'COMPAT_SVA_NO_DEGEN_AST'
       pyslint_msg (lu_rule_id, msg)
+
+def COMPAT_SVA_NO_S_UNTIL_WITH (lv_m):
+  if (lv_m.kind.name == 'ConcurrentAssertionMember'):
+
+    lv_found_rep_val = False
+
+    lv_p_expr = lv_m.statement.propertySpec
+    lv_p_str = lv_p_expr.__str__()
+
+    if (hasattr(lv_p_expr, 'expr')):
+      lv_p_expr_r = lv_p_expr.expr
+
+      if (hasattr(lv_p_expr_r, 'right') and
+          hasattr(lv_p_expr_r.right, 'op')):
+        lv_p_expr_r_1 = lv_p_expr_r.right.op
+
+        if (lv_p_expr_r_1.kind.name == 'SUntilWithKeyword'):
+
+          msg = 'Found usage of s_util_with on consequent of a concurrent assertion. \n'
+          msg += '\tThough LRM supports this, some compilers do NOT support this.'
+          msg += ' So for maximum compatibility across EDA \n'
+          msg += '\ttools consider remodeling this SVA. \n'
+          msg += lv_p_str
+          lu_rule_id = 'COMPAT_SVA_NO_S_UNTIL_WITH'
+          pyslint_msg (lu_rule_id, msg)
 
 def COMPAT_SVA_NO_DEGEN_CONSEQ(lv_m):
   if (lv_m.kind.name == 'PropertyDeclaration' or
@@ -790,6 +816,7 @@ if (cu_scope.kind.name != 'ClassDeclaration'):
       NAME_PROP_PREFIX(m_i)
       COMPAT_SVA_NO_DEGEN_CONSEQ(m_i)
       COMPAT_SVA_NO_DEGEN_AST(m_i)
+      COMPAT_SVA_NO_S_UNTIL_WITH(m_i)
       SVA_MISSING_ENDLABEL(m_i)
       NAME_CG_PREFIX(m_i)
   
