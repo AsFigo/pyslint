@@ -846,3 +846,14 @@ PySlint: Violation: [FUNC_NO_2STATE_IN_INTF]: Potential DUT bug hiding construct
   bit [3:0] bad_2st_2d [10];
 PySlint: Violation: [FUNC_NO_2STATE_IN_INTF]: Potential DUT bug hiding construct in use:  Inside SystemVerilog interface, it is recommended to use only 4-state signals/nets. Found a 2-state declaration as: 
   bit [9:0] bad_2st_3d [10][5];
+PySlint: Violation: [COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT]: A procedural 'expect' construct with temporal expression was found inside an initial block; IEEE 1800 LRM does  allow such usage though some tools do NOT support To avoid compatibility issues, please remodel the code:
+    expect (@(posedge clk) req1 ##1 1);
+PySlint: Violation: [COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT]: A procedural 'expect' construct with temporal expression was found inside an initial block; IEEE 1800 LRM does  allow such usage though some tools do NOT support To avoid compatibility issues, please remodel the code:
+    expect(@(posedge clk) req1 ##2 req2) else $error ("expect failure");
+PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: ap_ReqAckBusy: expected prefix: a_
+PySlint: Violation: [SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
+    ap_ReqAckBusy: assert property($rose(req) |=>  busy s_until_with ack );
+PySlint: Violation: [COMPAT_SVA_NO_S_UNTIL_WITH]: Found usage of s_util_with on consequent of a concurrent assertion. 
+	Though LRM supports this, some compilers do NOT support this. So for maximum compatibility across EDA 
+	tools consider remodeling this SVA. 
+$rose(req) |=>  busy s_until_with ack
