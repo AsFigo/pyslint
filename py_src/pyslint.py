@@ -42,6 +42,8 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT')
   lv_sv_ruleid_l.append('COMPAT_DPI_OLD_SPECSTR')
   lv_sv_ruleid_l.append('CL_METHOD_NOT_EXTERN')
+  lv_sv_ruleid_l.append('COMPAT_PRE_RAND_NON_VOID')
+  lv_sv_ruleid_l.append('COMPAT_POST_RAND_NON_VOID')
   lv_sv_ruleid_l.append('CL_MISSING_ENDLABEL')
   lv_sv_ruleid_l.append('PERF_CG_TOO_MANY_CROSS')
   lv_sv_ruleid_l.append('FUNC_CNST_MISSING_CAST')
@@ -87,6 +89,57 @@ def CL_METHOD_NOT_EXTERN(lv_cu_scope):
             msg = 'method is not declared extern: '+ str(cl_item.declaration.prototype.name)
             lv_rule_id = "CL_METHOD_NOT_EXTERN"
             pyslint_msg(lv_rule_id, msg)
+
+def COMPAT_PRE_RAND_NON_VOID(lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ClassDeclaration'):
+    for cl_item in (lv_cu_scope.items):
+      if (cl_item.kind.name == 'ClassMethodDeclaration'):
+        lv_code_s = cl_item.declaration.prototype.__str__()
+        lv_method_name = cl_item.declaration.prototype.name.__str__().strip()
+
+        if (lv_method_name == 'pre_randomize'):
+          lv_found_void_rt = False
+          if (hasattr(cl_item.declaration.prototype.returnType, 'keyword')):
+            lv_ret_type_kw = cl_item.declaration.prototype.returnType.keyword
+            lv_ret_type =  lv_ret_type_kw.valueText.strip() 
+            if (lv_ret_type == 'void'):
+              lv_found_void_rt = True
+
+          if (not lv_found_void_rt):
+            msg = 'method pre_randomize not declared as void: '
+            msg += '\n\tIEEE 1800 LRM does not'
+            msg += ' allow such usage though some tools do compile. \n'
+            msg += '\tTo avoid compatibility issues,'
+            msg += ' please declare pre_randomize as void function'
+            msg += lv_code_s
+            lv_rule_id = "COMPAT_PRE_RAND_NON_VOID"
+            pyslint_msg(lv_rule_id, msg)
+
+def COMPAT_POST_RAND_NON_VOID(lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ClassDeclaration'):
+    for cl_item in (lv_cu_scope.items):
+      if (cl_item.kind.name == 'ClassMethodDeclaration'):
+        lv_code_s = cl_item.declaration.prototype.__str__()
+        lv_method_name = cl_item.declaration.prototype.name.__str__().strip()
+
+        if (lv_method_name == 'post_randomize'):
+          lv_found_void_rt = False
+          if (hasattr(cl_item.declaration.prototype.returnType, 'keyword')):
+            lv_ret_type_kw = cl_item.declaration.prototype.returnType.keyword
+            lv_ret_type =  lv_ret_type_kw.valueText.strip() 
+            if (lv_ret_type == 'void'):
+              lv_found_void_rt = True
+
+          if (not lv_found_void_rt):
+            msg = 'method post_randomize not declared as void: '
+            msg += '\n\tIEEE 1800 LRM does not'
+            msg += ' allow such usage though some tools do compile. \n'
+            msg += '\tTo avoid compatibility issues,'
+            msg += ' please declare post_randomize as void function'
+            msg += lv_code_s
+            lv_rule_id = "COMPAT_POST_RAND_NON_VOID"
+            pyslint_msg(lv_rule_id, msg)
+
 
 def FUNC_CNST_DIST_COL_EQ(cnst_i):
   for lv_dist_item_i in cnst_i.expr.distribution.items:
@@ -826,6 +879,8 @@ for scope_i in (tree.root.members):
   chk_dpi_rules(scope_i)
 
   CL_METHOD_NOT_EXTERN(scope_i)
+  COMPAT_PRE_RAND_NON_VOID(scope_i)
+  COMPAT_POST_RAND_NON_VOID(scope_i)
   FUNC_CNST_MISSING_CAST(scope_i)
   FUNC_CNST_WRONG_OPER_PRI(scope_i)
   CL_MISSING_ENDLABEL(scope_i)

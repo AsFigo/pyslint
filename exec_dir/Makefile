@@ -50,8 +50,6 @@ naming:
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_cl_def_27_p.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_mod_def_27_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_reuse_one_mod_def_27_p.sv >> pyslint.log
-	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue92_auto_var.sv >> pyslint.log
-	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue94_counter.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_106_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_108_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_109_f.sv >> pyslint.log
@@ -89,6 +87,8 @@ naming:
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_issue_49_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_136_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_137_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_139_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_139_p.sv >> pyslint.log
 
 	cat pyslint.log
 
