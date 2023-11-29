@@ -39,6 +39,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('SVA_MISSING_ENDLABEL')
   lv_sv_ruleid_l.append('SVA_NO_PASS_AB')
   lv_sv_ruleid_l.append('COMPAT_SVA_NO_CONC_IN_FE')
+  lv_sv_ruleid_l.append('COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT')
   lv_sv_ruleid_l.append('COMPAT_DPI_OLD_SPECSTR')
   lv_sv_ruleid_l.append('CL_METHOD_NOT_EXTERN')
   lv_sv_ruleid_l.append('CL_MISSING_ENDLABEL')
@@ -708,6 +709,39 @@ def COMPAT_SVA_NO_CONC_IN_FE(lv_cu_scope):
                 lv_rule_id = 'COMPAT_SVA_NO_CONC_IN_FE'
                 pyslint_msg(lv_rule_id, msg)
 
+def COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT(lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
+    for lv_mod_mem_i in lv_cu_scope.members:
+      if (lv_mod_mem_i.kind.name == 'InitialBlock'):
+        if (not hasattr(lv_mod_mem_i.statement, 'items')):
+          continue
+        for lv_init_items_i in lv_mod_mem_i.statement.items:
+          if (lv_init_items_i.kind.name == 'ExpectPropertyStatement'):
+            if (
+                hasattr(lv_init_items_i, 'propertySpec') and
+                hasattr(lv_init_items_i.propertySpec, 'expr') and
+                hasattr(lv_init_items_i.propertySpec.expr, 'expr') and
+                hasattr(lv_init_items_i.propertySpec.expr.expr, 'elements')
+              ):
+              lv_code_s = lv_init_items_i.__str__()
+              msg = 'A procedural \'expect\' construct with temporal'
+              msg += ' expression was found'
+              msg += ' inside an initial block; IEEE 1800 LRM does '
+              msg += ' allow such usage though some tools do NOT support'
+              msg += ' To avoid compatibility issues,'
+              msg += ' please remodel the code:'
+              msg += str(lv_code_s)
+              lv_rule_id = 'COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT'
+              pyslint_msg(lv_rule_id, msg)
+
+            '''
+            if (not hasattr(lv_init_items_i.statement.statement, 'items')):
+              continue
+            for lv_fe_i in lv_init_items_i.statement.statement.items:
+              lv_code_s = lv_fe_i.__str__()
+              if (lv_fe_i.kind.name == 'AssertPropertyStatement'):
+            '''
+
 def REUSE_NO_TDEF_IN_MOD(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
     for lv_mod_mem_i in lv_cu_scope.members:
@@ -797,6 +831,7 @@ for scope_i in (tree.root.members):
   CL_MISSING_ENDLABEL(scope_i)
   REUSE_NO_TDEF_IN_MOD(scope_i)
   COMPAT_SVA_NO_CONC_IN_FE(scope_i)
+  COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT(scope_i)
   COMPAT_CG_OPT_PI_CL(scope_i)
   REUSE_CG_NO_ILBINS_CL(scope_i)
   PERF_CG_NO_ABIN_W_DEF_CL(scope_i)
