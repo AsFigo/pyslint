@@ -887,10 +887,28 @@ def chk_dpi_rules(lv_cu_scope):
     chk_dpi_rules_common(lv_cu_scope)
   if (lv_cu_scope.kind.name == 'DPIImport'):
     chk_dpi_rules_common(lv_cu_scope)
+
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
     for lv_mod_mem_i in lv_cu_scope.members:
+      if (lv_mod_mem_i.kind.name == 'DPIExport'):
+        chk_dpi_rules_common(lv_mod_mem_i)
       if (lv_mod_mem_i.kind.name == 'DPIImport'):
         chk_dpi_rules_common(lv_mod_mem_i)
+
+  if (lv_cu_scope.kind.name == 'InterfaceDeclaration'):
+    for lv_if_mem_i in lv_cu_scope.members:
+      if (lv_if_mem_i.kind.name == 'DPIExport'):
+        chk_dpi_rules_common(lv_if_mem_i)
+      if (lv_if_mem_i.kind.name == 'DPIImport'):
+        chk_dpi_rules_common(lv_if_mem_i)
+
+  if (lv_cu_scope.kind.name == 'PackageDeclaration'):
+    for lv_pkg_mem_i in lv_cu_scope.members:
+      if (lv_pkg_mem_i.kind.name == 'DPIExport'):
+        chk_dpi_rules_common(lv_pkg_mem_i)
+      if (lv_pkg_mem_i.kind.name == 'DPIImport'):
+        chk_dpi_rules_common(lv_pkg_mem_i)
+
 
 def chk_naming(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ClassDeclaration'):
