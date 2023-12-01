@@ -9,16 +9,7 @@ import argparse
 import tomli
 import copy
 import functools
-
-# Fix labels  Done
-# Add lv_id Done
-
-def rhasattr(obj, path):
-  try:
-    functools.reduce(getattr, path.split("."), obj)
-    return True
-  except AttributeError:
-    return False
+from operator import itemgetter
 
 print_verbose = False
 
@@ -41,6 +32,9 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('COMPAT_SVA_NO_CONC_IN_FE')
   lv_sv_ruleid_l.append('COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT')
   lv_sv_ruleid_l.append('COMPAT_DPI_OLD_SPECSTR')
+  lv_sv_ruleid_l.append('COMPAT_DPI_NO_PURE_TASK')
+  lv_sv_ruleid_l.append('FUNC_DPI_FN_MISSING_RTYPE')
+  lv_sv_ruleid_l.append('FUNC_DPI_NO_4STATE_IN_RETURN')
   lv_sv_ruleid_l.append('CL_METHOD_NOT_EXTERN')
   lv_sv_ruleid_l.append('COMPAT_PRE_RAND_NON_VOID')
   lv_sv_ruleid_l.append('COMPAT_POST_RAND_NON_VOID')
@@ -716,7 +710,51 @@ def FUNC_NO_2STATE_IN_INTF(lv_intf_scope):
         lv_rule_id = 'FUNC_NO_2STATE_IN_INTF'
         pyslint_msg(lv_rule_id, msg)
 
+af_dpi_method_l = list()
+
+def af_dpi_collect_info(lv_dpi_m):
+  lv_dpi_d = {}
+  lv_dpi_d['name'] = lv_dpi_m.name.__str__().strip()
+  lv_dpi_d['type'] = lv_dpi_m.functionOrTask.__str__().strip()
+  af_dpi_method_l.append(lv_dpi_d.copy())
+
+def FUNC_DPI_FN_MISSING_RTYPE(lv_dpi_m):
+  if (not hasattr(lv_dpi_m, 'method')):
+    return
+  lv_code_s = lv_dpi_m.__str__()
+  if (lv_dpi_m.method.returnType.kind.name == 'ImplicitType'):
+    msg = 'DPI import functions should specify \n'
+    msg += '\t return type as per LRM.'
+    msg += ' Using Implicit return type (of logic) can lead to \n'
+    msg += '\t functional issues leading to unexpected results. Please specify'
+    msg += ' return type as void/bit etc. \n'
+    msg += '\t Preferably use 2-state type. \n'
+    msg += lv_code_s
+    lv_rule_id = 'FUNC_DPI_FN_MISSING_RTYPE'
+    pyslint_msg(lv_rule_id, msg)
+
+def COMPAT_DPI_NO_PURE_TASK(lv_dpi_m):
+  '''
+  Add this once PySlang supports this
+  lv_rval_type_s = lv_dpi_mem.method.returnType.keyword.__str__().strip()
+  lv_rval_4st_types = ["integer", "logic",
+                    "reg"]
+  if any([x in lv_rval_type_s for x in lv_rval_4st_types]):
+    msg = 'DPI functions shall use 2-state types in return value.'
+    msg += ' Using 4-state type can lead to unnecessary complication'
+    msg += ' as C-side does not naturally support 4-state value system'
+    msg += ' Found code as: \n'
+    msg += str(lv_dpi_mem)
+    lv_rule_id = 'COMPAT_DPI_NO_PURE_TASK'
+    pyslint_msg(lv_rule_id, msg)
+  '''
+
 def FUNC_DPI_NO_4STATE_IN_RETURN(lv_dpi_mem):
+  if (not hasattr(lv_dpi_mem, 'method')):
+    return
+  if (not hasattr(lv_dpi_mem.method.returnType, 'keyword')):
+    return
+
   lv_rval_type_s = lv_dpi_mem.method.returnType.keyword.__str__().strip()
   lv_rval_4st_types = ["integer", "logic",
                     "reg"]
@@ -838,12 +876,21 @@ def REUSE_ONE_MOD_PER_FILE (lv_m):
         pyslint_msg (lv_rule_id, msg)
         break
 
+def chk_dpi_rules_common(lv_dpi_scope):
+  COMPAT_DPI_OLD_SPECSTR (lv_dpi_scope)
+  COMPAT_DPI_NO_PURE_TASK(lv_dpi_scope)
+  FUNC_DPI_NO_4STATE_IN_RETURN (lv_dpi_scope)
+  FUNC_DPI_FN_MISSING_RTYPE(lv_dpi_scope)
+
 def chk_dpi_rules(lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'DPIExport'):
+    chk_dpi_rules_common(lv_cu_scope)
+  if (lv_cu_scope.kind.name == 'DPIImport'):
+    chk_dpi_rules_common(lv_cu_scope)
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
     for lv_mod_mem_i in lv_cu_scope.members:
       if (lv_mod_mem_i.kind.name == 'DPIImport'):
-        COMPAT_DPI_OLD_SPECSTR (lv_mod_mem_i)
-        FUNC_DPI_NO_4STATE_IN_RETURN (lv_mod_mem_i)
+        chk_dpi_rules_common(lv_mod_mem_i)
 
 def chk_naming(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ClassDeclaration'):
