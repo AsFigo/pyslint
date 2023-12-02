@@ -899,3 +899,43 @@ PySlint: Violation: [FUNC_DPI_FN_MISSING_RTYPE]: DPI import functions should spe
 	 Preferably use 2-state type. 
 
   import "DPI-C" function bad_implicit_rt (input int v1, input int v2, output int o);
+PySlint: Violation: [FUNC_DPI_NO_4STATE_IN_ARGS]: DPI functions shall use arguments of 2-state types.
+	 Using 4-state type can lead to unnecessary complications
+	 as C-side does not naturally support 4-state value system
+  import "DPI-C" function int bad_dpi_f_4st(input integer v, output logic o);
+PySlint: Violation: [FUNC_DPI_NO_4STATE_IN_ARGS]: DPI functions shall use arguments of 2-state types.
+	 Using 4-state type can lead to unnecessary complications
+	 as C-side does not naturally support 4-state value system
+  import "DPI-C" function int bad_dpi_f_4st(input integer v, output logic o);
+PySlint: Violation: [COMPAT_DPI_NO_MDA]: DPI method with Multi-Dimensional Array as arguments was found. 
+	While LRM allows this, some tools do not fully support. To avoid compatibility issues, 
+	please remodel the code:
+  import "DPI-C" function int bad_dpi_f_4st_da(input int dyn_a[$][]);
+PySlint: Violation: [FUNC_DPI_NO_4STATE_IN_ARGS]: DPI functions shall use arguments of 2-state types.
+	 Using 4-state type can lead to unnecessary complications
+	 as C-side does not naturally support 4-state value system
+  import "DPI-C" function int bad_dpi_f_4st(input integer v, output logic o);
+PySlint: Violation: [FUNC_DPI_NO_4STATE_IN_ARGS]: DPI functions shall use arguments of 2-state types.
+	 Using 4-state type can lead to unnecessary complications
+	 as C-side does not naturally support 4-state value system
+  import "DPI-C" function int bad_dpi_f_4st(input integer v, output logic o);
+PySlint: Violation: [FUNC_DPI_NO_4STATE_IN_ARGS]: DPI functions shall use arguments of 2-state types.
+	 Using 4-state type can lead to unnecessary complications
+	 as C-side does not naturally support 4-state value system
+  import "DPI-C" function int bad_dpi_f_4st_1(input integer v, output bit o);
+PySlint: Violation: [FUNC_DPI_NO_4STATE_IN_ARGS]: DPI functions shall use arguments of 2-state types.
+	 Using 4-state type can lead to unnecessary complications
+	 as C-side does not naturally support 4-state value system
+  import "DPI-C" function int bad_dpi_f_4st_def(input v, output o);
+PySlint: Violation: [FUNC_DPI_NO_4STATE_IN_ARGS]: DPI functions shall use arguments of 2-state types.
+	 Using 4-state type can lead to unnecessary complications
+	 as C-side does not naturally support 4-state value system
+  import "DPI-C" function int bad_dpi_f_4st_def(input v, output o);
+PySlint: Violation: [COMPAT_DPI_NO_MDA]: DPI method with Multi-Dimensional Array as arguments was found. 
+	While LRM allows this, some tools do not fully support. To avoid compatibility issues, 
+	please remodel the code:
+  import "DPI-C" function int bad_dpi_f_mda(input int dyn_a[][]);
+PySlint: Violation: [COMPAT_DPI_NO_MDA]: DPI method with Multi-Dimensional Array as arguments was found. 
+	While LRM allows this, some tools do not fully support. To avoid compatibility issues, 
+	please remodel the code:
+  import "DPI-C" task bad_dpi_t_mda(input int dyn_a[][]);
