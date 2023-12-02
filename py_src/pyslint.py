@@ -9,7 +9,8 @@ import argparse
 import tomli
 import copy
 import functools
-from operator import itemgetter
+from operator import countOf
+import operator as op
 
 print_verbose = False
 
@@ -35,6 +36,8 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('COMPAT_DPI_NO_PURE_TASK')
   lv_sv_ruleid_l.append('FUNC_DPI_FN_MISSING_RTYPE')
   lv_sv_ruleid_l.append('FUNC_DPI_NO_4STATE_IN_RETURN')
+  lv_sv_ruleid_l.append('FUNC_DPI_NO_4STATE_IN_ARGS')
+  lv_sv_ruleid_l.append('COMPAT_DPI_NO_MDA')
   lv_sv_ruleid_l.append('CL_METHOD_NOT_EXTERN')
   lv_sv_ruleid_l.append('COMPAT_PRE_RAND_NON_VOID')
   lv_sv_ruleid_l.append('COMPAT_POST_RAND_NON_VOID')
@@ -721,6 +724,10 @@ def af_dpi_collect_info(lv_dpi_m):
 def FUNC_DPI_FN_MISSING_RTYPE(lv_dpi_m):
   if (not hasattr(lv_dpi_m, 'method')):
     return
+
+  if (str(lv_dpi_m.method.keyword).strip() == 'task'):
+    return
+
   lv_code_s = lv_dpi_m.__str__()
   if (lv_dpi_m.method.returnType.kind.name == 'ImplicitType'):
     msg = 'DPI import functions should specify \n'
@@ -766,6 +773,46 @@ def FUNC_DPI_NO_4STATE_IN_RETURN(lv_dpi_mem):
     msg += str(lv_dpi_mem)
     lv_rule_id = 'FUNC_DPI_NO_4STATE_IN_RETURN'
     pyslint_msg(lv_rule_id, msg)
+
+
+def FUNC_DPI_NO_4STATE_IN_ARGS(lv_dpi_mem):
+  if(not hasattr(lv_dpi_mem, 'method')):
+    return
+  for lv_dpi_args_i in lv_dpi_mem.method.portList:
+    if (lv_dpi_args_i.kind.name == 'SeparatedList'):
+      for lv_dpi_ports_i in lv_dpi_args_i:
+        if (lv_dpi_ports_i.kind.name != 'Comma'):
+          lv_rval_type_s = lv_dpi_ports_i.dataType.__str__().strip()
+          lv_rval_4st_types = ["integer", "logic",
+                    "reg", "None"]
+          if any([x in lv_rval_type_s for x in lv_rval_4st_types]):
+            msg = 'DPI functions shall use arguments of 2-state types.\n'
+            msg += '\t Using 4-state type can lead to unnecessary complications\n'
+            msg += '\t as C-side does not naturally support 4-state value system'
+            msg += str(lv_dpi_mem)
+            lv_rule_id = 'FUNC_DPI_NO_4STATE_IN_ARGS'
+            pyslint_msg(lv_rule_id, msg)
+
+
+
+def COMPAT_DPI_NO_MDA(lv_dpi_mem):
+  if(not hasattr(lv_dpi_mem, 'method')):
+    return
+  for lv_dpi_args_i in lv_dpi_mem.method.portList:
+    if (lv_dpi_args_i.kind.name == 'SeparatedList'):
+      for lv_dpi_ports_i in lv_dpi_args_i:
+        if (lv_dpi_ports_i.kind.name != 'Comma'):
+          lv_dpi_arg_dim_s = lv_dpi_ports_i.declarator.dimensions.__str__().strip()
+          if (op.countOf(lv_dpi_arg_dim_s, "[") > 1):
+            msg = 'DPI method with Multi-Dimensional Array as arguments'
+            msg += ' was found. \n\tWhile LRM allows this, some tools do not'
+            msg += ' fully support. To avoid compatibility issues, \n'
+            msg += '\tplease remodel the code:'
+            msg += str(lv_dpi_mem)
+            lv_rule_id = 'COMPAT_DPI_NO_MDA'
+            pyslint_msg(lv_rule_id, msg)
+
+
 
 def COMPAT_DPI_OLD_SPECSTR(lv_dpi_mem):
   lv_spec_str_val_s = lv_dpi_mem.specString.__str__().strip()
@@ -879,7 +926,9 @@ def REUSE_ONE_MOD_PER_FILE (lv_m):
 def chk_dpi_rules_common(lv_dpi_scope):
   COMPAT_DPI_OLD_SPECSTR (lv_dpi_scope)
   COMPAT_DPI_NO_PURE_TASK(lv_dpi_scope)
+  COMPAT_DPI_NO_MDA(lv_dpi_scope)
   FUNC_DPI_NO_4STATE_IN_RETURN (lv_dpi_scope)
+  FUNC_DPI_NO_4STATE_IN_ARGS (lv_dpi_scope)
   FUNC_DPI_FN_MISSING_RTYPE(lv_dpi_scope)
 
 def chk_dpi_rules(lv_cu_scope):
