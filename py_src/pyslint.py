@@ -16,6 +16,7 @@ print_verbose = False
 
 def pyslint_update_rule_ids():
   lv_sv_ruleid_l = list()
+  lv_sv_ruleid_l.append('CL_METHOD_NOT_EXTERN')
   lv_sv_ruleid_l.append('NAME_INTF_SUFFIX')
   lv_sv_ruleid_l.append('NAME_CLASS_SUFFIX')
   lv_sv_ruleid_l.append('NAME_CNST_SUFFIX')
@@ -26,10 +27,10 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('NAME_AST_PREFIX')
   lv_sv_ruleid_l.append('NAME_ASM_PREFIX')
   lv_sv_ruleid_l.append('NAME_COV_PREFIX')
-  lv_sv_ruleid_l.append('SVA_MISSING_FAIL_AB')
-  lv_sv_ruleid_l.append('SVA_MISSING_LABEL')
-  lv_sv_ruleid_l.append('SVA_MISSING_ENDLABEL')
-  lv_sv_ruleid_l.append('SVA_NO_PASS_AB')
+  lv_sv_ruleid_l.append('FUNC_SVA_MISSING_FAIL_AB')
+  lv_sv_ruleid_l.append('DBG_SVA_MISSING_LABEL')
+  lv_sv_ruleid_l.append('DBG_SVA_MISSING_ENDLABEL')
+  lv_sv_ruleid_l.append('PERF_SVA_NO_PASS_AB')
   lv_sv_ruleid_l.append('COMPAT_SVA_NO_CONC_IN_FE')
   lv_sv_ruleid_l.append('COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT')
   lv_sv_ruleid_l.append('COMPAT_DPI_OLD_SPECSTR')
@@ -39,10 +40,9 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('FUNC_DPI_NO_4STATE_IN_RETURN')
   lv_sv_ruleid_l.append('FUNC_DPI_NO_4STATE_IN_ARGS')
   lv_sv_ruleid_l.append('COMPAT_DPI_NO_MDA')
-  lv_sv_ruleid_l.append('CL_METHOD_NOT_EXTERN')
+  lv_sv_ruleid_l.append('DBG_CL_MISSING_ENDLABEL')
   lv_sv_ruleid_l.append('COMPAT_PRE_RAND_NON_VOID')
   lv_sv_ruleid_l.append('COMPAT_POST_RAND_NON_VOID')
-  lv_sv_ruleid_l.append('CL_MISSING_ENDLABEL')
   lv_sv_ruleid_l.append('PERF_CG_TOO_MANY_CROSS')
   lv_sv_ruleid_l.append('FUNC_CNST_MISSING_CAST')
   lv_sv_ruleid_l.append('FUNC_CNST_WRONG_OPER_PRI')
@@ -404,7 +404,7 @@ def NAME_ASM_PREFIX(lv_m):
     if (lv_m.statement.label is None):
       msg = 'Unnamed assumption - use a meaningful label: ' 
       msg += str(lv_m.statement)
-      lv_rule_id = "SVA_MISSING_LABEL"
+      lv_rule_id = "DBG_SVA_MISSING_LABEL"
       pyslint_msg(lv_rule_id, msg)
     else:
       lv_label = lv_m.statement.label.name.value
@@ -426,7 +426,7 @@ def NAME_COV_PREFIX(lv_m):
     if (lv_m.statement.label is None):
       msg = 'Unnamed assumption - use a meaningful label: ' 
       msg += str(lv_m.statement)
-      lv_rule_id = "SVA_MISSING_LABEL"
+      lv_rule_id = "DBG_SVA_MISSING_LABEL"
       pyslint_msg(lv_rule_id, msg)
     else:
       lv_label = lv_m.statement.label.name.value
@@ -606,25 +606,25 @@ def NAME_PROP_PREFIX(lv_m):
       lv_rule_id = 'NAME_PROP_PREFIX'
       pyslint_msg(lv_rule_id, msg)
 
-def SVA_MISSING_ENDLABEL(lv_m):
+def DBG_SVA_MISSING_ENDLABEL(lv_m):
   if (lv_m.kind.name == 'PropertyDeclaration'):
     if (lv_m.endBlockName is None):
       lv_prop_label = lv_m.name.valueText
       msg = 'Missing End Label for property: ' 
       msg += lv_prop_label
-      lv_rule_id = 'SVA_MISSING_ENDLABEL'
+      lv_rule_id = 'DBG_SVA_MISSING_ENDLABEL'
       pyslint_msg(lv_rule_id, msg)
 
-def CL_MISSING_ENDLABEL(lv_cu_scope):
+def DBG_CL_MISSING_ENDLABEL(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ClassDeclaration'):
     if (lv_cu_scope.endBlockName is None):
       lv_cl_label = lv_cu_scope.name.valueText
       msg = 'Missing End Label for class: ' 
       msg += lv_cl_label
-      lv_rule_id = 'CL_MISSING_ENDLABEL'
+      lv_rule_id = 'DBG_CL_MISSING_ENDLABEL'
       pyslint_msg(lv_rule_id, msg)
 
-def SVA_NO_PASS_AB(lv_m):
+def PERF_SVA_NO_PASS_AB(lv_m):
   if (lv_m.kind.name == 'ConcurrentAssertionMember'):
     if (lv_m.statement.action.statement is None):
       return
@@ -634,10 +634,10 @@ def SVA_NO_PASS_AB(lv_m):
     if (lv_m.statement.action.statement is not None):
       msg = 'Avoid using PASS Action block - likely to cause too many vacuous prints: ' 
       msg += str(lv_m.statement)
-      lv_rule_id = 'SVA_NO_PASS_AB'
+      lv_rule_id = 'PERF_SVA_NO_PASS_AB'
       pyslint_msg(lv_rule_id, msg)
 
-def SVA_MISSING_FAIL_AB(lv_m):
+def FUNC_SVA_MISSING_FAIL_AB(lv_m):
   if (lv_m.kind.name == 'ConcurrentAssertionMember'):
     if (lv_m.statement.label is None):
       return
@@ -651,7 +651,7 @@ def SVA_MISSING_FAIL_AB(lv_m):
     if (lv_m.statement.action.elseClause is None):
       msg = 'Missing FAIL Action block - use $error/`uvm_error: ' 
       msg += str(lv_m.statement)
-      lv_rule_id = 'SVA_MISSING_FAIL_AB'
+      lv_rule_id = 'FUNC_SVA_MISSING_FAIL_AB'
       pyslint_msg(lv_rule_id, msg)
 
 def pyslint_argparse():
@@ -999,7 +999,7 @@ for scope_i in (tree.root.members):
   COMPAT_POST_RAND_NON_VOID(scope_i)
   FUNC_CNST_MISSING_CAST(scope_i)
   FUNC_CNST_WRONG_OPER_PRI(scope_i)
-  CL_MISSING_ENDLABEL(scope_i)
+  DBG_CL_MISSING_ENDLABEL(scope_i)
   REUSE_NO_TDEF_IN_MOD(scope_i)
   COMPAT_SVA_NO_CONC_IN_FE(scope_i)
   COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT(scope_i)
@@ -1017,12 +1017,12 @@ if (cu_scope.kind.name != 'ClassDeclaration'):
       NAME_AST_PREFIX(m_i)
       NAME_ASM_PREFIX(m_i)
       NAME_COV_PREFIX(m_i)
-      SVA_MISSING_FAIL_AB(m_i)
-      SVA_NO_PASS_AB(m_i)
+      FUNC_SVA_MISSING_FAIL_AB(m_i)
+      PERF_SVA_NO_PASS_AB(m_i)
       NAME_PROP_PREFIX(m_i)
       COMPAT_SVA_NO_DEGEN_CONSEQ(m_i)
       COMPAT_SVA_NO_DEGEN_AST(m_i)
       COMPAT_SVA_NO_S_UNTIL_WITH(m_i)
-      SVA_MISSING_ENDLABEL(m_i)
+      DBG_SVA_MISSING_ENDLABEL(m_i)
       NAME_CG_PREFIX(m_i)
   
