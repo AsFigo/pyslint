@@ -18,6 +18,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l = list()
   lv_sv_ruleid_l.append('CL_METHOD_NOT_EXTERN')
   lv_sv_ruleid_l.append('VLT_NO_GENERIC_MBX')
+  lv_sv_ruleid_l.append('VLT_NO_CB_IN_INTF')
   lv_sv_ruleid_l.append('NAME_INTF_SUFFIX')
   lv_sv_ruleid_l.append('NAME_CLASS_SUFFIX')
   lv_sv_ruleid_l.append('NAME_CNST_SUFFIX')
@@ -1006,6 +1007,18 @@ def chk_dpi_rules(lv_cu_scope):
         chk_dpi_rules_common(lv_pkg_mem_i)
 
 
+def VLT_NO_CB_IN_INTF(lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'InterfaceDeclaration'):
+    for lv_intf_mem_i in lv_cu_scope.members:
+      print (lv_intf_mem_i.kind.name)
+      if (lv_intf_mem_i.kind.name == 'ClockingDeclaration'):
+        msg = 'Verilator does not (fully) support clocking block \n'
+        msg += '\t based drives. So avoid them for Verilator compatible'
+        msg += ' testbenches. Add them inside `ifndef VERILATOR macro.'
+        msg += str(lv_intf_mem_i)
+        lv_rule_id = 'VLT_NO_CB_IN_INTF'
+        pyslint_msg(lv_rule_id, msg)
+
 def chk_naming(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ClassDeclaration'):
     lv_ident_name = str(lv_cu_scope.name)
@@ -1040,7 +1053,6 @@ for scope_i in (tree.root.members):
   chk_dpi_rules(scope_i)
 
   CL_METHOD_NOT_EXTERN(scope_i)
-  VLT_NO_GENERIC_MBX(scope_i)
   COMPAT_PRE_RAND_NON_VOID(scope_i)
   COMPAT_POST_RAND_NON_VOID(scope_i)
   FUNC_CNST_MISSING_CAST(scope_i)
@@ -1056,6 +1068,8 @@ for scope_i in (tree.root.members):
   REUSE_ONE_CL_PER_FILE(scope_i)
   REUSE_ONE_MOD_PER_FILE(scope_i)
   FUNC_NO_BEGIN_IN_TIMING_CTRL(scope_i)
+  VLT_NO_GENERIC_MBX(scope_i)
+  VLT_NO_CB_IN_INTF(scope_i)
 
 cu_scope = tree.root.members[0]
 if (cu_scope.kind.name != 'ClassDeclaration'):
