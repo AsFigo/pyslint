@@ -939,22 +939,21 @@ PySlint: Violation: [COMPAT_DPI_NO_MDA]: DPI method with Multi-Dimensional Array
 	While LRM allows this, some tools do not fully support. To avoid compatibility issues, 
 	please remodel the code:
   import "DPI-C" task bad_dpi_t_mda(input int dyn_a[][]);
-PySlint: Violation: [FUNC_NO_BEGIN_IN_TIMING_CTRL]: A task with Timing Control construct
-	 (@ (posedge clk)) or variants was found along with a 'begin'. This is likely due to 
-	 a missing SEMICOLON ; after the timing control. please remodel the code:
+PySlint: Violation: [DBG_AVOID_BEGIN_IN_TASK]: A task with begin..end was found.
+	 This is likely a legacy Verilog coding syle as SystemVerilog 
+	 makes this optional and it is recommended coding style to avoid begin..end 
+	 inside task to improve readability and maintainability of codebase.
+	 Please remove the redundant begin..end 
+
+  task t1_bad()
+PySlint: Violation: [FUNC_NO_BEGIN_IN_TIMING_CTRL]: A task with TimingControl like @(posedge clk) was
+	 found along with a 'begin..end'
+	 This is likely a typo-error and may lead to unexpected behaviour of the BFM code. 
+	 Task where this was found:
 task Write()
-begin
-  @(negedge pclk) begin 
-    psel = 1;
-    penb = 0;
-    for (int i = 0; i < 64; i=i+1) begin
-      @(negedge pclk) begin 
-        penb = 1 ;
-      end
-    end
-  end
-end
-PySlint: Violation: [COMPAT_VLT_NO_GENERIC_MBX]: A generic mailbox declaration was found. 
+	 Relevant code snippet: 
+  @(negedge pclk) begin     psel = 1;
+PySlint: Violation: [VLT_NO_GENERIC_MBX]: A generic mailbox declaration was found. 
 	 While IEEE 1800 LRM allows this, such usage is error-prone and harder to debug. 
 	 Verilator does not support this feature. Please use typed mailbox such as: 'mailbox #(int) in_box;'
   mailbox gbx;
