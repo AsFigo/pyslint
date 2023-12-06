@@ -42,6 +42,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('FUNC_DPI_NO_4STATE_IN_RETURN')
   lv_sv_ruleid_l.append('FUNC_DPI_NO_4STATE_IN_ARGS')
   lv_sv_ruleid_l.append('FUNC_NO_BEGIN_IN_TIMING_CTRL')
+  lv_sv_ruleid_l.append('DBG_AVOID_BEGIN_IN_TASK')
   lv_sv_ruleid_l.append('COMPAT_DPI_NO_MDA')
   lv_sv_ruleid_l.append('DBG_CL_MISSING_ENDLABEL')
   lv_sv_ruleid_l.append('COMPAT_PRE_RAND_NON_VOID')
@@ -879,20 +880,44 @@ def FUNC_NO_BEGIN_IN_TIMING_CTRL(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
     for lv_mod_mem_i in lv_cu_scope.members:
       if (lv_mod_mem_i.kind.name == 'TaskDeclaration'):
+        lv_task_name = str(lv_mod_mem_i.prototype)
+        for lv_task_items_i in lv_mod_mem_i.items:
+          if (lv_task_items_i.kind.name == 'TimingControlStatement'):
+            lv_tmp_s = str(lv_task_items_i)
+            lv_tmp_s_l = lv_tmp_s.splitlines()
+            lv_code_s = ''.join(lv_tmp_s_l[:3])
+
+            if ((lv_task_items_i.statement.kind.name == 'SequentialBlockStatement')):
+              msg = 'A task with TimingControl like @(posedge clk) was\n'
+              msg += '\t found along with a \'begin..end\'\n'
+              msg += '\t This is likely a typo-error and may lead to'
+              msg += ' unexpected behaviour of the BFM code. \n'
+              msg += '\t Task where this was found:'
+              msg += lv_task_name + '\n'
+              msg += '\t Relevant code snippet: \n'
+              msg += lv_code_s
+              lv_rule_id = 'FUNC_NO_BEGIN_IN_TIMING_CTRL'
+              pyslint_msg(lv_rule_id, msg)
+
+
+
+def DBG_AVOID_BEGIN_IN_TASK(lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
+    for lv_mod_mem_i in lv_cu_scope.members:
+      if (lv_mod_mem_i.kind.name == 'TaskDeclaration'):
         for lv_task_items_i in lv_mod_mem_i.items:
           if (lv_task_items_i.kind.name == 'SequentialBlockStatement'):
             lv_code_s = str(lv_mod_mem_i.prototype)
             lv_seq_s = str(lv_task_items_i)
-            msg = 'A task with Timing Control construct\n'
-            msg += '\t (@ (posedge clk))'
-            msg += ' or variants was found along with a \'begin\'.'
-            msg += ' This is likely due to \n'
-            msg += '\t a missing SEMICOLON ; after the'
-            msg += ' timing control.'
-            msg += ' please remodel the code:'
+            msg = 'A task with begin..end was found.\n'
+            msg += '\t This is likely a legacy Verilog coding syle as SystemVerilog \n'
+            msg += '\t makes this optional and it is recommended'
+            msg += ' coding style to avoid begin..end \n'
+            msg += '\t inside task to improve readability and'
+            msg += ' maintainability of codebase.\n'
+            msg += '\t Please remove the redundant begin..end \n'
             msg += lv_code_s
-            msg += lv_seq_s
-            lv_rule_id = 'FUNC_NO_BEGIN_IN_TIMING_CTRL'
+            lv_rule_id = 'DBG_AVOID_BEGIN_IN_TASK'
             pyslint_msg(lv_rule_id, msg)
 
 def COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT(lv_cu_scope):
@@ -1010,7 +1035,6 @@ def chk_dpi_rules(lv_cu_scope):
 def VLT_NO_CB_IN_INTF(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'InterfaceDeclaration'):
     for lv_intf_mem_i in lv_cu_scope.members:
-      print (lv_intf_mem_i.kind.name)
       if (lv_intf_mem_i.kind.name == 'ClockingDeclaration'):
         msg = 'Verilator does not (fully) support clocking block \n'
         msg += '\t based drives. So avoid them for Verilator compatible'
@@ -1068,6 +1092,7 @@ for scope_i in (tree.root.members):
   REUSE_ONE_CL_PER_FILE(scope_i)
   REUSE_ONE_MOD_PER_FILE(scope_i)
   FUNC_NO_BEGIN_IN_TIMING_CTRL(scope_i)
+  DBG_AVOID_BEGIN_IN_TASK(scope_i)
   VLT_NO_GENERIC_MBX(scope_i)
   VLT_NO_CB_IN_INTF(scope_i)
 
