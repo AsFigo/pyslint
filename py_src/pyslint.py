@@ -43,6 +43,8 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('FUNC_DPI_NO_4STATE_IN_ARGS')
   lv_sv_ruleid_l.append('FUNC_NO_BEGIN_IN_TIMING_CTRL')
   lv_sv_ruleid_l.append('DBG_AVOID_BEGIN_IN_TASK')
+  lv_sv_ruleid_l.append('DBG_AVOID_BEGIN_IN_FN')
+  lv_sv_ruleid_l.append('COMPAT_NO_REF_IN_STATIC_FN')
   lv_sv_ruleid_l.append('COMPAT_DPI_NO_MDA')
   lv_sv_ruleid_l.append('DBG_CL_MISSING_ENDLABEL')
   lv_sv_ruleid_l.append('COMPAT_PRE_RAND_NON_VOID')
@@ -908,7 +910,6 @@ def DBG_AVOID_BEGIN_IN_TASK(lv_cu_scope):
         for lv_task_items_i in lv_mod_mem_i.items:
           if (lv_task_items_i.kind.name == 'SequentialBlockStatement'):
             lv_code_s = str(lv_mod_mem_i.prototype)
-            lv_seq_s = str(lv_task_items_i)
             msg = 'A task with begin..end was found.\n'
             msg += '\t This is likely a legacy Verilog coding syle as SystemVerilog \n'
             msg += '\t makes this optional and it is recommended'
@@ -919,6 +920,55 @@ def DBG_AVOID_BEGIN_IN_TASK(lv_cu_scope):
             msg += lv_code_s
             lv_rule_id = 'DBG_AVOID_BEGIN_IN_TASK'
             pyslint_msg(lv_rule_id, msg)
+
+def DBG_AVOID_BEGIN_IN_FN(lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
+    for lv_mod_mem_i in lv_cu_scope.members:
+      if (lv_mod_mem_i.kind.name == 'FunctionDeclaration'):
+        for lv_task_items_i in lv_mod_mem_i.items:
+          if (lv_task_items_i.kind.name == 'SequentialBlockStatement'):
+            lv_code_s = str(lv_mod_mem_i.prototype)
+            msg = 'A function with begin..end was found.\n'
+            msg += '\t This is likely a legacy Verilog coding syle as SystemVerilog \n'
+            msg += '\t makes this optional and it is recommended'
+            msg += ' coding style to avoid begin..end \n'
+            msg += '\t inside function to improve readability and'
+            msg += ' maintainability of codebase.\n'
+            msg += '\t Please remove the redundant begin..end \n'
+            msg += lv_code_s
+            lv_rule_id = 'DBG_AVOID_BEGIN_IN_FN'
+            pyslint_msg(lv_rule_id, msg)
+
+def COMPAT_NO_REF_IN_STATIC_FN(lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
+    for lv_mod_mem_i in lv_cu_scope.members:
+      if (lv_mod_mem_i.kind.name == 'FunctionDeclaration'):
+        lv_found_ref_arg = False
+        lv_code_s = str(lv_mod_mem_i.prototype)
+        if (not hasattr(lv_mod_mem_i.prototype.portList, 'ports')):
+          continue
+        for lv_fn_p_i in lv_mod_mem_i.prototype.portList.ports:
+          if (lv_fn_p_i.kind.name == 'FunctionPort'):
+            if (str(lv_fn_p_i.direction).strip() == 'ref'):
+              lv_found_ref_arg = True
+              break
+        if (lv_found_ref_arg and
+            str(lv_mod_mem_i.prototype.lifetime).strip() != 'automatic'):
+
+          msg = 'A function with \'ref\' argument was found. \n'
+          msg += '\t IEEE 1800 LRM requires such functions to be'
+          msg += ' declared automatic. Some tools do not check \n'
+          msg += '\t this rule strictly leading to incompatible code.'
+          msg += ' Add keyword \'automatic\' before the \n\t function'
+          msg += ' name or remove the \'ref\' qualifier to the argument.'
+          msg += lv_code_s
+          lv_rule_id = 'COMPAT_NO_REF_IN_STATIC_FN'
+          pyslint_msg(lv_rule_id, msg)
+
+
+        for lv_task_items_i in lv_mod_mem_i.items:
+          if (lv_task_items_i.kind.name == 'SequentialBlockStatement'):
+            lv_code_s = str(lv_mod_mem_i.prototype)
 
 def COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
@@ -1093,6 +1143,8 @@ for scope_i in (tree.root.members):
   REUSE_ONE_MOD_PER_FILE(scope_i)
   FUNC_NO_BEGIN_IN_TIMING_CTRL(scope_i)
   DBG_AVOID_BEGIN_IN_TASK(scope_i)
+  DBG_AVOID_BEGIN_IN_FN(scope_i)
+  COMPAT_NO_REF_IN_STATIC_FN(scope_i)
   VLT_NO_GENERIC_MBX(scope_i)
   VLT_NO_CB_IN_INTF(scope_i)
 
