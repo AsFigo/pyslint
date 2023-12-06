@@ -9,7 +9,6 @@ task good();
 endtask : good
 
 task Write();
-begin
   @(negedge pclk) begin 
     psel = 1;
     penb = 0;
@@ -19,7 +18,6 @@ begin
       end
     end
   end
-end
 endtask
 
 endmodule
