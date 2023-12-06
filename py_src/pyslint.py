@@ -17,6 +17,7 @@ print_verbose = False
 def pyslint_update_rule_ids():
   lv_sv_ruleid_l = list()
   lv_sv_ruleid_l.append('CL_METHOD_NOT_EXTERN')
+  lv_sv_ruleid_l.append('VLT_NO_GENERIC_MBX')
   lv_sv_ruleid_l.append('NAME_INTF_SUFFIX')
   lv_sv_ruleid_l.append('NAME_CLASS_SUFFIX')
   lv_sv_ruleid_l.append('NAME_CNST_SUFFIX')
@@ -39,6 +40,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('FUNC_DPI_FN_MISSING_RTYPE')
   lv_sv_ruleid_l.append('FUNC_DPI_NO_4STATE_IN_RETURN')
   lv_sv_ruleid_l.append('FUNC_DPI_NO_4STATE_IN_ARGS')
+  lv_sv_ruleid_l.append('FUNC_NO_BEGIN_IN_TIMING_CTRL')
   lv_sv_ruleid_l.append('COMPAT_DPI_NO_MDA')
   lv_sv_ruleid_l.append('DBG_CL_MISSING_ENDLABEL')
   lv_sv_ruleid_l.append('COMPAT_PRE_RAND_NON_VOID')
@@ -88,6 +90,29 @@ def CL_METHOD_NOT_EXTERN(lv_cu_scope):
             msg = 'method is not declared extern: '+ str(cl_item.declaration.prototype.name)
             lv_rule_id = "CL_METHOD_NOT_EXTERN"
             pyslint_msg(lv_rule_id, msg)
+
+def VLT_NO_GENERIC_MBX(lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ClassDeclaration'):
+    for cl_item in (lv_cu_scope.items):
+
+      if (cl_item.kind.name == 'ClassPropertyDeclaration'):
+        lv_code_s = str(cl_item)
+        lv_cl_prop_s = str(cl_item.declaration.type)
+        if (cl_item.declaration.type.kind.name != 'NamedType'):
+          continue
+
+        if ( ('mailbox' in lv_cl_prop_s) and
+            ('#' not in lv_cl_prop_s)):
+          msg = 'A generic mailbox declaration was found. \n'
+          msg += '\t While IEEE 1800 LRM allows this, such usage is'
+          msg += ' error-prone and harder to debug. \n'
+          msg += '\t Verilator does not support this feature.'
+          msg += ' Please use typed mailbox such as:'
+          msg += ' \'mailbox #(int) in_box;\''
+          msg += lv_code_s
+          lv_rule_id = "VLT_NO_GENERIC_MBX"
+          pyslint_msg(lv_rule_id, msg)
+
 
 def COMPAT_PRE_RAND_NON_VOID(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ClassDeclaration'):
@@ -849,6 +874,26 @@ def COMPAT_SVA_NO_CONC_IN_FE(lv_cu_scope):
                 lv_rule_id = 'COMPAT_SVA_NO_CONC_IN_FE'
                 pyslint_msg(lv_rule_id, msg)
 
+def FUNC_NO_BEGIN_IN_TIMING_CTRL(lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
+    for lv_mod_mem_i in lv_cu_scope.members:
+      if (lv_mod_mem_i.kind.name == 'TaskDeclaration'):
+        for lv_task_items_i in lv_mod_mem_i.items:
+          if (lv_task_items_i.kind.name == 'SequentialBlockStatement'):
+            lv_code_s = str(lv_mod_mem_i.prototype)
+            lv_seq_s = str(lv_task_items_i)
+            msg = 'A task with Timing Control construct\n'
+            msg += '\t (@ (posedge clk))'
+            msg += ' or variants was found along with a \'begin\'.'
+            msg += ' This is likely due to \n'
+            msg += '\t a missing SEMICOLON ; after the'
+            msg += ' timing control.'
+            msg += ' please remodel the code:'
+            msg += lv_code_s
+            msg += lv_seq_s
+            lv_rule_id = 'FUNC_NO_BEGIN_IN_TIMING_CTRL'
+            pyslint_msg(lv_rule_id, msg)
+
 def COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
     for lv_mod_mem_i in lv_cu_scope.members:
@@ -995,6 +1040,7 @@ for scope_i in (tree.root.members):
   chk_dpi_rules(scope_i)
 
   CL_METHOD_NOT_EXTERN(scope_i)
+  VLT_NO_GENERIC_MBX(scope_i)
   COMPAT_PRE_RAND_NON_VOID(scope_i)
   COMPAT_POST_RAND_NON_VOID(scope_i)
   FUNC_CNST_MISSING_CAST(scope_i)
@@ -1009,6 +1055,7 @@ for scope_i in (tree.root.members):
   REUSE_NO_WILDC_AA_CL(scope_i)
   REUSE_ONE_CL_PER_FILE(scope_i)
   REUSE_ONE_MOD_PER_FILE(scope_i)
+  FUNC_NO_BEGIN_IN_TIMING_CTRL(scope_i)
 
 cu_scope = tree.root.members[0]
 if (cu_scope.kind.name != 'ClassDeclaration'):
