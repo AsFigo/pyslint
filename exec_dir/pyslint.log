@@ -126,6 +126,71 @@ PySlint: Violation: [COMPAT_SVA_NO_DEGEN_CONSEQ]: Empty match ([*0] or variants)
     (a |-> a[*0:3])
 PySlint: Violation: [FUNC_SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use $error/`uvm_error: 
   a_p_empty_sequence_2 : assert property (empty_sequence_2);
+PySlint: Violation: [DBG_AVOID_BEGIN_IN_FN]: A function with begin..end was found.
+	 This is likely a legacy Verilog coding syle as SystemVerilog 
+	 makes this optional and it is recommended coding style to avoid begin..end 
+	 inside function to improve readability and maintainability of codebase.
+	 Please remove the redundant begin..end 
+ // p_WidDepthComb
+//------------------------------------------------------------------------------
+// INDEX:   5) Verilog Functions
+//------------------------------------------------------------------------------
+  // INDEX:        - CheckBurst
+  // =====
+  // Inputs: Burst (burst data structure)
+  //         Count (number of data items)
+  // Returns: High is any of the write strobes are illegal
+  // Calls CheckStrb to test each WSTRB value.
+  //------------------------------------------------------------------------------
+  function CheckBurst
+PySlint: Violation: [DBG_AVOID_BEGIN_IN_FN]: A function with begin..end was found.
+	 This is likely a legacy Verilog coding syle as SystemVerilog 
+	 makes this optional and it is recommended coding style to avoid begin..end 
+	 inside function to improve readability and maintainability of codebase.
+	 Please remove the redundant begin..end 
+ // CheckBurst
+  // INDEX:        - CheckStrb
+  // =====
+  function CheckStrb
+PySlint: Violation: [DBG_AVOID_BEGIN_IN_FN]: A function with begin..end was found.
+	 This is likely a legacy Verilog coding syle as SystemVerilog 
+	 makes this optional and it is recommended coding style to avoid begin..end 
+	 inside function to improve readability and maintainability of codebase.
+	 Please remove the redundant begin..end 
+ // CheckStrb
+  // INDEX:        - ReadDataMask
+  // =====
+  // Inputs: Burst (Burst data structure)
+  //         Beat  (Data beat number)
+  // Returns: Read data mask for valid byte lanes.
+  //------------------------------------------------------------------------------
+  function [DATA_MAX:0] ReadDataMask
+PySlint: Violation: [DBG_AVOID_BEGIN_IN_FN]: A function with begin..end was found.
+	 This is likely a legacy Verilog coding syle as SystemVerilog 
+	 makes this optional and it is recommended coding style to avoid begin..end 
+	 inside function to improve readability and maintainability of codebase.
+	 Please remove the redundant begin..end 
+ // ReadDataMask
+  // INDEX:        - ByteShift
+  // =====
+  // Inputs: Burst (Burst data structure)
+  //         Beat  (Data beat number)
+  // Returns: Byte Shift for valid byte lanes.
+  //------------------------------------------------------------------------------
+  function [DATA_MAX:0] ByteShift
+PySlint: Violation: [DBG_AVOID_BEGIN_IN_FN]: A function with begin..end was found.
+	 This is likely a legacy Verilog coding syle as SystemVerilog 
+	 makes this optional and it is recommended coding style to avoid begin..end 
+	 inside function to improve readability and maintainability of codebase.
+	 Please remove the redundant begin..end 
+ // ByteShift
+  // INDEX:        - ByteCount
+  // =====
+  // Inputs: Burst (Burst data structure)
+  //         Beat  (Data beat number)
+  // Returns: Byte Count of valid byte lanes.
+  //------------------------------------------------------------------------------
+  function [7:0] ByteCount
 PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: AXI_ERRM_AWADDR_BOUNDARY: expected prefix: p_
 PySlint: Violation: [DBG_SVA_MISSING_ENDLABEL]: Missing End Label for property: AXI_ERRM_AWADDR_BOUNDARY
 PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: axi_errm_awaddr_boundary: expected prefix: a_
@@ -939,6 +1004,17 @@ PySlint: Violation: [COMPAT_DPI_NO_MDA]: DPI method with Multi-Dimensional Array
 	While LRM allows this, some tools do not fully support. To avoid compatibility issues, 
 	please remodel the code:
   import "DPI-C" task bad_dpi_t_mda(input int dyn_a[][]);
+PySlint: Violation: [COMPAT_NO_REF_IN_STATIC_FN]: A function with 'ref' argument was found. 
+	 IEEE 1800 LRM requires such functions to be declared automatic. Some tools do not check 
+	 this rule strictly leading to incompatible code. Add keyword 'automatic' before the 
+	 function name or remove the 'ref' qualifier to the argument.
+  function  bad_fn (integer a[], ref ab)
+PySlint: Violation: [COMPAT_NO_REF_IN_STATIC_FN]: A function with 'ref' argument was found. 
+	 IEEE 1800 LRM requires such functions to be declared automatic. Some tools do not check 
+	 this rule strictly leading to incompatible code. Add keyword 'automatic' before the 
+	 function name or remove the 'ref' qualifier to the argument.
+ 
+  function  func (ref integer a[])
 PySlint: Violation: [DBG_AVOID_BEGIN_IN_TASK]: A task with begin..end was found.
 	 This is likely a legacy Verilog coding syle as SystemVerilog 
 	 makes this optional and it is recommended coding style to avoid begin..end 
@@ -946,6 +1022,13 @@ PySlint: Violation: [DBG_AVOID_BEGIN_IN_TASK]: A task with begin..end was found.
 	 Please remove the redundant begin..end 
 
   task t1_bad()
+PySlint: Violation: [DBG_AVOID_BEGIN_IN_FN]: A function with begin..end was found.
+	 This is likely a legacy Verilog coding syle as SystemVerilog 
+	 makes this optional and it is recommended coding style to avoid begin..end 
+	 inside function to improve readability and maintainability of codebase.
+	 Please remove the redundant begin..end 
+ 
+  function bad_f ()
 PySlint: Violation: [FUNC_NO_BEGIN_IN_TIMING_CTRL]: A task with TimingControl like @(posedge clk) was
 	 found along with a 'begin..end'
 	 This is likely a typo-error and may lead to unexpected behaviour of the BFM code. 
@@ -953,6 +1036,66 @@ PySlint: Violation: [FUNC_NO_BEGIN_IN_TIMING_CTRL]: A task with TimingControl li
 task Write()
 	 Relevant code snippet: 
   @(negedge pclk) begin     psel = 1;
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  reg_item: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  print
+PySlint: Violation: [DBG_CL_MISSING_ENDLABEL]: Missing End Label for class: reg_item
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  driver: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [DBG_CL_MISSING_ENDLABEL]: Missing End Label for class: driver
+PySlint: Violation: [VLT_NO_GENERIC_MBX]: A generic mailbox declaration was found. 
+	 While IEEE 1800 LRM allows this, such usage is error-prone and harder to debug. 
+	 Verilator does not support this feature. Please use typed mailbox such as: 'mailbox #(int) in_box;'
+  mailbox drv_mbx;
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  monitor: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [DBG_CL_MISSING_ENDLABEL]: Missing End Label for class: monitor
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [VLT_NO_GENERIC_MBX]: A generic mailbox declaration was found. 
+	 While IEEE 1800 LRM allows this, such usage is error-prone and harder to debug. 
+	 Verilator does not support this feature. Please use typed mailbox such as: 'mailbox #(int) in_box;'
+  mailbox scb_mbx;
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  scoreboard: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [DBG_CL_MISSING_ENDLABEL]: Missing End Label for class: scoreboard
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [VLT_NO_GENERIC_MBX]: A generic mailbox declaration was found. 
+	 While IEEE 1800 LRM allows this, such usage is error-prone and harder to debug. 
+	 Verilator does not support this feature. Please use typed mailbox such as: 'mailbox #(int) in_box;'
+  mailbox scb_mbx;
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  env: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [DBG_CL_MISSING_ENDLABEL]: Missing End Label for class: env
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [VLT_NO_GENERIC_MBX]: A generic mailbox declaration was found. 
+	 While IEEE 1800 LRM allows this, such usage is error-prone and harder to debug. 
+	 Verilator does not support this feature. Please use typed mailbox such as: 'mailbox #(int) in_box;' 		// Scoreboard connected to monitor
+  mailbox 			scb_mbx;
+PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  test: expected suffix: _c
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  run
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  apply_stim
+PySlint: Violation: [DBG_CL_MISSING_ENDLABEL]: Missing End Label for class: test
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [REUSE_ONE_CL_PER_FILE]: Always use one-class definition per file
+PySlint: Violation: [VLT_NO_GENERIC_MBX]: A generic mailbox declaration was found. 
+	 While IEEE 1800 LRM allows this, such usage is error-prone and harder to debug. 
+	 Verilator does not support this feature. Please use typed mailbox such as: 'mailbox #(int) in_box;'
+  mailbox drv_mbx;
+PySlint: Violation: [REUSE_ONE_MOD_PER_FILE]: Always use one-module definition per file
 PySlint: Violation: [VLT_NO_GENERIC_MBX]: A generic mailbox declaration was found. 
 	 While IEEE 1800 LRM allows this, such usage is error-prone and harder to debug. 
 	 Verilator does not support this feature. Please use typed mailbox such as: 'mailbox #(int) in_box;'
