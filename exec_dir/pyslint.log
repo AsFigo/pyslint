@@ -839,6 +839,7 @@ PySlint: Violation: [FUNC_SVA_MISSING_FAIL_AB]: Missing FAIL Action block - use 
        d17assert3 : assert property (qNewInterrupt);
 PySlint: Violation: [NAME_PROP_PREFIX]: Improper naming of property: pCounterMaxed: expected prefix: p_
 PySlint: Violation: [NAME_AST_PREFIX]: Improper naming of assert directive: apCounterMaxed: expected prefix: a_
+PySlint: Violation: [REUSE_NO_DISPLAY_IN_SVA_AB]: $display is not recommended to use in FAIL Action block
 PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  generator: expected suffix: _c
 PySlint: Violation: [DBG_CL_MISSING_ENDLABEL]: Missing End Label for class: generator
 PySlint: Violation: [NAME_CLASS_SUFFIX]: Improper naming of identifier:  gen: expected suffix: _c
@@ -1100,3 +1101,6 @@ PySlint: Violation: [VLT_NO_GENERIC_MBX]: A generic mailbox declaration was foun
 	 While IEEE 1800 LRM allows this, such usage is error-prone and harder to debug. 
 	 Verilator does not support this feature. Please use typed mailbox such as: 'mailbox #(int) in_box;'
   mailbox gbx;
+PySlint: Violation: [REUSE_NO_DISPLAY_IN_SVA_AB]: $display is not recommended to use in FAIL Action block
+PySlint: Violation: [REUSE_NO_INFO_IN_SVA_AB]: $info is not recommended to use in FAIL Action block
+PySlint: Violation: [REUSE_NO_FATAL_IN_SVA_AB]: $fatal is not recommended to use in FAIL Action block
