@@ -100,6 +100,10 @@ naming:
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_161_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_162_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_163_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_sva_improper_use_system_task_p.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_no_display_in_sva_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_no_info_in_sva_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_sv_no_fatal_in_sva_f.sv >> pyslint.log
 
 	cat pyslint.log
 

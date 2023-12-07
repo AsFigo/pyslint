@@ -63,6 +63,9 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('COMPAT_SVA_NO_S_UNTIL_WITH')
   lv_sv_ruleid_l.append('REUSE_ONE_CL_PER_FILE')
   lv_sv_ruleid_l.append('REUSE_ONE_MOD_PER_FILE')
+  lv_sv_ruleid_l.append('REUSE_NO_DISPLAY_IN_SVA_AB')
+  lv_sv_ruleid_l.append('REUSE_NO_INFO_IN_SVA_AB')
+  lv_sv_ruleid_l.append('REUSE_NO_FATAL_IN_SVA_AB')
   lv_sv_ruleid_l.append ('DBG_SVA_AST_MISSING_LABEL')
   lv_sv_ruleid_l.append ('DBG_SVA_ASM_MISSING_LABEL')
   lv_sv_ruleid_l.append ('DBG_SVA_COV_MISSING_LABEL')
@@ -1046,6 +1049,35 @@ def REUSE_ONE_MOD_PER_FILE (lv_m):
         pyslint_msg (lv_rule_id, msg)
         break
 
+sys_task = {"display":"$display","info":"$info","fatal":"$fatal","error":"$error"}
+
+def REUSE_NO_DISPLAY_IN_SVA_AB (lv_m):
+  if (lv_m.kind.name == 'ConcurrentAssertionMember'):
+    ab = str(lv_m.statement.action.elseClause)
+    if (lv_m.statement.action.elseClause is not None) :
+      if (sys_task['display']) in ab:
+        msg = '$display is not recommended to use in FAIL Action block'
+        lv_rule_id = 'REUSE_NO_DISPLAY_IN_SVA_AB'
+        pyslint_msg (lv_rule_id, msg)
+      
+def REUSE_NO_INFO_IN_SVA_AB (lv_m):
+  if (lv_m.kind.name == 'ConcurrentAssertionMember'):
+    ab = str(lv_m.statement.action.elseClause)
+    if (lv_m.statement.action.elseClause is not None) :
+      if (sys_task['info']) in ab:
+        msg = '$info is not recommended to use in FAIL Action block' 
+        lv_rule_id = 'REUSE_NO_INFO_IN_SVA_AB'
+        pyslint_msg (lv_rule_id, msg)
+
+def REUSE_NO_FATAL_IN_SVA_AB (lv_m):
+  if (lv_m.kind.name == 'ConcurrentAssertionMember'):
+    ab = str(lv_m.statement.action.elseClause)
+    if (lv_m.statement.action.elseClause is not None) :
+      if (sys_task['fatal']) in ab:
+        msg = '$fatal is not recommended to use in FAIL Action block'
+        lv_rule_id = 'REUSE_NO_FATAL_IN_SVA_AB'
+        pyslint_msg (lv_rule_id, msg)
+
 def chk_dpi_rules_common(lv_dpi_scope):
   COMPAT_DPI_OLD_SPECSTR (lv_dpi_scope)
   COMPAT_DPI_NO_PURE_TASK(lv_dpi_scope)
@@ -1163,4 +1195,7 @@ if (cu_scope.kind.name != 'ClassDeclaration'):
       COMPAT_SVA_NO_S_UNTIL_WITH(m_i)
       DBG_SVA_MISSING_ENDLABEL(m_i)
       NAME_CG_PREFIX(m_i)
+      REUSE_NO_DISPLAY_IN_SVA_AB(m_i)
+      REUSE_NO_INFO_IN_SVA_AB(m_i)
+      REUSE_NO_FATAL_IN_SVA_AB(m_i)
   
