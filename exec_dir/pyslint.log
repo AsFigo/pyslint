@@ -1100,3 +1100,30 @@ PySlint: Violation: [VLT_NO_GENERIC_MBX]: A generic mailbox declaration was foun
 	 While IEEE 1800 LRM allows this, such usage is error-prone and harder to debug. 
 	 Verilator does not support this feature. Please use typed mailbox such as: 'mailbox #(int) in_box;'
   mailbox gbx;
+PySlint: Violation: [FUNC_NO_INIT_OF_STATIC_VAR_IN_SFN]: A static function has a variable declaration 
+	 with initialization. In most cases this code will likely behave unexpected manner functionally.
+ 	 This is due to the fact that initialization of static variables happens before time 0,
+	 not when calling the function.	 Please remove the initialization
+
+    int i = dividend / divisor;
+PySlint: Violation: [FUNC_NO_INIT_OF_STATIC_VAR_IN_SFN]: A static function has a variable declaration 
+	 with initialization. In most cases this code will likely behave unexpected manner functionally.
+ 	 This is due to the fact that initialization of static variables happens before time 0,
+	 not when calling the function.	 Please remove the initialization
+
+    static int s_i = dividend / divisor;
+PySlint: Violation: [COMPAT_VAR_DINIT_IN_SFN]: A static function has a variable declaration 
+	 with initialization. LRM 1800 mandates that lifetime of such variables be specified 
+	 explicitly and not use the default lifetime (static).
+	 Though some tools do compile this code, others do NOT (and LRM compliant). 
+	 To maximize compatibility across tools, Please remove the initialization
+	 or add an explicit lifetime for this variable.
+    int i = dividend / divisor;
+PySlint: Violation: [COMPAT_SVA_PROP_MISSING_SEMI]: A Concurrent property definition was found without 
+	 semicolon at the end ';' Though some compilers allow this, others do not. So for maximum 
+	 compatibility across EDA tools, please add ';' at the end.
+
+  
+  property p_no_semi_ex;
+    @(posedge clk) a |=> b
+  endproperty : p_no_semi_ex
