@@ -44,6 +44,8 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('FUNC_NO_BEGIN_IN_TIMING_CTRL')
   lv_sv_ruleid_l.append('DBG_AVOID_BEGIN_IN_TASK')
   lv_sv_ruleid_l.append('DBG_AVOID_BEGIN_IN_FN')
+  lv_sv_ruleid_l.append('FUNC_NO_INIT_OF_STATIC_VAR_IN_SFN')
+  lv_sv_ruleid_l.append('COMPAT_VAR_DINIT_IN_SFN')
   lv_sv_ruleid_l.append('COMPAT_NO_REF_IN_STATIC_FN')
   lv_sv_ruleid_l.append('COMPAT_DPI_NO_MDA')
   lv_sv_ruleid_l.append('DBG_CL_MISSING_ENDLABEL')
@@ -59,6 +61,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('REUSE_NO_WILDC_AA_CL')
   lv_sv_ruleid_l.append('PERF_CG_NO_ABIN_W_DEF_CL')
   lv_sv_ruleid_l.append('COMPAT_SVA_NO_DEGEN_CONSEQ')
+  lv_sv_ruleid_l.append('COMPAT_SVA_PROP_MISSING_SEMI')
   lv_sv_ruleid_l.append('COMPAT_SVA_NO_DEGEN_AST')
   lv_sv_ruleid_l.append('COMPAT_SVA_NO_S_UNTIL_WITH')
   lv_sv_ruleid_l.append('REUSE_ONE_CL_PER_FILE')
@@ -565,6 +568,21 @@ def COMPAT_SVA_NO_S_UNTIL_WITH (lv_m):
           lu_rule_id = 'COMPAT_SVA_NO_S_UNTIL_WITH'
           pyslint_msg (lu_rule_id, msg)
 
+
+def COMPAT_SVA_PROP_MISSING_SEMI(lv_m):
+  if (lv_m.kind.name == 'PropertyDeclaration'):
+    lv_code_s = str(lv_m)
+    if (';' not in str(lv_m.optionalSemi)):
+      msg = 'A Concurrent property definition was found without \n'
+      msg += '\t semicolon at the end \';\' Though some'
+      msg += ' compilers allow this, others do not.'
+      msg += ' So for maximum \n'
+      msg += '\t compatibility across EDA tools,'
+      msg += ' please add \';\' at the end.\n'
+      msg += lv_code_s
+      lv_rule_id = 'COMPAT_SVA_PROP_MISSING_SEMI'
+      pyslint_msg(lv_rule_id, msg)
+
 def COMPAT_SVA_NO_DEGEN_CONSEQ(lv_m):
   if (lv_m.kind.name == 'PropertyDeclaration' or
       lv_m.kind.name == 'ConcurrentAssertionMember'):
@@ -921,12 +939,85 @@ def DBG_AVOID_BEGIN_IN_TASK(lv_cu_scope):
             lv_rule_id = 'DBG_AVOID_BEGIN_IN_TASK'
             pyslint_msg(lv_rule_id, msg)
 
+# https://verificationacademy.com/forums/systemverilog/function-arguments-not-initializing-variable-inside-body#reply-54684
+def FUNC_NO_INIT_OF_STATIC_VAR_IN_SFN(lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
+    for lv_mod_mem_i in lv_cu_scope.members:
+      if (lv_mod_mem_i.kind.name == 'FunctionDeclaration'):
+        lv_fn_name = str(lv_mod_mem_i.prototype.name)
+        if (str(lv_mod_mem_i.prototype.lifetime).strip() == 'automatic'):
+          lv_fn_is_auto = True
+          continue
+
+        for lv_fn_items_i in lv_mod_mem_i.items:
+          if (lv_fn_items_i.kind.name == 'DataDeclaration'):
+            lv_var_lt_static = True
+
+
+            lv_var_lifetime = str(lv_fn_items_i.modifiers).strip()
+            if (lv_var_lifetime == 'automatic'):
+              lv_var_lt_static = False
+
+            for lv_decl_i in lv_fn_items_i.declarators:
+              if ((lv_decl_i.initializer is not None) and
+                  (lv_var_lt_static)):
+                lv_code_s = str(lv_fn_items_i)
+                msg = 'A static function has a variable declaration \n'
+                msg += '\t with initialization. In most cases this code will'
+                msg += ' likely behave unexpected manner functionally.\n'
+                msg += ' \t This is due to the fact that'
+                msg += ' initialization of static variables happens'
+                msg += ' before time 0,\n'
+                msg += '\t not when calling the function.'
+                msg += '\t Please remove the initialization\n'
+                msg += lv_code_s
+                lv_rule_id = 'FUNC_NO_INIT_OF_STATIC_VAR_IN_SFN'
+                pyslint_msg(lv_rule_id, msg)
+
+# https://verificationacademy.com/forums/systemverilog/function-arguments-not-initializing-variable-inside-body#reply-54684
+def COMPAT_VAR_DINIT_IN_SFN(lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
+    for lv_mod_mem_i in lv_cu_scope.members:
+      if (lv_mod_mem_i.kind.name == 'FunctionDeclaration'):
+        lv_fn_name = str(lv_mod_mem_i.prototype.name)
+        if (str(lv_mod_mem_i.prototype.lifetime).strip() == 'automatic'):
+          lv_fn_is_auto = True
+          continue
+
+        for lv_fn_items_i in lv_mod_mem_i.items:
+          if (lv_fn_items_i.kind.name == 'DataDeclaration'):
+            lv_var_lt_def = True
+
+
+            lv_var_lifetime = str(lv_fn_items_i.modifiers).strip()
+            if ((lv_var_lifetime == 'automatic') or
+                (lv_var_lifetime == 'static')):
+              lv_var_lt_def = False
+
+            for lv_decl_i in lv_fn_items_i.declarators:
+              if ((lv_decl_i.initializer is not None) and
+                  (lv_var_lt_def)):
+                lv_code_s = str(lv_fn_items_i)
+                msg = 'A static function has a variable declaration \n'
+                msg += '\t with initialization. LRM 1800 mandates that'
+                msg += ' lifetime of such variables be specified \n'
+                msg += '\t explicitly and not use the default' 
+                msg += ' lifetime (static).\n'
+                msg += '\t Though some tools do compile this code,'
+                msg += ' others do NOT (and LRM compliant). \n'
+                msg += '\t To maximize compatibility across tools,'
+                msg += ' Please remove the initialization\n'
+                msg += '\t or add an explicit lifetime for this variable.'
+                msg += lv_code_s
+                lv_rule_id = 'COMPAT_VAR_DINIT_IN_SFN'
+                pyslint_msg(lv_rule_id, msg)
+
 def DBG_AVOID_BEGIN_IN_FN(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
     for lv_mod_mem_i in lv_cu_scope.members:
       if (lv_mod_mem_i.kind.name == 'FunctionDeclaration'):
-        for lv_task_items_i in lv_mod_mem_i.items:
-          if (lv_task_items_i.kind.name == 'SequentialBlockStatement'):
+        for lv_fn_items_i in lv_mod_mem_i.items:
+          if (lv_fn_items_i.kind.name == 'SequentialBlockStatement'):
             lv_code_s = str(lv_mod_mem_i.prototype)
             msg = 'A function with begin..end was found.\n'
             msg += '\t This is likely a legacy Verilog coding syle as SystemVerilog \n'
@@ -966,8 +1057,8 @@ def COMPAT_NO_REF_IN_STATIC_FN(lv_cu_scope):
           pyslint_msg(lv_rule_id, msg)
 
 
-        for lv_task_items_i in lv_mod_mem_i.items:
-          if (lv_task_items_i.kind.name == 'SequentialBlockStatement'):
+        for lv_fn_items_i in lv_mod_mem_i.items:
+          if (lv_fn_items_i.kind.name == 'SequentialBlockStatement'):
             lv_code_s = str(lv_mod_mem_i.prototype)
 
 def COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT(lv_cu_scope):
@@ -1144,6 +1235,8 @@ for scope_i in (tree.root.members):
   FUNC_NO_BEGIN_IN_TIMING_CTRL(scope_i)
   DBG_AVOID_BEGIN_IN_TASK(scope_i)
   DBG_AVOID_BEGIN_IN_FN(scope_i)
+  FUNC_NO_INIT_OF_STATIC_VAR_IN_SFN(scope_i)
+  COMPAT_VAR_DINIT_IN_SFN(scope_i)
   COMPAT_NO_REF_IN_STATIC_FN(scope_i)
   VLT_NO_GENERIC_MBX(scope_i)
   VLT_NO_CB_IN_INTF(scope_i)
@@ -1159,6 +1252,7 @@ if (cu_scope.kind.name != 'ClassDeclaration'):
       PERF_SVA_NO_PASS_AB(m_i)
       NAME_PROP_PREFIX(m_i)
       COMPAT_SVA_NO_DEGEN_CONSEQ(m_i)
+      COMPAT_SVA_PROP_MISSING_SEMI(m_i)
       COMPAT_SVA_NO_DEGEN_AST(m_i)
       COMPAT_SVA_NO_S_UNTIL_WITH(m_i)
       DBG_SVA_MISSING_ENDLABEL(m_i)
