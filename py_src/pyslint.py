@@ -69,6 +69,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append ('DBG_SVA_AST_MISSING_LABEL')
   lv_sv_ruleid_l.append ('DBG_SVA_ASM_MISSING_LABEL')
   lv_sv_ruleid_l.append ('DBG_SVA_COV_MISSING_LABEL')
+  lv_sv_ruleid_l.append('COMPAT_CL_MISSING_PARAM_DEF_VAL')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -267,6 +268,27 @@ def FUNC_CNST_WRONG_OPER_PRI (lv_cu_scope):
               msg += lv_cnst_expr_s
               lv_rule_id = "FUNC_CNST_WRONG_OPER_PRI"
               pyslint_msg(lv_rule_id, msg)
+
+def COMPAT_CL_MISSING_PARAM_DEF_VAL(lv_m):
+  if (lv_m.kind.name == 'ClassDeclaration'):
+    if (not hasattr(lv_m, 'parameters')):
+      return
+    if (not hasattr(lv_m.parameters, 'declarations')):
+      return
+
+    for cl_param_i in lv_m.parameters.declarations:
+      if (hasattr(cl_param_i, 'declarators')):
+        for cl_p_d_i in cl_param_i.declarators:
+          if ((cl_p_d_i.initializer is None)):
+            msg = 'Found a parameter in a class declaration'
+            msg += '\n\t without default value. Parameter name: '
+            msg += str(cl_p_d_i)
+            msg += '\n\t Though IEEE 1800 LRM allows such usage'
+            msg += ' some tools do NOT compile.'
+            msg += '\n\t To avoid compatibility issues, assign a default'
+            msg += ' value to this parameter.'
+            lv_rule_id = "COMPAT_CL_MISSING_PARAM_DEF_VAL"
+            pyslint_msg(lv_rule_id, msg)
 
 def COMPAT_CG_OPT_PI_CL(lv_m):
   if (lv_m.kind.name == 'ClassDeclaration'):
@@ -1232,6 +1254,7 @@ for scope_i in (tree.root.members):
   COMPAT_SVA_NO_CONC_IN_FE(scope_i)
   COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT(scope_i)
   COMPAT_CG_OPT_PI_CL(scope_i)
+  COMPAT_CL_MISSING_PARAM_DEF_VAL(scope_i)
   REUSE_CG_NO_ILBINS_CL(scope_i)
   PERF_CG_NO_ABIN_W_DEF_CL(scope_i)
   REUSE_NO_WILDC_AA_CL(scope_i)
