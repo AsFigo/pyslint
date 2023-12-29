@@ -827,6 +827,8 @@ def FUNC_DPI_NO_4STATE_IN_RETURN(lv_dpi_mem):
 def FUNC_DPI_NO_4STATE_IN_ARGS(lv_dpi_mem):
   if(not hasattr(lv_dpi_mem, 'method')):
     return
+  if (lv_dpi_mem.method.portList is None):
+    return
   for lv_dpi_args_i in lv_dpi_mem.method.portList:
     if (lv_dpi_args_i.kind.name == 'SeparatedList'):
       for lv_dpi_ports_i in lv_dpi_args_i:
@@ -847,6 +849,9 @@ def FUNC_DPI_NO_4STATE_IN_ARGS(lv_dpi_mem):
 def COMPAT_DPI_NO_MDA(lv_dpi_mem):
   if(not hasattr(lv_dpi_mem, 'method')):
     return
+  if (lv_dpi_mem.method.portList is None):
+    return
+
   for lv_dpi_args_i in lv_dpi_mem.method.portList:
     if (lv_dpi_args_i.kind.name == 'SeparatedList'):
       for lv_dpi_ports_i in lv_dpi_args_i:
