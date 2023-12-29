@@ -102,6 +102,7 @@ naming:
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_163_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_170_f.sv >> pyslint.log
 	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_174_f.sv >> pyslint.log
+	python3 ../py_src/pyslint.py -t ../sv_tests/test_issue_178_f.sv >> pyslint.log
 
 	cat pyslint.log
 
