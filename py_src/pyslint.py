@@ -796,6 +796,9 @@ def FUNC_DPI_FN_MISSING_RTYPE(lv_dpi_m):
   if (not hasattr(lv_dpi_m, 'method')):
     return
 
+  if (hasattr(lv_dpi_m, 'property')):
+    return
+
   if (str(lv_dpi_m.method.keyword).strip() == 'task'):
     return
 
@@ -812,20 +815,21 @@ def FUNC_DPI_FN_MISSING_RTYPE(lv_dpi_m):
     pyslint_msg(lv_rule_id, msg)
 
 def COMPAT_DPI_NO_PURE_TASK(lv_dpi_m):
-  '''
-  Add this once PySlang supports this
-  lv_rval_type_s = lv_dpi_mem.method.returnType.keyword.__str__().strip()
-  lv_rval_4st_types = ["integer", "logic",
-                    "reg"]
-  if any([x in lv_rval_type_s for x in lv_rval_4st_types]):
-    msg = 'DPI functions shall use 2-state types in return value.'
-    msg += ' Using 4-state type can lead to unnecessary complication'
-    msg += ' as C-side does not naturally support 4-state value system'
-    msg += ' Found code as: \n'
-    msg += str(lv_dpi_mem)
+  if (not hasattr(lv_dpi_m, 'method')):
+    return
+  if (str(lv_dpi_m.method.keyword).strip() == 'task'):
+    return
+  if (str(lv_dpi_m.property).strip() == 'pure'):
+    lv_code_s = lv_dpi_m.__str__()
+    msg = 'DPI import tasks can not be delcared as \"pure\"'
+    msg += ' as per LRM IEEE 1800.'
+    msg += '\n\tWhile some tools do compile this, others do not. '
+    msg += 'To avoid compatibility issues, please remove '
+    msg += '\"pure\" keyword.'
+    msg += '\n\tFound code as: \n'
+    msg += lv_code_s
     lv_rule_id = 'COMPAT_DPI_NO_PURE_TASK'
     pyslint_msg(lv_rule_id, msg)
-  '''
 
 def FUNC_DPI_NO_4STATE_IN_RETURN(lv_dpi_mem):
   if (not hasattr(lv_dpi_mem, 'method')):
