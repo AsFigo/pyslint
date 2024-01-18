@@ -1118,10 +1118,20 @@ PySlint: Violation: [COMPAT_CL_MISSING_PARAM_DEF_VAL]: Found a parameter in a cl
 	 without default value. Parameter name:  dwidth
 	 Though IEEE 1800 LRM allows such usage some tools do NOT compile.
 	 To avoid compatibility issues, assign a default value to this parameter.
-PySlint: Violation: [COMPAT_DPI_NO_PURE_TASK]: DPI import tasks can not be delcared as "pure" as per LRM IEEE 1800.
-	While some tools do compile this, others do not. To avoid compatibility issues, please remove "pure" keyword.
-	Found code as: 
-
+PySlint: Violation: [FUNC_DPI_NO_4STATE_IN_ARGS]: DPI functions shall use arguments of 2-state types.
+	 Using 4-state type can lead to unnecessary complications
+	 as C-side does not naturally support 4-state value system
 // BAD code - pure task is not allowed
 // but some tools compile
- import "DPI-C" pure
+ import "DPI-C" pure task bad_pure_dpi_t (logic [3:0] a);
+PySlint: Violation: [FUNC_DPI_NO_4STATE_IN_ARGS]: DPI functions shall use arguments of 2-state types.
+	 Using 4-state type can lead to unnecessary complications
+	 as C-side does not naturally support 4-state value system
+ import "DPI-C" pure task normal_dpi_t (logic [3:0] a);
+PySlint: Violation: [CL_METHOD_NOT_EXTERN]: method is not declared extern:  post_randomize
+PySlint: Violation: [FUNC_CNST_WRONG_OPER_SEL_PRI]: Potentially incorrect constraint expression!
+	An expression involving operators with different precedence is observed. As per LRM,
+	Equality operators have higher precedence than CONDITIONAL-Sel/MUX ? operator.
+	Review and use '( )' appropriately around the constraint expression:
+    foo == (foo_sel) ? 5 :6;
+PySlint: Violation: [DBG_CL_MISSING_ENDLABEL]: Missing End Label for class: bli_c
