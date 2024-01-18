@@ -54,6 +54,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('PERF_CG_TOO_MANY_CROSS')
   lv_sv_ruleid_l.append('FUNC_CNST_MISSING_CAST')
   lv_sv_ruleid_l.append('FUNC_CNST_WRONG_OPER_PRI')
+  lv_sv_ruleid_l.append('FUNC_CNST_WRONG_OPER_SEL_PRI')
   lv_sv_ruleid_l.append('FUNC_CNST_DIST_COL_EQ')
   lv_sv_ruleid_l.append('REUSE_NO_TDEF_IN_MOD')
   lv_sv_ruleid_l.append('COMPAT_CG_OPT_PI_CL')
@@ -268,6 +269,32 @@ def FUNC_CNST_WRONG_OPER_PRI (lv_cu_scope):
               msg += lv_cnst_expr_s
               lv_rule_id = "FUNC_CNST_WRONG_OPER_PRI"
               pyslint_msg(lv_rule_id, msg)
+
+def FUNC_CNST_WRONG_OPER_SEL_PRI (lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ClassDeclaration'):
+    for cl_item in (lv_cu_scope.items):
+      if (cl_item.kind.name == 'ConstraintDeclaration'):
+        for lv_cnst_i in (cl_item.block.items):
+          if (not hasattr(lv_cnst_i, 'expr')):
+            continue
+          if (not hasattr(lv_cnst_i.expr, 'question')):
+            continue
+          if (not hasattr(lv_cnst_i.expr, 'predicate')):
+            continue
+          if (not hasattr(lv_cnst_i.expr.predicate, 'conditions')):
+            continue
+          lv_code_s = str(lv_cnst_i)
+          msg  = 'Potentially incorrect constraint expression!'
+          msg += '\n\tAn expression involving operators with different'
+          msg += ' precedence is observed. As per LRM,'
+          msg += '\n\tEquality operators have higher precedence than'
+          msg += ' CONDITIONAL-Sel/MUX ? operator.'
+          msg += '\n\tReview and use \'( )\' appropriately'
+          msg += ' around the constraint expression:'
+          msg += lv_code_s
+          lv_rule_id = "FUNC_CNST_WRONG_OPER_SEL_PRI"
+          pyslint_msg(lv_rule_id, msg)
+
 
 def COMPAT_CL_MISSING_PARAM_DEF_VAL(lv_m):
   if (lv_m.kind.name == 'ClassDeclaration'):
@@ -1253,6 +1280,7 @@ for scope_i in (tree.root.members):
   COMPAT_POST_RAND_NON_VOID(scope_i)
   FUNC_CNST_MISSING_CAST(scope_i)
   FUNC_CNST_WRONG_OPER_PRI(scope_i)
+  FUNC_CNST_WRONG_OPER_SEL_PRI(scope_i)
   DBG_CL_MISSING_ENDLABEL(scope_i)
   REUSE_NO_TDEF_IN_MOD(scope_i)
   COMPAT_SVA_NO_CONC_IN_FE(scope_i)
