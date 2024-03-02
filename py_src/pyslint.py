@@ -71,6 +71,7 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append ('DBG_SVA_ASM_MISSING_LABEL')
   lv_sv_ruleid_l.append ('DBG_SVA_COV_MISSING_LABEL')
   lv_sv_ruleid_l.append('COMPAT_CL_MISSING_PARAM_DEF_VAL')
+  lv_sv_ruleid_l.append('EMU_AVOID_MDA')
 
 '''
 with open("cfg.toml", mode="rb") as fp:
@@ -1230,6 +1231,21 @@ def chk_dpi_rules(lv_cu_scope):
       if (lv_pkg_mem_i.kind.name == 'DPIImport'):
         chk_dpi_rules_common(lv_pkg_mem_i)
 
+def EMU_AVOID_MDA(lv_cu_scope):
+  if (lv_cu_scope.kind.name == 'ModuleDeclaration'):
+    for lv_mod_mem_i in lv_cu_scope.members:
+      if (lv_mod_mem_i.kind.name == 'DataDeclaration'):
+        for lv_d_i in lv_mod_mem_i.declarators:
+          if (not hasattr(lv_d_i, 'dimensions')):
+            continue
+          lv_mda_len = (len(lv_d_i.dimensions))
+          lv_code_s = str(lv_d_i)
+          if lv_mda_len > 1:
+            msg = 'Multidimensional arrays with three or more are not\n'
+            msg += '\t emulation friendly. Found MDA as:\n\t'
+            msg += str(lv_code_s)
+            lv_rule_id = 'EMU_AVOID_MDA'
+            pyslint_msg(lv_rule_id, msg)
 
 def VLT_NO_CB_IN_INTF(lv_cu_scope):
   if (lv_cu_scope.kind.name == 'InterfaceDeclaration'):
@@ -1299,6 +1315,7 @@ for scope_i in (tree.root.members):
   COMPAT_VAR_DINIT_IN_SFN(scope_i)
   COMPAT_NO_REF_IN_STATIC_FN(scope_i)
   VLT_NO_GENERIC_MBX(scope_i)
+  EMU_AVOID_MDA(scope_i)
   VLT_NO_CB_IN_INTF(scope_i)
 
 cu_scope = tree.root.members[0]
