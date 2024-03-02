@@ -1135,3 +1135,10 @@ PySlint: Violation: [FUNC_CNST_WRONG_OPER_SEL_PRI]: Potentially incorrect constr
 	Review and use '( )' appropriately around the constraint expression:
     foo == (foo_sel) ? 5 :6;
 PySlint: Violation: [DBG_CL_MISSING_ENDLABEL]: Missing End Label for class: bli_c
+PySlint: Violation: [EMU_AVOID_MDA]: Multidimensional arrays with three or more are not
+	 emulation friendly. Found MDA as:
+	 dim4_array[4][4]
+[4]
+PySlint: Violation: [EMU_AVOID_MDA]: Multidimensional arrays with three or more are not
+	 emulation friendly. Found MDA as:
+	 multi_dim_array[4][4]
