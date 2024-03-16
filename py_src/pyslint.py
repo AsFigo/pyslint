@@ -7,12 +7,15 @@
 import pyslang
 import argparse
 import tomli
+import os.path
 import copy
 import functools
 from operator import countOf
 import operator as op
 
 print_verbose = False
+enabled_l = list()
+disabled_l = list()
 
 def pyslint_update_rule_ids():
   lv_sv_ruleid_l = list()
@@ -73,14 +76,38 @@ def pyslint_update_rule_ids():
   lv_sv_ruleid_l.append('COMPAT_CL_MISSING_PARAM_DEF_VAL')
   lv_sv_ruleid_l.append('EMU_AVOID_MDA')
 
-'''
-with open("cfg.toml", mode="rb") as fp:
-  config = tomli.load(fp)
-  #print(config)
-'''
+
+def pyslint_enabled_rules():
+  global enabled_l
+  global disabled_l
+
+  # Config file path
+  config_fname = "../py_src/rd_config.toml"
+
+  # Checking config file
+  if (os.path.exists(config_fname)):
+    print("Parsing TOML file: ", config_fname)
+
+  with open(config_fname, "rb") as f:
+    rule_dict = tomli.load(f)
+
+  for rule in rule_dict.keys():
+    val = rule_dict.get(rule)
+    on_off = val.get('enabled')
+    msg = val.get('msg', ' ')
+    if on_off == True:
+      # Future Improvement: Check for dupes and for opposing flags
+      enabled_l.append(rule)
+    else:
+      disabled_l.append(rule)
+
+  print("Number of rules enabled = ", len(enabled_l))
+  print("Number of rules disabled = ", len(disabled_l))
+
 
 def pyslint_rule_enabled(rule_id):
-  return True
+  if (rule_id in enabled_l) == True:
+    return True
 
 def pyslint_msg(rule_id, msg):
   if (pyslint_rule_enabled(rule_id)):
@@ -1271,6 +1298,8 @@ def chk_naming(lv_cu_scope):
     FUNC_NO_2STATE_IN_INTF(lv_cu_scope)
 
   NAME_CG_PREFIX(lv_cu_scope)
+
+pyslint_enabled_rules()
 
 args = pyslint_argparse()
 
