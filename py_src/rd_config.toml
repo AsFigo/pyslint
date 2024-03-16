@@ -1,0 +1,129 @@
+# Default: ON (true)
+
+# Misc
+CL_METHOD_NOT_EXTERN.enabled = true
+CL_METHOD_NOT_EXTERN.msg = "my_msg"
+
+# VLT (Switch on if verilator is used)
+VLT_NO_GENERIC_MBX.enabled = false
+VLT_NO_GENERIC_MBX.msg = "my_msg"
+VLT_NO_CB_IN_INTF.enabled = false
+VLT_NO_CB_IN_INTF.msg = "my_msg"
+
+# Name rules
+NAME_INTF_SUFFIX.enabled = true
+NAME_INTF_SUFFIX.msg = "my_msg"
+NAME_CLASS_SUFFIX.enabled = true
+NAME_CLASS_SUFFIX.msg = "my_msg"
+NAME_CNST_SUFFIX.enabled = true
+NAME_CNST_SUFFIX.msg = "my_msg"
+NAME_CG_PREFIX.enabled = true
+NAME_CG_PREFIX.msg = "my_msg"
+NAME_CP_PREFIX.enabled = true
+NAME_CP_PREFIX.msg = "my_msg"
+NAME_CR_PREFIX.enabled = true
+NAME_CR_PREFIX.msg = "my_msg"
+NAME_PROP_PREFIX.enabled = true
+NAME_PROP_PREFIX.msg = "my_msg"
+NAME_AST_PREFIX.enabled = true
+NAME_AST_PREFIX.msg = "my_msg"
+NAME_ASM_PREFIX.enabled = true
+NAME_ASM_PREFIX.msg = "my_msg"
+NAME_COV_PREFIX.enabled = true
+NAME_COV_PREFIX.msg = "my_msg"
+
+# Func
+FUNC_SVA_MISSING_FAIL_AB.enabled = true
+FUNC_SVA_MISSING_FAIL_AB.msg = "my_msg"
+FUNC_NO_2STATE_IN_INTF.enabled = true
+FUNC_NO_2STATE_IN_INTF.msg = "my_msg"
+FUNC_DPI_FN_MISSING_RTYPE.enabled = true
+FUNC_DPI_FN_MISSING_RTYPE.msg = "my_msg"
+FUNC_DPI_NO_4STATE_IN_RETURN.enabled = true
+FUNC_DPI_NO_4STATE_IN_RETURN.msg = "my_msg"
+FUNC_DPI_NO_4STATE_IN_ARGS.enabled = true
+FUNC_DPI_NO_4STATE_IN_ARGS.msg = "my_msg"
+FUNC_NO_BEGIN_IN_TIMING_CTRL.enabled = true
+FUNC_NO_BEGIN_IN_TIMING_CTRL.msg = "my_msg"
+FUNC_NO_INIT_OF_STATIC_VAR_IN_SFN.enabled = true
+FUNC_NO_INIT_OF_STATIC_VAR_IN_SFN.msg = "my_msg"
+FUNC_CNST_MISSING_CAST.enabled = true
+FUNC_CNST_MISSING_CAST.msg = "my_msg"
+FUNC_CNST_WRONG_OPER_PRI.enabled = true
+FUNC_CNST_WRONG_OPER_PRI.msg = "my_msg"
+FUNC_CNST_DIST_COL_EQ.enabled = true
+FUNC_CNST_DIST_COL_EQ.msg = "my_msg"
+
+# Debug
+DBG_SVA_MISSING_LABEL.enabled = true
+DBG_SVA_MISSING_LABEL.msg = "my_msg"
+DBG_SVA_MISSING_ENDLABEL.enabled = true
+DBG_SVA_MISSING_ENDLABEL.msg = "my_msg"
+DBG_AVOID_BEGIN_IN_TASK.enabled = true
+DBG_AVOID_BEGIN_IN_TASK.msg = "my_msg"
+DBG_AVOID_BEGIN_IN_FN.enabled = true
+DBG_AVOID_BEGIN_IN_FN.msg = "my_msg"
+DBG_CL_MISSING_ENDLABEL.enabled = true
+DBG_CL_MISSING_ENDLABEL.msg = "my_msg"
+DBG_SVA_AST_MISSING_LABEL.enabled = true
+DBG_SVA_AST_MISSING_LABEL.msg = "my_msg"
+DBG_SVA_ASM_MISSING_LABEL.enabled = true
+DBG_SVA_ASM_MISSING_LABEL.msg = "my_msg"
+DBG_SVA_COV_MISSING_LABEL.enabled = true
+DBG_SVA_COV_MISSING_LABEL.msg = "my_msg"
+
+# Perf
+PERF_SVA_NO_PASS_AB.enabled = true
+PERF_SVA_NO_PASS_AB.msg = "my_msg"
+PERF_CG_TOO_MANY_CROSS.enabled = true
+PERF_CG_TOO_MANY_CROSS.msg = "my_msg"
+PERF_CG_NO_ABIN_W_DEF_CL.enabled = true
+PERF_CG_NO_ABIN_W_DEF_CL.msg = "my_msg"
+
+# Compat
+COMPAT_SVA_NO_CONC_IN_FE.enabled = true
+COMPAT_SVA_NO_CONC_IN_FE.msg = "my_msg"
+COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT.enabled = true
+COMPAT_SVA_NO_EXPECT_EXPR_IN_INIT.msg = "my_msg"
+COMPAT_DPI_OLD_SPECSTR.enabled = true
+COMPAT_DPI_OLD_SPECSTR.msg = "my_msg"
+COMPAT_DPI_NO_PURE_TASK.enabled = true
+COMPAT_DPI_NO_PURE_TASK.msg = "my_msg"
+COMPAT_VAR_DINIT_IN_SFN.enabled = true
+COMPAT_VAR_DINIT_IN_SFN.msg = "my_msg"
+COMPAT_NO_REF_IN_STATIC_FN.enabled = true
+COMPAT_NO_REF_IN_STATIC_FN.msg = "my_msg"
+COMPAT_DPI_NO_MDA.enabled = true
+COMPAT_DPI_NO_MDA.msg = "my_msg"
+COMPAT_PRE_RAND_NON_VOID.enabled = true
+COMPAT_PRE_RAND_NON_VOID.msg = "my_msg"
+COMPAT_POST_RAND_NON_VOID.enabled = true
+COMPAT_POST_RAND_NON_VOID.msg = "my_msg"
+COMPAT_CG_OPT_PI_CL.enabled = true
+COMPAT_CG_OPT_PI_CL.msg = "my_msg"
+COMPAT_SVA_NO_DEGEN_CONSEQ.enabled = true
+COMPAT_SVA_NO_DEGEN_CONSEQ.msg = "my_msg"
+COMPAT_SVA_PROP_MISSING_SEMI.enabled = true
+COMPAT_SVA_PROP_MISSING_SEMI.msg = "my_msg"
+COMPAT_SVA_NO_DEGEN_AST.enabled = true
+COMPAT_SVA_NO_DEGEN_AST.msg = "my_msg"
+COMPAT_SVA_NO_S_UNTIL_WITH.enabled = true
+COMPAT_SVA_NO_S_UNTIL_WITH.msg = "my_msg"
+COMPAT_CL_MISSING_PARAM_DEF_VAL.enabled = true
+COMPAT_CL_MISSING_PARAM_DEF_VAL.msg = "my_msg"
+
+# Reuse
+REUSE_NO_TDEF_IN_MOD.enabled = true
+REUSE_NO_TDEF_IN_MOD.msg = "my_msg"
+REUSE_CG_NO_ILBINS_CL.enabled = true
+REUSE_CG_NO_ILBINS_CL.msg = "my_msg"
+REUSE_NO_WILDC_AA_CL.enabled = true
+REUSE_NO_WILDC_AA_CL.msg = "my_msg"
+REUSE_ONE_CL_PER_FILE.enabled = true
+REUSE_ONE_CL_PER_FILE.msg = "my_msg"
+REUSE_ONE_MOD_PER_FILE.enabled = true
+REUSE_ONE_MOD_PER_FILE.msg = "my_msg"
+
+#EMU Lint (Switch on for emulation)
+EMU_AVOID_MDA.enabled = false
+EMU_AVOID_MDA.msg = " "
