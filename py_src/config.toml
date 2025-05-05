@@ -1,0 +1,4 @@
+[rules]
+R101 = { enabled = true, severity = "WARNING" }
+R102 = { enabled = false, severity = "ERROR" }
+R103 = { enabled = true, severity = "ERROR" }
